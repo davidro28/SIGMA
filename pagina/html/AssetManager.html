@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Manager</title>
+  <link rel="stylesheet" href="../style/AssetManager.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Asset Manager</h1>
+    <button class="add-btn">+ Nuevo Activo</button>
+  </header>
+
+  <main class="content">
+    <!-- Barra de búsqueda -->
+    <div class="toolbar">
+      <input type="text" placeholder="Buscar activo..." class="search">
+      <select class="filter">
+        <option>Todos</option>
+        <option>En uso</option>
+        <option>Disponible</option>
+        <option>Retirado</option>
+      </select>
+    </div>
+
+    <!-- Tabla de activos -->
+    <table class="asset-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td>
+          <td>Portátil Dell</td>
+          <td>Computador</td>
+          <td><span class="badge success">Disponible</span></td>
+          <td>
+            <button class="edit">Editar</button>
+            <button class="delete">Eliminar</button>
+          </td>
+        </tr>
+        <tr>
+          <td>002</td>
+          <td>Impresora HP</td>
+          <td>Periférico</td>
+          <td><span class="badge warning">En uso</span></td>
+          <td>
+            <button class="edit">Editar</button>
+            <button class="delete">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Modal para editar -->
+  <div class="modal" id="modal-edit">
+    <div class="modal-content">
+      <h2>Editar Activo</h2>
+      <form>
+        <label>Nombre</label>
+        <input type="text" value="Portátil Dell">
+        <label>Categoría</label>
+        <input type="text" value="Computador">
+        <label>Estado</label>
+        <select>
+          <option>Disponible</option>
+          <option>En uso</option>
+          <option>Retirado</option>
+        </select>
+        <div class="actions">
+          <button type="button" class="cancel">Cancelar</button>
+          <button type="submit" class="save">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
