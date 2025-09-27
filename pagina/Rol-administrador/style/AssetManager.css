@@ -1,6 +1,18 @@
+/* Reset y fuentes */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f9fbfe;
+  color: #333;
+}
+
 /* Header */
 .header {
-  grid-area: header;
   background: #1976d2;
   color: white;
   display: flex;
@@ -15,41 +27,60 @@
   font-weight: bold;
 }
 
-.top-nav ul {
-  list-style: none;
+.top-bar {
   display: flex;
-  gap: 20px;
+  gap: 10px;
+  align-items: center;
 }
 
-.top-nav a {
+.top-bar input {
+  width: 250px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.top-bar .btn {
+  background: #0d47a1;
   color: white;
-  text-decoration: none;
-  font-size: 14px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.top-nav a:hover {
-  text-decoration: underline;
+.top-bar .btn:hover {
+  background: #1565c0;
 }
+
+/* Layout principal */
+.layout {
+  display: flex;
+  height: calc(100vh - 60px); /* ocupa toda la altura menos el header */
+}
+
 /* Sidebar */
 .sidebar {
-  grid-area: sidebar;
   background: #f0f3f7;
   border-right: 1px solid #ddd;
-  padding: 20px;
-  width: 220px;
+  width: 240px;
+  padding: 20px 10px;
+  display: flex;                 /* Flex para separar menú y perfil */
+  flex-direction: column;        /* Orden en columna */
+  justify-content: space-between;/* Empuja el perfil al fondo */
+  height: 100%;                  /* Ajusta al layout */
 }
 
+/* Lista menú */
 .sidebar ul {
   list-style: none;
+  flex: 1; /* ocupa el espacio disponible */
 }
 
 .sidebar li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   font-size: 14px;
   color: #333;
-  margin: 15px 0;
+  margin: 12px 0;
   padding: 10px;
   border-radius: 6px;
   cursor: pointer;
@@ -64,45 +95,42 @@
 .sidebar li:hover {
   background: #e3e8ef;
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-}
 
-body {
-  background: #f9fbfe;
-  color: #333;
-  padding: 20px;
-}
-
-.top-bar {
+/* Perfil */
+.sidebar-profile {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 10px;
+  padding: 12px;
+  border-top: 1px solid #ddd;
 }
 
-.top-bar input {
-  width: 250px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.sidebar-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
-.top-bar .btn {
-  background: #1976d2;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
+.profile-info {
+  display: flex;
+  flex-direction: column;
 }
 
-.top-bar .btn:hover {
-  background: #1565c0;
+.profile-info strong {
+  font-size: 14px;
+  color: #000;
+}
+
+.profile-info span {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Contenido principal */
+.vista_dashboard {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .vista_dashboard h2 {
@@ -116,6 +144,7 @@ body {
   color: gray;
 }
 
+/* Estadísticas */
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -143,13 +172,15 @@ body {
   color: #1976d2;
 }
 
+/* Panels inferiores */
 .bottom-panels {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
 }
 
-.recent-activity, .quick-links {
+.recent-activity,
+.quick-links {
   background: white;
   border: 1px solid #eee;
   border-radius: 10px;
@@ -203,4 +234,3 @@ body {
 .quick-links a:hover {
   background: #e1efff;
 }
-
