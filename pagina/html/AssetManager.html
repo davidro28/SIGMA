@@ -3,84 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asset Manager</title>
+  <title>SIGMA</title>
   <link rel="stylesheet" href="../style/AssetManager.css">
 </head>
-<body>
-  <header class="header">
-    <h1>Asset Manager</h1>
-    <button class="add-btn">+ Nuevo Activo</button>
-  </header>
-
-  <main class="content">
-    <!-- Barra de búsqueda -->
-    <div class="toolbar">
-      <input type="text" placeholder="Buscar activo..." class="search">
-      <select class="filter">
-        <option>Todos</option>
-        <option>En uso</option>
-        <option>Disponible</option>
-        <option>Retirado</option>
-      </select>
-    </div>
-
-    <!-- Tabla de activos -->
-    <table class="asset-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Categoría</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>001</td>
-          <td>Portátil Dell</td>
-          <td>Computador</td>
-          <td><span class="badge success">Disponible</span></td>
-          <td>
-            <button class="edit">Editar</button>
-            <button class="delete">Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>002</td>
-          <td>Impresora HP</td>
-          <td>Periférico</td>
-          <td><span class="badge warning">En uso</span></td>
-          <td>
-            <button class="edit">Editar</button>
-            <button class="delete">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
-
-  <!-- Modal para editar -->
-  <div class="modal" id="modal-edit">
-    <div class="modal-content">
-      <h2>Editar Activo</h2>
-      <form>
-        <label>Nombre</label>
-        <input type="text" value="Portátil Dell">
-        <label>Categoría</label>
-        <input type="text" value="Computador">
-        <label>Estado</label>
-        <select>
-          <option>Disponible</option>
-          <option>En uso</option>
-          <option>Retirado</option>
-        </select>
-        <div class="actions">
-          <button type="button" class="cancel">Cancelar</button>
-          <button type="submit" class="save">Guardar</button>
-        </div>
-      </form>
-    </div>
+<!-- Header -->
+<header class="header">
+  <div class="logo">SIGMA</div>
+    <div class="top-bar">
+    <input type="text" placeholder="Global search...">
+    <button class="btn">Add New Asset</button>
   </div>
+  </nav>
+</header>
+<body>
+  <!-- Sidebar -->
+<aside class="sidebar">
+  <ul>
+    <li class="active"><span class="icon dashboard"></span> Dashboard Overview</li>
+    <li><span class="icon assets"></span> Assets</li>
+    <li><span class="icon detail"></span> Asset Detail</li>
+    <li><span class="icon categories"></span> Categories</li>
+    <li><span class="icon register"></span> Asset Registration</li>
+    <li><span class="icon login"></span> Dashboard Login</li>
+  </ul>
+</aside>
+<body>
+
+  <main class="vista_dashboard">
+    <h2>Dashboard Overview <span class="date">Today</span></h2>
+
+    <div class="stats">
+      <div class="stat-card">
+        <h3>Total Assets</h3>
+        <p>1,248</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Value</h3>
+        <p>$4.3M</p>
+      </div>
+      <div class="stat-card">
+        <h3>Active</h3>
+        <p>1,102</p>
+      </div>
+      <div class="stat-card">
+        <h3>Maintenance</h3>
+        <p>46</p>
+      </div>
+    </div>
+
+    <div class="bottom-panels">
+      <div class="recent-activity">
+        <h3>Recent Activity <span class="subtitle">Last 7 days</span></h3>
+        <ul>
+          <li>
+            <span>New asset added: MacBook Pro 16”</span>
+            <time>2h ago</time>
+          </li>
+          <li>
+            <span>Updated status: Forklift A2 to Maintenance</span>
+            <time>6h ago</time>
+          </li>
+          <li>
+            <span>Category created: Lab Equipment</span>
+            <time>1d ago</time>
+          </li>
+          <li>
+            <span>Asset disposed: Printer 204</span>
+            <time>2d ago</time>
+          </li>
+        </ul>
+      </div>
+
+      <div class="quick-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Add New Asset</a></li>
+          <li><a href="#">View Assets by Category</a></li>
+          <li><a href="#">Monthly Report</a></li>
+          <li><a href="#">Manage Categories</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
