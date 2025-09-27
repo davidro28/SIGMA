@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGMA</title>
+  <link rel="stylesheet" href="../style/AssetManager.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">SIGMA</div>
+    <div class="top-bar">
+      <input type="text" placeholder="Global search...">
+      <button class="btn">Buscar ticket</button>
+    </div>
+  </header>
+
+  <!-- Layout principal (Sidebar + Contenido) -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul>
+        <li class="active">General</li>
+        <li>Assets</li>
+        <li>Asset Detail</li>
+        <li>Categories</li>
+        <li>Asset Registration</li>
+        <li>Dashboard Login</li>
+      </ul>
+
+      <!-- Perfil abajo -->
+      <div class="sidebar-profile">
+        <img src="https://via.placeholder.com/40" alt="Foto perfil">
+        <div class="profile-info">
+          <strong>Alex Morgan</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Contenido principal -->
+    <main class="vista_dashboard">
+      <h2>Vista Principal <span class="date">Today</span></h2>
+
+      <div class="stats">
+        <div class="stat-card">
+          <h3>Total de Activos</h3>
+          <p>1,248</p>
+        </div>
+        <div class="stat-card">
+          <h3>Presupuesto</h3>
+          <p>$4.3M</p>
+        </div>
+        <div class="stat-card">
+          <h3>Total de Tickets</h3>
+          <p>1,102</p>
+        </div>
+        <div class="stat-card">
+          <h3>Mantenimiento</h3>
+          <p>46</p>
+        </div>
+      </div>
+
+      <div class="bottom-panels">
+        <div class="recent-activity">
+          <h3>Actividad Reciente <span class="subtitle">Last 7 days</span></h3>
+          <ul>
+            <li>
+              <span>New asset added: MacBook Pro 16”</span>
+              <time>2h ago</time>
+            </li>
+            <li>
+              <span>Updated status: Forklift A2 to Maintenance</span>
+              <time>6h ago</time>
+            </li>
+            <li>
+              <span>Category created: Lab Equipment</span>
+              <time>1d ago</time>
+            </li>
+            <li>
+              <span>Asset disposed: Printer 204</span>
+              <time>2d ago</time>
+            </li>
+          </ul>
+        </div>
+
+        <div class="quick-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Add New Asset</a></li>
+            <li><a href="#">View Assets by Category</a></li>
+            <li><a href="#">Monthly Report</a></li>
+            <li><a href="#">Manage Categories</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
