@@ -1,8 +1,22 @@
-export default function MiHome() {
+function MiHome() {
     return (
-        <div style={{ padding: "20px" }}>
-        <h1>Mi Página</h1>
-        <p>Aquí puedes escribir el contenido de tu nueva página.</p>
+        <div>
+            <header>
+                <h2>SIGMA</h2>
+            </header>
+            <nav>
+                <ul>
+                    <li>General</li>
+                    <li>Activos</li>
+                    <li>Tickets</li>
+                </ul>
+            </nav>
+            <main>
+                <section></section>
+            </main>
+            <footer></footer>
         </div>
     );
 }
+
+export default MiHome;
