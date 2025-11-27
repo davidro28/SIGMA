@@ -1,26 +1,28 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
+/* BODY */
 body {
   background-color: #0d1117;
   color: #e6edf3;
+}
+
+/* CONTENER GENERAL */
+.auth-container {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
-.login-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.login-box {
+/* CAJA */
+.auth-box {
   background-color: #161b22;
   border: 1px solid #30363d;
   border-radius: 10px;
@@ -29,6 +31,7 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
+/* LOGO */
 .logo {
   display: flex;
   align-items: center;
@@ -48,9 +51,9 @@ body {
 .logo-text {
   font-size: 20px;
   font-weight: 600;
-  color: #e6edf3;
 }
 
+/* TITULOS */
 h2 {
   font-size: 22px;
   font-weight: 700;
@@ -63,46 +66,45 @@ h2 {
   margin-bottom: 25px;
 }
 
-.input-group {
-  background: transparent;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  margin-bottom: 15px;
-  gap: 8px;
-  transition: all 0.2s ease;
+/* INPUTS */
+label {
+  font-size: 13px;
+  color: #9ba3af;
 }
 
-.input-group i {
-  color: #9ba3af;
-  font-size: 14px;
+.input-group {
+  padding: 8px 10px;       /* menos altura */
+  gap: 6px;                /* menos separación entre ícono y texto */
+  border-radius: 6px;
+  border: 1px solid #30363d;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.2s ease;
 }
 
 .input-group input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #e6edf3;
-  width: 100%;
-  font-size: 14px;
+  font-size: 13px;       /* ligeramente más pequeño */
+  padding: 4px 0;        /* menos altura */
+}
+
+
+.input-group i {
+  color: #9ba3af;
 }
 
 .input-group:hover {
   border-color: #2be4ac;
 }
 
-#togglePassword {
-  cursor: pointer;
-  margin-left: auto;
-  transition: color 0.2s ease;
+.icon-btn {
+  font-size: 12px;       /* más pequeño, alineado con input */
 }
 
-#togglePassword:hover {
+.icon-btn:hover {
   color: #2be4ac;
 }
 
+/* OPCIONES */
 .options {
   display: flex;
   justify-content: space-between;
@@ -118,47 +120,30 @@ h2 {
   font-weight: 500;
 }
 
+/* BOTÓN PRINCIPAL */
 .btn-primary {
   background-color: #2be4ac;
   color: #0d1117;
-  font-weight: 600;
   border: none;
   border-radius: 6px;
   width: 100%;
   padding: 12px;
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: background 0.2s ease;
 }
 
 .btn-primary:hover {
   background-color: #24c799;
 }
 
+/* DIVISOR */
 .divider {
   text-align: center;
   color: #9ba3af;
   font-size: 13px;
   margin: 20px 0;
-  position: relative;
-}
-
-.divider::before,
-.divider::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 40%;
-  height: 1px;
-  background: #30363d;
-}
-
-.divider::before {
-  left: 0;
-}
-
-.divider::after {
-  right: 0;
 }
 
 .btn-google {
@@ -169,45 +154,29 @@ h2 {
   width: 100%;
   padding: 12px;
   cursor: pointer;
-  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: all 0.2s ease;
 }
 
 .btn-google img {
   width: 18px;
-  height: 18px;
 }
 
 .btn-google:hover {
   background-color: #2b3138;
 }
 
+/* TEXTO FINAL */
 .register-text {
   text-align: center;
   margin-top: 20px;
   font-size: 13px;
-  color: #9ba3af;
 }
 
 .register-text a {
   color: #2be4ac;
   font-weight: 500;
   text-decoration: none;
-}
-.icon-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  margin-left: auto;
-  color: #9ba3af;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.icon-btn:hover {
-  color: #2be4ac;
 }

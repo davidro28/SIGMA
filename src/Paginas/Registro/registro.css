@@ -1,0 +1,144 @@
+/* Fondo general */
+.register-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #101418; /* mismo fondo oscuro */
+  padding: 20px;
+}
+
+/* Caja principal */
+.register-box {
+  width: 400px;
+  background: #1a1f24; /* mismo gris del login */
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0px 0px 25px rgba(0, 255, 180, 0.05);
+  color: #fff;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.logo-icon {
+  background: #00d892;
+  color: #0f151a;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Títulos */
+h2 {
+  margin-top: 5px;
+  font-size: 22px;
+}
+
+.subtitle {
+  color: #8b9aa5;
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 14px;
+  color: #d0d8df;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  background: #111518;
+  border: 1px solid #2a2f35;
+  border-radius: 8px;
+  color: #fff;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #00d892;
+}
+
+/* Password con icono */
+.input-password {
+  position: relative;
+}
+
+.input-password input {
+  padding-right: 40px;
+}
+
+.input-password button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #8ea1ac;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.input-password button:hover {
+  color: #00d892;
+}
+
+/* Términos */
+.terms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin: 12px 0 20px;
+}
+
+.terms a {
+  color: #00d892;
+}
+
+/* Botón principal */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: #00d892;
+  color: #0d1317;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background: #00c483;
+}
+
+/* Enlace de iniciar sesión */
+.login-text {
+  margin-top: 20px;
+  text-align: center;
+  color: #8a9aa4;
+}
+
+.login-text a {
+  color: #00d892;
+  font-weight: 500;
+}
