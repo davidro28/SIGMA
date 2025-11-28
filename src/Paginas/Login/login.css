@@ -67,28 +67,30 @@ h2 {
 }
 
 /* INPUTS */
-label {
-  font-size: 13px;
-  color: #9ba3af;
-}
-
 .input-group {
-  padding: 8px 10px;       /* menos altura */
-  gap: 6px;                /* menos separación entre ícono y texto */
+  padding: 6px 10px;
   border-radius: 6px;
   border: 1px solid #30363d;
   display: flex;
   align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  position: relative;
   transition: border-color 0.2s ease;
+  height: 42px;
 }
 
 .input-group input {
-  font-size: 13px;       /* ligeramente más pequeño */
-  padding: 4px 0;        /* menos altura */
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e6edf3;
+  width: 100%;
+  font-size: 13px;
 }
 
-
-.input-group i {
+/* SOLO los iconos normales (NO el ojo) */
+.input-group i:not(.fa-eye):not(.fa-eye-slash) {
   color: #9ba3af;
 }
 
@@ -96,12 +98,24 @@ label {
   border-color: #2be4ac;
 }
 
-.icon-btn {
-  font-size: 12px;       /* más pequeño, alineado con input */
+/* OJITO */
+.toggle-password {
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.icon-btn:hover {
-  color: #2be4ac;
+/* 👀 Aquí se hace claro, brillante y no se puede oscurecer */
+.password-group .toggle-password i {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  filter: brightness(2) !important;
+  font-size: 18px !important;
 }
 
 /* OPCIONES */
@@ -109,14 +123,29 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 5px;
+  margin-bottom: 18px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   color: #9ba3af;
-  margin-bottom: 20px;
+  position: relative;
+  top: -2px; /* sube 2px, puedes ajustar */
 }
+.remember input[type="checkbox"] {
+  position: relative;
+  top: 2px;
+}
+
 
 .options a {
   color: #2be4ac;
   text-decoration: none;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -146,6 +175,7 @@ label {
   margin: 20px 0;
 }
 
+/* BOTÓN GOOGLE */
 .btn-google {
   background-color: #21262d;
   color: #e6edf3;

@@ -9,6 +9,7 @@ export default function Login() {
     <div className="auth-container">
       <div className="auth-box">
 
+        {/* LOGO */}
         <div className="logo">
           <div className="logo-icon">Σ</div>
           <span className="logo-text">Sigma</span>
@@ -28,27 +29,37 @@ export default function Login() {
           </div>
 
           {/* Password */}
-          <div className="input-group">
+          <div className="input-group password-group">
             <i className="fa-solid fa-lock"></i>
+
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Contraseña"
               required
             />
+
             <button
               type="button"
-              className="icon-btn"
+              className="toggle-password"
               onClick={() => setShowPassword(!showPassword)}
             >
-              <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+              <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`} />
             </button>
           </div>
 
+          {/* Opciones */}
           <div className="options">
-            <label><input type="checkbox" /> Recordarme</label>
-            <a href="./recuperar_contraseña.jsx">¿Olvidaste tu contraseña?</a>
+            <label className="remember">
+              <input type="checkbox" />
+              Recordarme
+            </label>
+
+            <a href="./recuperar_contraseña.jsx">
+              ¿Olvidaste tu contraseña?
+            </a>
           </div>
 
+          {/* Botón */}
           <button className="btn-primary">Entrar en Sigma</button>
 
           <div className="divider">o continuar con</div>
@@ -67,4 +78,3 @@ export default function Login() {
     </div>
   );
 }
-
