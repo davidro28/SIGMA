@@ -60,9 +60,9 @@ export default function Login() {
               Recordarme
             </label>
 
-            <a href="./recuperar_contraseña.jsx">
-              ¿Olvidaste tu contraseña?
-            </a>
+            <Link to="/recuperar_contraseña" className="forgot-password">
+            ¿Olvidaste tu contraseña?</Link>
+
           </div>
 
           {/* Botón */}
@@ -77,7 +77,7 @@ export default function Login() {
           <div className="divider">o continuar con</div>
 
           <button type="button" className="btn-google">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" />
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" /> 
             Google
           </button>
 
