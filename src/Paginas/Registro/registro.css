@@ -1,0 +1,271 @@
+/* RESET GENERAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* Fondo general */
+.auth-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #101418;
+  padding: 20px;
+}
+
+/* Caja principal */
+.auth-box {
+  width: 400px;
+  background: #1a1f24;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0px 0px 25px rgba(0, 255, 180, 0.05);
+  color: #fff;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.logo-icon {
+  background: #00d892;
+  color: #0f151a;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Títulos */
+h2 {
+  margin-top: 5px;
+  font-size: 22px;
+}
+
+.subtitle {
+  color: #8b9aa5;
+  margin-bottom: 25px;
+}
+
+/* Labels */
+label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 14px;
+  color: #d0d8df;
+}
+
+/* Input groups */
+.input-group {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #30363d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  position: relative;
+  transition: border-color 0.2s ease;
+  height: 42px;
+  background: transparent;
+}
+
+.input-group input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e6edf3;
+  width: 100%;
+  font-size: 13px;
+}
+
+.input-group i {
+  color: #9ba3af;
+  font-size: 16px;
+}
+
+.input-group:hover {
+  border-color: #2be4ac;
+}
+
+/* Botón ojo para contraseña */
+.password-group .toggle-password {
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff !important;
+  opacity: 1 !important;
+  filter: brightness(1.8);
+  font-size: 18px !important;
+}
+
+/* Opciones términos */
+.options.terms {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin: 12px 0 20px;
+  color: #9ba3af;
+}
+
+.options.terms label {
+  cursor: pointer;
+}
+
+.options.terms input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.terms-link {
+  color: #00d892;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Botón principal */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: #00d892;
+  color: #0d1317;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+.btn-primary:disabled {
+  background: #4d9c80;
+  cursor: not-allowed;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #00c483;
+}
+
+/* Enlace de iniciar sesión */
+.register-text {
+  margin-top: 20px;
+  text-align: center;
+  color: #8a9aa4;
+}
+
+.register-text a {
+  color: #00d892;
+  font-weight: 500;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 17, 23, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content */
+.modal-content {
+  background: #fff;
+  color: #111;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 25px 30px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.modal-content h3 {
+  margin-bottom: 10px;
+}
+
+.modal-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.modal-text strong {
+  display: block;
+  margin-top: 15px;
+  font-weight: 700;
+}
+
+.modal-text p,
+.modal-text ul {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  margin-top: 6px;
+  padding-left: 15px;
+}
+
+.modal-text ul {
+  list-style-type: disc;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.modal-btn {
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #ddd;
+}
+
+.accept-btn {
+  background: #00d892;
+  color: #0d1317;
+}
+
+.accept-btn:hover {
+  background: #00c483;
+}
