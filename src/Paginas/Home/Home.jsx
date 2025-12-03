@@ -1,15 +1,15 @@
+import React from 'react';
+import SigmaHeader from '../../Components/sigmaHeader';
+import VerticalNav from '../../Components/verticalNav';
+
 function MiHome() {
     return (
         <div>
             <header>
-                <h2>SIGMA</h2>
+                <SigmaHeader />
             </header>
             <nav>
-                <ul>
-                    <li>General</li>
-                    <li>Activos</li>
-                    <li>Tickets</li>
-                </ul>
+                <VerticalNav />
             </nav>
             <main>
                 <section></section>
