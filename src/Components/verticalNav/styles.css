@@ -1,0 +1,35 @@
+.vertical-nav {
+    width: 260px;
+    height: 100vh;
+    background-color: #131c2b;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.vertical-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.vertical-nav li {
+    margin-bottom: 20px;
+}
+
+.vertical-nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.vertical-nav a:hover {
+    background-color: #6a788d;
+    color: #2be4ac;
+}

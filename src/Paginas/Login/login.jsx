@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // <- Importa useNavigate
 import "./login.css";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate(); // <- Hook para navegar
+
+  // Función para ir a Home
+  const handleEntrar = () => {
+    navigate("/home"); // <- Redirige a /home
+  };
 
   return (
     <div className="auth-container">
@@ -60,7 +66,13 @@ export default function Login() {
           </div>
 
           {/* Botón */}
-          <button className="btn-primary">Entrar en Sigma</button>
+          <button
+            type="button"         // <- Cambiado a type="button" para evitar submit
+            className="btn-primary"
+            onClick={handleEntrar} // <- Aquí llamamos a la función de redirección
+          >
+            Entrar en Sigma
+          </button>
 
           <div className="divider">o continuar con</div>
 
