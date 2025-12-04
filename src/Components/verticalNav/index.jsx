@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-function VerticalNav() {
+function VerticalNav({ items }) {
     return (
         <nav className="vertical-nav">
-        <ul>
-            <li><Link to="/general">General</Link></li>
-            <li><Link to="/activos">Activos</Link></li>
-            <li><Link to="/tickets">Tickets</Link></li>
-            <li><Link to="/mantenimiento">Mantenimiento</Link></li>
-        </ul>
+            <ul>
+                {items.map((item, index) => (
+                <li key={index}>
+                <Link to={item.to}>{item.label}</Link>
+                </li>
+                ))}
+            </ul>
+            <div className="user-info">
+                <img src="https://via.placeholder.com/40" />
+                <div>
+                    <p>David</p>
+                    <p>Admin</p>
+                </div>
+            </div>
         </nav>
     );
 }
