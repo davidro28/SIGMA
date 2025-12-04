@@ -1,6 +1,6 @@
 .vertical-nav {
     width: 260px;
-    height: 100vh;
+    height: 90vh;
     background-color: #131c2b;
     padding: 20px;
     box-sizing: border-box;
@@ -11,8 +11,8 @@
 .vertical-nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    flex-grow: 1;
+    margin: 25px 0 0;
+    flex-grow: 0;
 }
 
 .vertical-nav li {
@@ -31,5 +31,35 @@
 
 .vertical-nav a:hover {
     background-color: #6a788d;
-    color: #2be4ac;
+    color:#2be4ac;
+}
+
+.user-info {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #2a3a4d;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.user-info img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info div p:first-child {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.user-info div p:last-child {
+    font-size: 13px;
+    color: #9ca3af;
+    margin: 0;
 }
