@@ -1,0 +1,75 @@
+.alerts-container {
+    background: #111416;
+    padding: 20px;
+    border-radius: 12px;
+    width: 620px;
+    color: #ffffff;
+    font-family: sans-serif;
+}
+
+.alerts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.alerts-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.config-btn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.alert-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.alert-text {
+    max-width: 75%;
+}
+
+.alert-title {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.alert-subtitle {
+    font-size: 13px;
+    color: #b0b3b8;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    height: fit-content;
+}
+
+/* Colores de estatus */
+.badge-critical {
+    background: #d92d20;
+}
+
+.badge-warning {
+    background: #eab308;
+    color: #000;
+}
+
+.badge-review {
+    background: #2be4ac;
+}

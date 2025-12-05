@@ -1,10 +1,14 @@
-import "./styles.css"
+import "./styles.css";
 
-function CuadroInformativo({titulo, valor}) {
+function CuadroInformativo({ titulo, valor, estadistica, sugerencia }) {
     return (
-        <div className="recuadro-general">
-            <p>{titulo}</p>
-            <p>{valor}</p>
+        <div className="cuadro-info">
+            <div className="fila-superior">
+                <span className="titulo">{titulo}</span>
+                <span className="criticos">{sugerencia}</span>
+            </div>
+            <p className="valor">{valor}</p>
+            <p className="estadistica">{estadistica}</p>
         </div>
     );
 }

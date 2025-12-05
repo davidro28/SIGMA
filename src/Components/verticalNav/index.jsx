@@ -14,8 +14,9 @@ function VerticalNav({ items }) {
             <div className="user-info">
                 <img src="https://via.placeholder.com/40" />
                 <div>
-                    <p>David</p>
-                    <p>Admin</p>
+                    <p className="user-name">David</p>
+                    <p className="user-role">Admin</p>
+                    <button className="logout-button">Logout</button>
                 </div>
             </div>
         </nav>
