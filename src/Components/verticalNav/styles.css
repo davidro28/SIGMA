@@ -1,6 +1,6 @@
 .vertical-nav {
     width: 260px;
-    height: 90vh;
+    height: 92vh;
     background-color: #131c2b;
     padding: 20px;
     box-sizing: border-box;
@@ -62,4 +62,25 @@
     font-size: 13px;
     color: #9ca3af;
     margin: 0;
+}
+
+.user-role {
+    font-size: 13px;
+    color: #9ca3af; /* mismo color oscuro */
+    margin: 0;
+}
+
+.logout-button {
+    margin-top: 3px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: #9ca3af; /* igual al rol */
+    font-size: 13px; /* igual al rol */
+    cursor: pointer;
+    text-align: left;
+}
+
+.logout-button:hover {
+    color: #2be4ac; /* opcional: mismo hover del menú */
 }

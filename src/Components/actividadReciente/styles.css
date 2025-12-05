@@ -1,0 +1,60 @@
+.actividad-container {
+    background-color: #0f1217;
+    padding: 20px;
+    border-radius: 8px;
+    width: 820px;
+    color: #e5e5e5;
+    font-family: sans-serif;
+}
+
+.actividad-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.actividad-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #eaeaea;
+}
+
+.ver-todo {
+    color: #9ea3aa;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.actividad-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.actividad-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.punto {
+    width: 10px;
+    height: 10px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.actividad-info .titulo {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.actividad-info .descripcion {
+    font-size: 12px;
+    color: #a8adb5;
+    margin: 2px 0 0 0;
+}

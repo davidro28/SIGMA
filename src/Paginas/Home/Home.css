@@ -34,3 +34,17 @@
     margin: 20px auto;           /* centra el contenedor horizontalmente */
 }
 
+.rectangulos-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: center; /* centra horizontalmente los rectángulos */
+}
+
+
+.informacion-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: center; /* centra horizontalmente los rectángulos */
+}
