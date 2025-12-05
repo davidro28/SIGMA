@@ -8,10 +8,42 @@ export default function Register() {
   const [termsChecked, setTermsChecked] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
 
-  // Marcar la casilla al aceptar términos
+  // campos controlados (mantienen tu estructura visual original)
+  const [form, setForm] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    empresa: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
+
   const acceptTerms = () => {
     setTermsChecked(true);
     setShowTermsModal(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // validación simple: términos y contraseñas coincidentes
+    if (!termsChecked) {
+      alert("Debes aceptar los términos y condiciones.");
+      return;
+    }
+    if (form.password !== form.confirmPassword) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    // aquí enviarías el formulario al backend
+    console.log("Enviando datos:", form);
+    alert("Cuenta creada (mock).");
   };
 
   return (
@@ -29,45 +61,77 @@ export default function Register() {
             Crea tu cuenta para acceder a los servicios de Sigma.
           </p>
 
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit}>
 
             <label>Nombre completo</label>
             <div className="input-group">
               <i className="fa-solid fa-user"></i>
-              <input type="text" placeholder="Ingresa tu nombre completo" required />
+              <input
+                name="nombre"
+                value={form.nombre}
+                onChange={handleChange}
+                type="text"
+                placeholder="Ingresa tu nombre completo"
+                required
+              />
             </div>
 
             <label>Correo electrónico corporativo</label>
             <div className="input-group">
               <i className="fa-solid fa-envelope"></i>
-              <input type="email" placeholder="nombre.apellido@empresa.com" required />
+              <input
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                type="email"
+                placeholder="nombre.apellido@empresa.com"
+                required
+              />
             </div>
 
             <label>Número de teléfono</label>
             <div className="input-group">
               <i className="fa-solid fa-phone"></i>
-              <input type="tel" placeholder="Ingresa tu número de contacto" required />
+              <input
+                name="telefono"
+                value={form.telefono}
+                onChange={handleChange}
+                type="tel"
+                placeholder="Ingresa tu número de contacto"
+                required
+              />
             </div>
 
             <label>Empresa</label>
             <div className="input-group">
               <i className="fa-solid fa-building"></i>
-              <input type="text" placeholder="Ej: SIGMA" required />
+              <input
+                name="empresa"
+                value={form.empresa}
+                onChange={handleChange}
+                type="text"
+                placeholder="Ej: SIGMA"
+                required
+              />
             </div>
 
             <label>Contraseña</label>
             <div className="input-group password-group">
               <i className="fa-solid fa-lock"></i>
               <input
+                name="password"
+                value={form.password}
+                onChange={handleChange}
                 type={showPassword ? "text" : "password"}
                 placeholder="Ingresa una contraseña segura"
                 required
+                aria-label="Contraseña"
               />
               <button
                 type="button"
                 className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label="Mostrar/Ocultar contraseña"
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
               >
                 <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
               </button>
@@ -77,15 +141,19 @@ export default function Register() {
             <div className="input-group password-group">
               <i className="fa-solid fa-lock"></i>
               <input
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
                 type={showPassword2 ? "text" : "password"}
                 placeholder="Repite tu contraseña"
                 required
+                aria-label="Confirmar contraseña"
               />
               <button
                 type="button"
                 className="toggle-password"
                 onClick={() => setShowPassword2(!showPassword2)}
-                aria-label="Mostrar/Ocultar contraseña"
+                aria-label={showPassword2 ? "Ocultar contraseña" : "Mostrar contraseña"}
               >
                 <i className={`fa-solid ${showPassword2 ? "fa-eye-slash" : "fa-eye"}`}></i>
               </button>
@@ -104,7 +172,7 @@ export default function Register() {
                   onClick={() => setShowTermsModal(true)}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={(e) => { if(e.key === "Enter") setShowTermsModal(true)}}
+                  onKeyDown={(e) => { if (e.key === "Enter") setShowTermsModal(true); }}
                 >
                   términos y condiciones
                 </span>
@@ -122,45 +190,49 @@ export default function Register() {
         </div>
       </div>
 
-      {/* Modal de términos y condiciones */}
+      {/* Modal de términos: botones FUERA del texto y SIEMPRE visibles */}
       {showTermsModal && (
         <div className="modal-overlay" onClick={() => setShowTermsModal(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <h3>Términos y condiciones de SIGMA</h3>
             <p className="modal-subtitle">
-              Lee cuidadosamente estos términos antes de crear tu cuenta y acceder a los servicios de SIGMA.
+              Lee cuidadosamente estos términos antes de crear tu cuenta.
             </p>
+
             <div className="modal-text">
               <strong>1. Objeto del servicio</strong>
-              <p>SIGMA proporciona una plataforma digital para la gestión y consulta de servicios corporativos. Al crear una cuenta, aceptas utilizar la plataforma únicamente para fines profesionales y conforme a las políticas internas de tu organización.</p>
+              <p>SIGMA proporciona una plataforma digital corporativa para gestión y consulta de servicios.</p>
 
               <strong>2. Cuenta y seguridad</strong>
-              <p>Eres responsable de mantener la confidencialidad de tus credenciales y de toda actividad que ocurra bajo tu cuenta.</p>
+              <p>Eres responsable por el uso de tu cuenta y la confidencialidad de la contraseña.</p>
+
               <ul>
-                <li>No compartas tu contraseña con terceros.</li>
-                <li>Notifica inmediatamente a SIGMA ante cualquier uso no autorizado.</li>
-                <li>Debes proporcionar información veraz y actualizada.</li>
+                <li>No compartas tu contraseña.</li>
+                <li>Notifica accesos no autorizados.</li>
+                <li>Información veraz y actualizada.</li>
               </ul>
 
               <strong>3. Uso aceptable</strong>
-              <p>Queda prohibido utilizar la plataforma para actividades ilícitas, vulnerar la seguridad de otros sistemas, extraer datos sin autorización o intentar descompilar el software asociado a los servicios de SIGMA.</p>
+              <p>No se permite uso ilícito, extracción de datos o vulnerar seguridad del sistema.</p>
 
-              <strong>4. Tratamiento de datos</strong>
-              <p>Tus datos personales seran tratados conforme a la politica de privacidad de SIGMA, con fines de prestacion del servicio, seguridad, mejora continua y cumplimiento de obligaciones legales aplicables</p>
+              <strong>4. Datos personales</strong>
+              <p>Se tratarán conforme a la política de privacidad para prestar el servicio.</p>
 
-              <strong>5. Limitaciones de responsabilidad </strong>
-              <p>SIGMA no sera responsable por perdidad indirectas, lucro cesante o daño emergente derivado del uso de la plataforma. El servicio se presta "tal cual",pudiendo experimentar interrupciones programadas por mantenimiento </p>
+              <strong>5. Limitaciones</strong>
+              <p>La plataforma se entrega "tal cual", con posibles mantenimientos programados.</p>
 
-              <strong>6. Aceptacion de los terminos</strong>
-              <p>Al pulsar en "Acepto terminos y condiciones" al crear tu cuenta, confirmas que has leido, comprendido y aceptas integramente estos terminos y condiciones.</p>
-              
-              {/* Puedes continuar el texto de términos completo aquí */}
+              <strong>6. Aceptación</strong>
+              <p>Al aceptar, confirmas que leíste y comprendes todas las políticas.</p>
             </div>
 
             <div className="modal-buttons">
-              <button onClick={() => setShowTermsModal(false)} className="modal-btn cancel-btn">
+              <button
+                onClick={() => setShowTermsModal(false)}
+                className="modal-btn cancel-btn"
+              >
                 Cancelar
               </button>
+
               <button onClick={acceptTerms} className="modal-btn accept-btn">
                 Acepto términos y condiciones
               </button>

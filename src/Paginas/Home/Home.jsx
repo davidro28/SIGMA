@@ -11,7 +11,7 @@ import './Home.css';
 function MiHome() {
     const menuItems = [
         { to: "/general", label: "General" },
-        { to: "/activos", label: "Activos" },
+        { to: "/Activos", label: "Activos" },
         { to: "/tickets", label: "Tickets" },
         { to: "/mantenimiento", label: "Mantenimiento" }
     ];
