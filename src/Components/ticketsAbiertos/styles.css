@@ -1,0 +1,68 @@
+.tickets-container {
+    background-color: #0f1217;
+    padding: 20px;
+    border-radius: 8px;
+    color: #e5e5e5;
+    width: 820px;
+    font-family: sans-serif;
+}
+
+.tickets-container h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.tabla-header {
+    display: grid;
+    grid-template-columns: 100px 200px 120px 100px;
+    font-size: 14px;
+    color: #a8adb5;
+    margin-bottom: 10px;
+}
+
+.tabla-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tabla-row {
+    display: grid;
+    grid-template-columns: 100px 200px 120px 100px;
+    align-items: center;
+}
+
+.ticket-id {
+    font-weight: bold;
+}
+
+.ticket-activo {
+    font-weight: 500;
+}
+
+/* ----- Etiquetas de estado ------ */
+
+.estado-tag {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: black;
+    width: fit-content;
+}
+
+/* Estado: Abierto (amarillo) */
+.estado-abierto {
+    background-color: #b08947;
+    color:#fff;
+}
+
+/* Estado: En progreso (verde agua) */
+.estado-progreso {
+    background-color: #2be4ac;
+    color: #fff;
+}
+
+.ticket-prioridad {
+    font-size: 14px;
+}

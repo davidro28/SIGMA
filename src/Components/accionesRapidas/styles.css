@@ -1,0 +1,33 @@
+.menu-rapido-container {
+    background-color: #0f1217;
+    padding: 20px;
+    border-radius: 8px;
+    color: #e5e5e5;
+    width: 620px;
+    font-family: sans-serif;
+}
+
+.titulo-seccion {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+/* Grid que reparte los items horizontalmente */
+.grid-opciones {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 30px;   /* vertical | horizontal */
+    margin-bottom: 20px;
+}
+
+.grid-opciones span {
+    font-size: 14px;
+    color: #d8d8d8;
+    cursor: pointer;
+}
+
+.grid-opciones span:hover {
+    text-decoration: underline;
+}
