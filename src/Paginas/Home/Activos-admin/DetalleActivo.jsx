@@ -1,128 +1,190 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import VerticalNav from "../../../Components/verticalNav";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import "./DetalleActivo.css";
 
 export default function DetalleActivo() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const [activo, setActivo] = useState({
+    titulo: "",
+    tipo: "",
+    estado: "",
+    responsable: "",
+    serie: "",
+    descripcion: "",
+    img: ""
+  });
+  const [preview, setPreview] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
-    const [activo, setActivo] = useState(null);
+  // Función para recargar activos en Activos.jsx
+  const recargarActivos = location.state?.recargar;
 
-    useEffect(() => {
-        const lista = JSON.parse(localStorage.getItem("activos")) || [];
-        const encontrado = lista.find(a => a.id === Number(id));
-        setActivo(encontrado);
-    }, [id]);
+  useEffect(() => {
+    const activosGuardados = JSON.parse(localStorage.getItem("activos")) || [];
+    const activoEncontrado = activosGuardados.find(a => a.id === Number(id));
 
-    if (!activo) {
-        return <div style={{ padding: "50px", color: "white" }}>Cargando activo...</div>;
+    if (!activoEncontrado) {
+      alert("Activo no encontrado");
+      navigate("/Activos");
+    } else {
+      setActivo(activoEncontrado);
+      setPreview(activoEncontrado.img || "");
+    }
+  }, [id, navigate]);
+
+  const handleChange = (e) => {
+    setActivo({ ...activo, [e.target.name]: e.target.value });
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setPreview(url);
+    setActivo({ ...activo, img: url });
+  };
+
+  const handleGuardar = () => {
+    if (!activo.titulo || !activo.tipo || !activo.estado) {
+      alert("Completa los campos obligatorios");
+      return;
     }
 
-    return (
-        <>
-            <SigmaHeader />
+    const activosGuardados = JSON.parse(localStorage.getItem("activos")) || [];
+    const index = activosGuardados.findIndex(a => a.id === activo.id);
+    if (index === -1) {
+      alert("Error: activo no encontrado");
+      return;
+    }
 
-            <div className="layout-container">
-                <VerticalNav 
-                    items={[
-                        { to: "/Home", label: "General" },
-                        { to: "/Activos", label: "Activos" },
-                        { to: "/tickets", label: "Tickets" },
-                        { to: "/mantenimiento", label: "Mantenimiento" }
-                    ]} 
-                />
+    activosGuardados[index] = activo;
+    localStorage.setItem("activos", JSON.stringify(activosGuardados));
+    alert("Cambios guardados");
 
-                <div className="detalle-container">
+    // Recargar activos en lista principal
+    if (recargarActivos) recargarActivos();
 
-                    <button 
-                        className="volver"
-                        onClick={() => navigate("/Activos")}
-                    >
-                        Volver al catálogo
-                    </button>
+    navigate("/Activos");
+  };
 
-                    <h1 className="titulo-detalle">Detalle del activo</h1>
-                    <p className="sub">Revisa la información completa y el historial de este equipo</p>
+  return (
+    <>
+      <SigmaHeader />
+      <div className="layout-container">
+        <VerticalNav
+          items={[
+            { to: "/Home", label: "General" },
+            { to: "/Activos", label: "Activos" },
+            { to: "/tickets", label: "Tickets" },
+            { to: "/mantenimiento", label: "Mantenimiento" },
+          ]}
+        />
 
-                    <div className="detalle-card">
+        <div className="detalle-activo-container">
+          <h1>Detalle del activo</h1>
+          <p className="subtitle">Revisa la información del activo</p>
 
-                        {/* IZQUIERDA */}
-                        <div className="detalle-left">
-                            <img src={activo.img} className="detalle-img" />
-
-                            <h2>{activo.titulo}</h2>
-
-                            <div className="tags">
-                                <span className="tag">{activo.tipo}</span>
-                                <span className="estado-tag">{activo.estado}</span>
-                                <span className="tag">Oficina principal</span>
-                            </div>
-
-                            <p className="desc">
-                                {activo.descripcion || "Este activo no cuenta con una descripción registrada."}
-                            </p>
-
-                            <div className="acciones">
-                                <button className="btn-main">Crear ticket</button>
-                                <button className="btn-secondary">Registrar mantenimiento</button>
-                            </div>
-                        </div>
-
-                        {/* DERECHA */}
-                        <div className="detalle-right">
-
-                            <h3>Información general</h3>
-
-                            <div className="info-grid">
-                                <div><strong>Responsable:</strong></div>
-                                <div>{activo.responsable || "No asignado"}</div>
-
-                                <div><strong>Tipo:</strong></div>
-                                <div>{activo.tipo}</div>
-
-                                <div><strong>Ubicación:</strong></div>
-                                <div>Oficina principal — Piso 3</div>
-
-                                <div><strong>Estado:</strong></div>
-                                <div className="estado-tag">{activo.estado}</div>
-
-                                <div><strong>Serie:</strong></div>
-                                <div>{activo.serie || "N/A"}</div>
-
-                                <div><strong>Fecha de alta:</strong></div>
-                                <div>12/03/2024</div>
-                            </div>
-
-                            <h3>Historial reciente</h3>
-
-                            <ul className="historial">
-                                <li>05/06/2024 - Ticket #234 — Revisión de batería</li>
-                                <li>21/05/2024 - Mantenimiento — Cambio protector de pantalla</li>
-                                <li>02/04/2024 - Asignación — Asignado a {activo.responsable || "usuario"}</li>
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                    <div className="acciones-final">
-                        <button 
-                            className="btn-cancelar"
-                            onClick={() => navigate("/Activos")}
-                        >
-                            Cancelar
-                        </button>
-
-                        <button className="btn-guardar">
-                            Guardar cambios
-                        </button>
-                    </div>
-
-                </div>
+          <div className="detalle-grid">
+            <div className="detalle-img-section">
+              <img src={preview} alt={activo.titulo} className="detalle-img" />
+              {isEditing && (
+                <label className="image-upload-box">
+                  <span className="upload-icon">📁</span>
+                  <span>Haz clic para cambiar imagen</span>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} />
+                </label>
+              )}
             </div>
-        </>
-    );
+
+            <div className="detalle-info-section">
+              <label className="form-label">Nombre del activo</label>
+              <input
+                className="form-input"
+                name="titulo"
+                value={activo.titulo}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
+              <label className="form-label">Tipo</label>
+              <select
+                className="form-select"
+                name="tipo"
+                value={activo.tipo}
+                onChange={handleChange}
+                disabled={!isEditing}
+              >
+                <option value="">Seleccionar tipo</option>
+                <option>Celular</option>
+                <option>Tablet</option>
+                <option>Periférico</option>
+                <option>Pantalla</option>
+                <option>Computadora</option>
+              </select>
+
+              <label className="form-label">Estado</label>
+              <select
+                className="form-select"
+                name="estado"
+                value={activo.estado}
+                onChange={handleChange}
+                disabled={!isEditing}
+              >
+                <option value="">Seleccionar estado</option>
+                <option>Disponible</option>
+                <option>Asignado</option>
+                <option>En reparación</option>
+                <option>De baja</option>
+              </select>
+
+              <label className="form-label">Responsable asignado</label>
+              <input
+                className="form-input"
+                name="responsable"
+                value={activo.responsable || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
+              <label className="form-label">Número de serie</label>
+              <input
+                className="form-input"
+                name="serie"
+                value={activo.serie || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
+              <label className="form-label">Descripción</label>
+              <textarea
+                className="form-input"
+                name="descripcion"
+                value={activo.descripcion || ""}
+                onChange={handleChange}
+                rows="4"
+                disabled={!isEditing}
+              />
+            </div>
+          </div>
+
+          <div className="actions">
+            <button className="btn-cancelar" onClick={() => navigate("/Activos")}>
+              Cancelar
+            </button>
+
+            {isEditing ? (
+              <button className="btn-guardar" onClick={handleGuardar}>Guardar</button>
+            ) : (
+              <button className="btn-editar" onClick={() => setIsEditing(true)}>Editar</button>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

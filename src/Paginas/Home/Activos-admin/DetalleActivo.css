@@ -1,129 +1,153 @@
-.detalle-container {
-    padding: 30px;
-    width: 100%;
-    color: #e2e8f0;
+.detalle-activo-container {
+  padding: 30px;
+  color: #e2e8f0;
+  width: 100%;
+  background-color: #0f121b;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.volver {
-    background: none;
-    border: none;
-    color: #14b8a6;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 20px;
+.detalle-grid {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
-.titulo-detalle {
-    font-size: 26px;
-    font-weight: 700;
-}
-
-.sub {
-    color: #94a3b8;
-    margin-bottom: 20px;
-}
-
-.detalle-card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    padding: 25px;
-    border-radius: 16px;
-    display: grid;
-    grid-template-columns: 2fr 1.3fr;
-    gap: 30px;
+.detalle-img-section {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #334155;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: #1e293b;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.4);
 }
 
 .detalle-img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
+  width: 280px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #334155;
 }
 
-.tags {
-    display: flex;
-    gap: 10px;
-    margin: 15px 0;
+.detalle-info-section {
+  flex: 2 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.tag {
-    background: #334155;
-    padding: 5px 12px;
-    border-radius: 8px;
+.form-label {
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  font-size: 14px;
 }
 
-.estado-tag {
-    background: #22c55e;
-    color: white;
-    padding: 5px 12px;
-    border-radius: 8px;
+/* Campos deshabilitados */
+.form-input:disabled,
+.form-select:disabled,
+textarea:disabled {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #64748b;
+  font-weight: normal;
+  box-shadow: none;
+  cursor: default;
 }
 
-.desc {
-    margin: 10px 0 20px;
-    color: #cbd5e1;
+.form-input:disabled::placeholder {
+  color: #475569;
 }
 
-.acciones {
-    display: flex;
-    gap: 10px;
+/* Campos modificables y con foco */
+.form-input:enabled,
+.form-select:enabled,
+textarea:enabled {
+  background-color: #0f172a;
+  border: 2px solid #14b8a6;
+  color: #d1fae5;
+  font-weight: 600;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: inset 0 0 5px rgba(20, 184, 166, 0.5);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  width: 100%;
+  resize: vertical;
+  box-sizing: border-box;
 }
 
-.btn-main {
-    background: #14b8a6;
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    color: white;
-    cursor: pointer;
+.form-input:enabled:focus,
+.form-select:enabled:focus,
+textarea:enabled:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 8px #14b8a6;
+  background-color: #134e4a;
 }
 
-.btn-secondary {
-    background: #334155;
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
+/* Botones */
 
-/* Derecha */
-.info-grid {
-    margin: 15px 0 25px;
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    row-gap: 10px;
-}
-
-.historial {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    color: #cbd5e1;
-}
-
-.historial li {
-    margin-bottom: 8px;
-}
-
-.acciones-final {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 25px;
+.actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
 }
 
 .btn-cancelar {
-    background: none;
-    border: none;
-    color: #94a3b8;
-    cursor: pointer;
+  background: #334155;
+  color: #e2e8f0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
+.btn-cancelar:hover {
+  background: #475569;
+}
+
+.btn-editar,
 .btn-guardar {
-    background: #14b8a6;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: white;
+  background: #14b8a6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-editar:hover,
+.btn-guardar:hover {
+  background: #0f766e;
+}
+
+/* Upload label */
+.image-upload-box {
+  cursor: pointer;
+  color: #14b8a6;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  user-select: none;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.upload-icon {
+  font-size: 20px;
+  line-height: 0;
 }
