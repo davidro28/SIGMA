@@ -1,0 +1,129 @@
+.detalle-container {
+    padding: 30px;
+    width: 100%;
+    color: #e2e8f0;
+}
+
+.volver {
+    background: none;
+    border: none;
+    color: #14b8a6;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.titulo-detalle {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.sub {
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+.detalle-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 25px;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 2fr 1.3fr;
+    gap: 30px;
+}
+
+.detalle-img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.tags {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.tag {
+    background: #334155;
+    padding: 5px 12px;
+    border-radius: 8px;
+}
+
+.estado-tag {
+    background: #22c55e;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 8px;
+}
+
+.desc {
+    margin: 10px 0 20px;
+    color: #cbd5e1;
+}
+
+.acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-main {
+    background: #14b8a6;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background: #334155;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Derecha */
+.info-grid {
+    margin: 15px 0 25px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    row-gap: 10px;
+}
+
+.historial {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #cbd5e1;
+}
+
+.historial li {
+    margin-bottom: 8px;
+}
+
+.acciones-final {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-cancelar {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+.btn-guardar {
+    background: #14b8a6;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+}

@@ -4,6 +4,9 @@ import Login from "./Paginas/Login/login.jsx";
 import Register from "./Paginas/Registro/registro.jsx";
 import ForgotPassword from "./Paginas/recuperar_contraseña/recuperar_contraseña.jsx";
 import Activos from "./Paginas/Home/Activos-admin/Activos.jsx"
+import NuevoActivo from "./Paginas/Home/Activos-admin/Activos.jsx";
+import DetalleActivo from "./Paginas/Home/Activos-admin/DetalleActivo.jsx"
+
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
       <Route path="/home" element={<MiHome />} />
       <Route path="/recuperar_contraseña" element={<ForgotPassword />} />
       <Route path="/Activos" element={<Activos />} />
+      <Route path="/NuevoActivo" element={<NuevoActivo />} />
+      <Route path="/Activos/:id" element={<DetalleActivo />} />
+
 
       {/* fallback: si no coincide, ir a login */}
       <Route path="*" element={<Login />} />
