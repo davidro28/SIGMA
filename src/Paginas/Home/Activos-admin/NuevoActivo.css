@@ -1,0 +1,162 @@
+/* ===== CONTENEDOR GENERAL ===== */
+.layout-container {
+    display: flex;
+    background: #0d1117; /* fondo oscuro principal */
+    color: #e2e8f0;
+    min-height: 100vh;
+}
+
+/* ===== CONTENEDOR DE LA PÁGINA ===== */
+.nuevo-activo-container {
+    padding: 30px;
+    width: 100%;
+}
+
+/* TITULOS */
+.nuevo-activo-container h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.nuevo-activo-container .subtitle {
+    margin-bottom: 25px;
+    color: #94a3b8;
+}
+
+/* ===== TARJETA DEL FORMULARIO ===== */
+.form-card {
+    background: #1e293b; /* gris oscuro */
+    border: 1px solid #334155;
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+/* ===== SECCIONES DEL FORMULARIO ===== */
+.section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* ===== INPUTS GENERALES ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    color: #e2e8f0;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-input,
+.form-select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #0f172a; /* fondo más oscuro */
+    color: #e2e8f0;
+    font-size: 14px;
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+/* ===== GRID DE 2 COLUMNAS ===== */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* ===== SUBIDA DE IMAGEN ===== */
+.image-upload-box {
+    background: #0f172a;
+    border: 2px dashed #334155;
+    border-radius: 12px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: #94a3b8;
+}
+
+.image-upload-box:hover {
+    border-color: #14b8a6;
+    color: #14b8a6;
+}
+
+.upload-icon {
+    font-size: 26px;
+    opacity: 0.8;
+}
+
+.preview-container {
+    margin-top: 15px;
+    background: #0f172a;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    text-align: center;
+}
+
+.preview-container img {
+    width: 100%;
+    max-height: 260px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* ===== BOTONES FINALES ===== */
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-cancelar {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-cancelar:hover {
+    background: #334155;
+}
+
+.btn-guardar {
+    padding: 10px 22px;
+    background: #14b8a6;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-guardar:hover {
+    background: #0fa393;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
