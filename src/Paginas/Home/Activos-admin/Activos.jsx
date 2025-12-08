@@ -84,21 +84,30 @@ export default function Activos() {
               activosFiltrados.map(item => (
                 <div key={item.id} className="asset-card">
                   <img
-                    src={item.img || "/placeholder.png"} // fallback si no hay imagen
+                    src={item.img || "/placeholder.png"}
                     className="asset-img"
                     alt={item.titulo || "Activo"}
                   />
+
                   <h3 className="asset-title">{item.titulo || "Sin título"}</h3>
 
                   <div className="asset-meta">
                     <span>{item.tipo || "Sin tipo"}</span>
-                    <span className="estado">{item.estado || "Desconocido"}</span>
+
+                    {/* ESTADO DINÁMICO CON COLORES */}
+                    <span
+                      className={`estado estado-${(item.estado || "")
+                        .toLowerCase()
+                        .replace(/ /g, "-")}`}
+                    >
+                      {item.estado || "Desconocido"}
+                    </span>
                   </div>
 
                   <div className="asset-links">
                     <button
                       className="link"
-                      onClick={() => navigate(`/DetalleActivo/ ${item.id}`)} // No pasar funciones
+                      onClick={() => navigate(`/DetalleActivo/${item.id}`)}
                     >
                       Ver detalles
                     </button>
