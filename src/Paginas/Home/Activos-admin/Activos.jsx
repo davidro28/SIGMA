@@ -23,7 +23,7 @@ export default function Activos() {
   const menuItems = [
     { to: "/Home", label: "General" },
     { to: "/Activos", label: "Activos" },
-    { to: "/tickets", label: "Tickets" },
+    { to: "/Tickets", label: "Tickets" },
     { to: "/mantenimiento", label: "Mantenimiento" }
   ];
 
