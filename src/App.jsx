@@ -6,6 +6,9 @@ import ForgotPassword from "./Paginas/recuperar_contraseña/recuperar_contraseñ
 import Activos from "./Paginas/Home/Activos-admin/Activos.jsx"
 import NuevoActivo from "./Paginas/Home/Activos-admin/NuevoActivo.jsx";
 import DetalleActivo from "./Paginas/Home/Activos-admin/DetalleActivo.jsx"
+import Tickets from "./Paginas/Home/Tickets-admin/Tickets.jsx"
+import NuevoTicket from "./Paginas/Home/Tickets-admin/NuevoTicket.jsx";
+import TicketDetalle from "./Paginas/Home/Tickets-admin/TicketDetalle.jsx"
 
 
 function App() {
@@ -18,6 +21,9 @@ function App() {
       <Route path="/Activos" element={<Activos />} />
       <Route path="/NuevoActivo" element={<NuevoActivo />} />
       <Route path="/DetalleActivo/:id" element={<DetalleActivo />} />
+      <Route path="/Tickets" element={<Tickets />} />
+      <Route path="/NuevoTicket" element={<NuevoTicket />} />
+      <Route path="/Ticket/:id" element={<TicketDetalle />} />
 
 
       {/* fallback: si no coincide, ir a login */}

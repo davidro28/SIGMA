@@ -1,0 +1,256 @@
+/* LAYOUT GENERAL */
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+  background: #0d1117;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  text-align: left;
+}
+
+/* HEADER */
+.header-tickets {
+  width: 100%;
+  padding: 0;
+}
+
+.header-tickets h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.header-tickets p {
+  margin: 5px 0 0;
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+/* PAGE CONTENT */
+.page-content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* FILTROS RÁPIDOS */
+.filtros-rapidos {
+  width: 100%;
+  background: #161b22;
+  padding: 28px;
+  border-radius: 18px;
+  margin: 25px 0 35px 0;
+  border: 1px solid #1f2630;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.filtros-rapidos h4 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.descripcion-filtros {
+  font-size: 14px;
+  color: #a8b3cf;
+  margin-bottom: 20px;
+}
+
+.busqueda-filtros {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.input-busqueda {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.input-busqueda:focus {
+  border-color: #14b8a6;
+  outline: none;
+}
+
+.grupo-filtro label {
+  font-weight: 600;
+  margin-right: 6px;
+  color: #e2e8f0;
+  font-size: 14px;
+}
+
+.filtros-rapidos select {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #e2e8f0;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.filtros-rapidos select:hover,
+.filtros-rapidos select:focus {
+  border-color: #14b8a6;
+}
+
+/* BOTONES FILTROS */
+.btn-limpiar {
+  padding: 10px 16px;
+  background: #2d3a4b;
+  border-radius: 12px;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.btn-limpiar:hover {
+  background: #14b8a6;
+  color: white;
+}
+
+.botones-estado-rapido {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-estado-rapido {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 22px;
+  padding: 6px 18px;
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-estado-rapido.active,
+.btn-estado-rapido:hover {
+  background: #14b8a6;
+  border-color: #14b8a6;
+  color: white;
+}
+
+/* TABLA DE TICKETS */
+.tabla-tickets {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.tabla-tickets th,
+.tabla-tickets td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.tabla-tickets thead {
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+.tabla-tickets tbody tr {
+  border-bottom: 1px solid #334155;
+  transition: background-color 0.2s ease;
+}
+
+.tabla-tickets tbody tr:hover {
+  background-color: #212c3b;
+}
+
+/* ESTADO Y PRIORIDAD */
+.estado, .prioridad {
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: white;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.estado-abierto { background-color: #3b82f6; }
+.estado-en-progreso { background-color: #f59e0b; }
+.estado-cerrado { background-color: #22c55e; }
+
+.prioridad-alta { background: #dc2626; }
+.prioridad-media { background: #8b5cf6; }
+.prioridad-baja { background: #10b981; }
+
+/* BOTÓN VER */
+.btn-ver {
+  background: none;
+  border: none;
+  color: #14b8a6;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.btn-ver:hover {
+  color: #0d9488;
+}
+
+/* PAGINACIÓN */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.paginacion button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.paginacion button:hover:not(:disabled) {
+  background-color: #14b8a6;
+  border-color: #14b8a6;
+  color: white;
+}
+
+.paginacion button.active {
+  background-color: #14b8a6;
+  border-color: #14b8a6;
+  color: white;
+}
+
+/* BOTÓN NUEVO TICKET */
+.btn-nuevo-ticket {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #14b8a6;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgb(20 184 166 / 0.5);
+  transition: 0.3s ease;
+}
+
+.btn-nuevo-ticket:hover {
+  background-color: #0d9488;
+}

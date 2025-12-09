@@ -1,0 +1,193 @@
+/* ===========================================
+   LAYOUT GENERAL
+=========================================== */
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+  background: #0d1117;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.page-content {
+  flex: 1;
+  padding: 30px 40px; /* antes 60px: ahora más espacio real para el formulario */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+/* ===========================================
+   HEADER DEL FORMULARIO
+=========================================== */
+.nuevo-ticket-container h1 {
+  font-weight: 700;
+  font-size: 32px;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.header-nuevo-ticket {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.volver-lista {
+  background: none;
+  border: none;
+  color: #14b8a6;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.volver-lista:hover {
+  background-color: #14b8a6;
+  color: white;
+}
+
+.descripcion-intro {
+  color: #94a3b8;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* ===========================================
+   FORMULARIO
+=========================================== */
+.form-ticket {
+  background-color: #161b22;
+  border-radius: 16px;
+  padding: 40px 50px;
+  max-width: 1100px; /* MÁS GRANDE */
+  width: 100%;
+  box-shadow: 0 0 18px rgba(20, 184, 166, 0.35);
+  border: 1px solid rgba(20, 184, 166, 0.15);
+}
+
+.form-section h3 {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+
+.info-text {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 22px;
+}
+
+/* ===========================================
+   CAMPOS
+=========================================== */
+.campo-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+}
+
+.campo-form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.campo-form input[type="text"],
+.campo-form select,
+.campo-form textarea,
+.campo-form input[type="file"] {
+  background-color: #0d1117;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px 18px; /* MÁS GRANDE */
+  color: #e2e8f0;
+  font-size: 16px; /* MÁS GRANDE */
+  font-family: inherit;
+  resize: vertical;
+  transition: 0.3s;
+}
+
+.campo-form input:focus,
+.campo-form select:focus,
+.campo-form textarea:focus {
+  outline: none;
+  border-color: #14b8a6;
+}
+
+.campo-form small {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* ===========================================
+   FILAS DE 2 CAMPOS
+=========================================== */
+.form-row {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.form-row .campo-form {
+  flex: 1;
+}
+
+/* ===========================================
+   INPUT FILE
+=========================================== */
+.adjuntos input[type="file"] {
+  padding: 10px 12px;
+  background-color: #0d1117;
+}
+
+/* ===========================================
+   BOTONES
+=========================================== */
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.btn-cancelar {
+  background: none;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancelar:hover {
+  background-color: #334155;
+  color: white;
+}
+
+.btn-crear {
+  background-color: #14b8a6;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-crear:hover {
+  background-color: #0d9488;
+}
