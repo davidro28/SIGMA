@@ -21,10 +21,10 @@ export default function Activos() {
   }, []);
 
   const menuItems = [
-    { to: "/Home", label: "General" },
+    { to: "/General", label: "General" },
     { to: "/Activos", label: "Activos" },
     { to: "/Tickets", label: "Tickets" },
-    { to: "/mantenimiento", label: "Mantenimiento" }
+    { to: "/Mantenimiento", label: "Mantenimiento" }
   ];
 
   // Filtrar activos según búsqueda y filtro

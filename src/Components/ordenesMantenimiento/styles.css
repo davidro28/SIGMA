@@ -1,0 +1,126 @@
+/* Contenedor general */
+.orders-wrapper {
+    padding: 20px;
+    color: #dbe7f3;
+    font-family: "Inter", sans-serif;
+}
+
+.titulo-seccion {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.subtitulo {
+    opacity: 0.7;
+    margin-bottom: 16px;
+}
+
+/* Scroll horizontal responsive */
+.scroll-x {
+    overflow-x: auto;
+    border-radius: 8px;
+}
+
+/* === TABLA === */
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #07131b;
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 950px;
+}
+
+.orders-table th {
+    background: #081b25;
+    padding: 12px;
+    font-size: 13px;
+    text-align: left;
+    opacity: 0.8;
+}
+
+.orders-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #0e2938;
+    font-size: 14px;
+}
+
+/* === Órdenes === */
+.order-id {
+    font-weight: 600;
+}
+
+.order-date {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* === Activos === */
+.activo {
+    font-weight: 500;
+}
+
+.activo-info {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* BADGES */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* === ESTADO === */
+.estado.encurso {
+    background: #ffb40033;
+    color: #ffb400;
+}
+.estado.pendiente {
+    background: #6a7d8b33;
+    color: #b6c8d4;
+}
+.estado.cerrada {
+    background: #1fae5533;
+    color: #26d96c;
+}
+
+/* === PRIORIDAD === */
+.prioridad.alta {
+    background: #ff4d5e33;
+    color: #ff4d5e;
+}
+
+.prioridad.media {
+    background: #ffb40033;
+    color: #ffb400;
+}
+
+.prioridad.baja {
+    background: #1fae5533;
+    color: #1fae55;
+}
+
+/* Ventana secundaria */
+.ventana-sub {
+    display: inline-block;
+    margin-top: 4px;
+    background: #0d2533;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+/* Origen */
+.origen {
+    background: #0d2533;
+    color: #dbe7f3;
+}
+
+.origen-id {
+    background: #152e3b;
+    margin-left: 6px;
+}

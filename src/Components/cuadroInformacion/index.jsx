@@ -1,8 +1,8 @@
 import "./styles.css";
 
-function CuadroInformativo({ titulo, valor, estadistica, sugerencia }) {
+function CuadroInformativo({ titulo, valor, estadistica, sugerencia, width }) {
     return (
-        <div className="cuadro-info">
+        <div className="cuadro-info" style={{width}}>
             <div className="fila-superior">
                 <span className="titulo">{titulo}</span>
                 <span className="criticos">{sugerencia}</span>
