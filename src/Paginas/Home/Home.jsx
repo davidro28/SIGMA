@@ -10,10 +10,10 @@ import './Home.css';
 
 function MiHome() {
     const menuItems = [
-        { to: "/general", label: "General" },
+        { to: "/General", label: "General" },
         { to: "/Activos", label: "Activos" },
         { to: "/Tickets", label: "Tickets" },
-        { to: "/mantenimiento", label: "Mantenimiento" }
+        { to: "/Mantenimiento", label: "Mantenimiento" }
     ];
     return (
         <div className="home-container">

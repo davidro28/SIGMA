@@ -1,0 +1,14 @@
+.buscador-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.buscador-input {
+    width: 250px;
+    padding: 8px 0 8px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    background-color: transparent;
+    color: #ccc;
+}

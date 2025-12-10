@@ -8,10 +8,10 @@ export default function Tickets() {
   const navigate = useNavigate();
 
   const menuItems = [
-    { to: "/Home", label: "General" },
+    { to: "/General", label: "General" },
     { to: "/Activos", label: "Activos" },
     { to: "/Tickets", label: "Tickets" },
-    { to: "/mantenimiento", label: "Mantenimiento" }
+    { to: "/Mantenimiento", label: "Mantenimiento" }
   ];
 
   // FILTROS
