@@ -8,7 +8,7 @@ export default function Login() {
 
   // Función para ir a Home
   const handleEntrar = () => {
-    navigate("/home"); // <- Redirige a /home
+    navigate("/General"); // <- Redirige a /home
   };
 
   return (

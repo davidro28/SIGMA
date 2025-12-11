@@ -46,3 +46,18 @@
     margin-right: 20px;
 }
 
+.container-grande {
+    display: flex;
+    justify-content: space-between;   /* separa filtros y órdenes */
+    gap: 25px;                         /* espacio entre ellos */
+}
+
+.container-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;                         /* separación entre los filtros */
+}
+
+.container-ordenes {
+    flex: 1;                            /* ocupa todo el espacio restante */
+}

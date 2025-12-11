@@ -1,0 +1,46 @@
+/* Fondo oscuro detrás del título y botones */
+.prioridad-card {
+    background: #0f141a;
+    padding: 17px;
+    border-radius: 12px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Título */
+.prioridad-title {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Contenedor horizontal de los botones */
+.prioridad-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+/* Botones */
+.prioridad-btn {
+    background: #1a1d22;
+    color: #b8c0cc;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.prioridad-btn:hover {
+    background: #121417;
+}
+
+/* Activo turquesa */
+.prioridad-btn.active {
+    background: #6ef3dd;
+    color: #0c0f12;
+    font-weight: 600;
+}
