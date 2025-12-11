@@ -5,6 +5,8 @@ import CuadroInformativo from '../../Components/cuadroInformacion';
 import BuscadorMantenimiento from '../../Components/buscadorMantenimiento';
 import NuevaOrden from "../../Components/nuevaOrden";
 import OrdenesMantenimiento from '../../Components/ordenesMantenimiento';
+import FiltrarEstado from '../../Components/filtrarEstado';
+import FiltrarPrioridad from '../../Components/filtrarPrioridad';
 import './styles.css';
 
 function Mantenimiento_Admin() {
@@ -84,8 +86,14 @@ function Mantenimiento_Admin() {
                             <CuadroInformativo titulo="Presupuesto" valor={1520} estadistica={3423} sugerencia="nada"/>
                             <CuadroInformativo titulo="Total de Tickets" valor={1102} estadistica={3423} sugerencia="nada"/>
                         </div>
-                        <div>
-                            <OrdenesMantenimiento ordenes={ordenesFiltradas}/>
+                        <div className='container-grande'>
+                            <div className='container-filtros'>
+                                <FiltrarEstado />
+                                <FiltrarPrioridad />
+                            </div>
+                            <div className='container-ordenes'>
+                                <OrdenesMantenimiento ordenes={ordenesFiltradas}/>
+                            </div>
                         </div>
                     </section>
                 </main>

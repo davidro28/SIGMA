@@ -1,8 +1,11 @@
 /* Contenedor general */
 .orders-wrapper {
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     color: #dbe7f3;
     font-family: "Inter", sans-serif;
+    border: 1px solid #2a3a4d;
+    border-radius: 10px;
+    width: 1280px;
 }
 
 .titulo-seccion {

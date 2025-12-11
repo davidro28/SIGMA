@@ -1,0 +1,52 @@
+/* Fondo oscuro detrás del título y los botones */
+.estado-card {
+    background: #0f141a;        /* fondo oscuro como el de la imagen */
+    padding: 16px;
+    border-radius: 12px;
+    width: fit-content;        /* se ajusta al contenido */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;                 /* espacio entre título y grid */
+}
+
+/* Título */
+.estado-title {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Grid 3 arriba y 1 abajo EXACTO */
+.estado-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 6px;
+}
+
+/* Esto obliga a que el último botón (Cerrada) quede abajo solo */
+.estado-grid > :last-child {
+    grid-column: span 3;        /* ocupa toda la fila de abajo */
+    justify-self: start;
+}
+
+/* Botones */
+.estado-btn {
+    background: #1a1d22;
+    color: #b8c0cc;
+    padding: 6px 16px;
+    font-size: 13px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.estado-btn:hover {
+    background: #121417;
+}
+
+.estado-btn.active {
+    background: #6ef3dd;
+    color: #0c0f12;
+    font-weight: 600;
+}
