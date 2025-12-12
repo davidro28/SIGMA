@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 
+
 function VerticalNav({ items = [] }) {   // ← Aquí le doy un valor por defecto
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        navigate("/login");
+    };
     return (
         <nav className="vertical-nav">
 
@@ -25,7 +30,12 @@ function VerticalNav({ items = [] }) {   // ← Aquí le doy un valor por defect
                 <div>
                     <p className="user-name">David</p>
                     <p className="user-role">Admin</p>
-                    <button className="logout-button">Logout</button>
+                    <button
+                        className="logout-button"
+                        onClick={handleLogout}   // ← Agregado
+                    >
+                    Logout
+                    </button>
                 </div>
             </div>
         </nav>

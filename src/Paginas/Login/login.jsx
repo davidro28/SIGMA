@@ -1,14 +1,37 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // <- Importa useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // <- Hook para navegar
 
-  // Función para ir a Home
+  const navigate = useNavigate();
+
+  // Usuarios y rutas por rol
+  const users = {
+    admin: { password: "1234", route: "/General" },
+    gestortickets: { password: "5678", route: "/HomeGestorTickets" },
+    tecnimantenimiento: { password: "9012", route: "/HomeTecniMantenimiento" },
+    responsable: { password: "3456", route: "/HomeResponsable" }
+  };
+
+  // Lógica de login
   const handleEntrar = () => {
-    navigate("/General"); // <- Redirige a /home
+    const username = email.split("@")[0]; // admin@gmail.com → "admin"
+
+    if (!users[username]) {
+      alert("Usuario no encontrado");
+      return;
+    }
+
+    if (users[username].password !== password) {
+      alert("Contraseña incorrecta");
+      return;
+    }
+
+    navigate(users[username].route); // redirige según el rol
   };
 
   return (
@@ -31,7 +54,13 @@ export default function Login() {
           {/* Email */}
           <div className="input-group">
             <i className="fa-solid fa-envelope"></i>
-            <input type="email" placeholder="Correo electrónico" required />
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           {/* Password */}
@@ -42,6 +71,8 @@ export default function Login() {
               type={showPassword ? "text" : "password"}
               placeholder="Contraseña"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button
@@ -61,15 +92,15 @@ export default function Login() {
             </label>
 
             <Link to="/recuperar_contraseña" className="forgot-password">
-            ¿Olvidaste tu contraseña?</Link>
-
+              ¿Olvidaste tu contraseña?
+            </Link>
           </div>
 
-          {/* Botón */}
+          {/* Botón entrar */}
           <button
-            type="button"         // <- Cambiado a type="button" para evitar submit
+            type="button"
             className="btn-primary"
-            onClick={handleEntrar} // <- Aquí llamamos a la función de redirección
+            onClick={handleEntrar}
           >
             Entrar en Sigma
           </button>
