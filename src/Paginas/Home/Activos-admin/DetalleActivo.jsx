@@ -75,21 +75,21 @@ export default function DetalleActivo() {
   return (
     <>
       <SigmaHeader />
-      <div className="layout-container">
+      <div className="layout-container-DetalleA">
         <VerticalNav
           items={[
             { to: "/Home", label: "General" },
             { to: "/Activos", label: "Activos" },
-            { to: "/tickets", label: "Tickets" },
-            { to: "/mantenimiento", label: "Mantenimiento" },
+            { to: "/Tickets", label: "Tickets" },
+            { to: "/Mantenimiento_Admin", label: "Mantenimiento" },
           ]}
         />
 
-        <div className="detalle-activo-container">
+        <div className="detalle-activo-container-DetalleA">
           <h1>Detalle del activo</h1>
           <p className="subtitle">Revisa la información del activo</p>
 
-          <div className="detalle-grid">
+          <div className="detalle-gridA">
             <div className="detalle-img-section">
               <img src={preview} alt={activo.titulo} className="detalle-img" />
               {isEditing && (

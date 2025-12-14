@@ -1,0 +1,63 @@
+.home-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #0d1117;
+}
+
+.parrafo_principal {
+    color: #fff;
+    font-size: 32px;
+    margin-left: 20px;
+}
+
+.cuadros-container {
+    display: flex;
+    gap: 20px;               /* espacio entre los recuadros */
+    justify-content: center;  /* centra los recuadros dentro del contenedor */
+    align-items: center;      /* centra verticalmente los recuadros */
+    width: fit-content;       /* el ancho se ajusta al contenido */
+    margin: 20px auto;           /* centra el contenedor horizontalmente */
+}
+
+.parte-principal {
+    display: flex;
+    justify-content: space-between;  /* Mantenimiento a la izquierda, componentes a la derecha */
+    align-items: center;
+}
+
+.grupo-derecha {
+    display: flex;
+    align-items: center;
+    gap: 10px;           /* espacio entre buscador y botón */
+    margin-right: 20px;
+}
+
+.container-grande {
+    display: flex;
+    justify-content: space-between;   /* separa filtros y órdenes */
+    gap: 25px;                         /* espacio entre ellos */
+}
+
+.container-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;                         /* separación entre los filtros */
+}
+
+.container-ordenes {
+    flex: 1;                            /* ocupa todo el espacio restante */
+}

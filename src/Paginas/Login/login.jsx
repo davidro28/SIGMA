@@ -12,9 +12,9 @@ export default function Login() {
   // Usuarios y rutas por rol
   const users = {
     admin: { password: "1234", route: "/General" },
-    gestortickets: { password: "5678", route: "/HomeGestorTickets" },
+    gestortickets: { password: "5678", route: "/Home_gestortickets" },
     tecnimantenimiento: { password: "9012", route: "/HomeTecniMantenimiento" },
-    responsable: { password: "3456", route: "/HomeResponsable" }
+    responsable: { password: "3456", route: "/Home_responsable" }
   };
 
   // Lógica de login

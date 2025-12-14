@@ -1,4 +1,11 @@
-.detalle-ticket-container-Detalleadmin {
+.layout-container-Gestor{
+    display: flex;
+    background: #0d1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+}
+
+.detalle-ticket-container {
   padding: 30px;
   color: #e2e8f0;
   flex: 1;
@@ -11,7 +18,7 @@
 }
 
 /* CARD DETALLE */
-.card-detalle-admin {
+.card-detalle {
   background: #1e293b;
   padding: 24px;
   border-radius: 12px;

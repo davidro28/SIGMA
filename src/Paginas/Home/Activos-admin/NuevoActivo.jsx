@@ -67,13 +67,13 @@ export default function NuevoActivo() {
         <>
             <SigmaHeader />
 
-            <div className="layout-container">
+            <div className="layout-container-NuevoA">
                 <VerticalNav 
                     items={[
                         { to: "/Home", label: "General" },
                         { to: "/Activos", label: "Activos" },
-                        { to: "/tickets", label: "Tickets" },
-                        { to: "/mantenimiento", label: "Mantenimiento" }
+                        { to: "/Tickets", label: "Tickets" },
+                        { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
                     ]} 
                 />
 

@@ -24,7 +24,7 @@ export default function Activos() {
     { to: "/General", label: "General" },
     { to: "/Activos", label: "Activos" },
     { to: "/Tickets", label: "Tickets" },
-    { to: "/Mantenimiento", label: "Mantenimiento" }
+    { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
   ];
 
   // Filtrar activos según búsqueda y filtro
@@ -37,7 +37,7 @@ export default function Activos() {
   return (
     <>
       <SigmaHeader />
-      <div className="layout-container">
+      <div className="layout-container-admin">
         <VerticalNav items={menuItems} />
 
         <div className="activos-container">

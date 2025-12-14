@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import SigmaHeader from '../../Components/sigmaHeader';
-import VerticalNav from '../../Components/verticalNav';
-import CuadroInformativo from '../../Components/cuadroInformacion';
-import BuscadorMantenimiento from '../../Components/buscadorMantenimiento';
-import NuevaOrden from "../../Components/nuevaOrden";
-import OrdenesMantenimiento from '../../Components/ordenesMantenimiento';
-import FiltrarEstado from '../../Components/filtrarEstado';
-import FiltrarPrioridad from '../../Components/filtrarPrioridad';
+import SigmaHeader from '../../../Components/sigmaHeader/';
+import VerticalNav from '../../../Components/verticalNav';
+import CuadroInformativo from '../../../Components/cuadroInformacion';
+import BuscadorMantenimiento from '../../../Components/buscadorMantenimiento';
+import NuevaOrden from "../../../Components/nuevaOrden";
+import OrdenesMantenimiento from '../../../Components/ordenesMantenimiento';
+import FiltrarEstado from '../../../Components/filtrarEstado';
+import FiltrarPrioridad from '../../../Components/filtrarPrioridad';
 import './styles.css';
 
 function Mantenimiento_Admin() {

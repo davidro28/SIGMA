@@ -1,56 +1,87 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import VerticalNav from "../../../Components/verticalNav";
 import "./TicketDetalle.css";
 
 export default function TicketDetalle() {
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const ticket = location.state;
-
-  if (!ticket) {
-    return (
-      <div className="no-ticket">
-        <h2>No se encontró información del ticket.</h2>
-        <button onClick={() => navigate("/Tickets")}>Volver</button>
-      </div>
-    );
-  }
+  const { id } = useParams();
+  const location = useLocation();
 
   const menuItems = [
     { to: "/Home", label: "General" },
     { to: "/Activos", label: "Activos" },
     { to: "/Tickets", label: "Tickets" },
-    { to: "/Mantenimiento", label: "Mantenimiento" },
+    { to: "/Mantenimiento_Admin", label: "Mantenimiento" },
   ];
 
-  // Modo edición
+  const [ticket, setTicket] = useState(null);
   const [editMode, setEditMode] = useState(false);
+
   const [formData, setFormData] = useState({
-    titulo: ticket.titulo || "",
-    estado: ticket.estado || "Abierto",
-    prioridad: ticket.prioridad || "Media",
-    activo: ticket.activo || "",
-    responsable: ticket.responsable || "",
-    descripcion: ticket.descripcion || "",
+    titulo: "",
+    estado: "Abierto",
+    prioridad: "Media",
+    activo: "",
+    responsable: "",
+    descripcion: "",
   });
 
-  // Manejar cambios en inputs
+  // 🔹 CARGAR TICKET (state o localStorage)
+  useEffect(() => {
+    const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+
+    const ticketEncontrado =
+      location.state ||
+      tickets.find((t) => String(t.id) === String(id));
+
+    if (ticketEncontrado) {
+      setTicket(ticketEncontrado);
+      setFormData({
+        titulo: ticketEncontrado.titulo || "",
+        estado: ticketEncontrado.estado || "Abierto",
+        prioridad: ticketEncontrado.prioridad || "Media",
+        activo: ticketEncontrado.activo || "",
+        responsable: ticketEncontrado.responsable || "",
+        descripcion: ticketEncontrado.descripcion || "",
+      });
+    }
+  }, [id, location.state]);
+
+  // 🔹 SI NO EXISTE
+  if (!ticket) {
+    return (
+      <>
+        <SigmaHeader />
+        <div className="no-ticket">
+          <h2>No se encontró información del ticket.</h2>
+          <button onClick={() => navigate("/Tickets")}>Volver</button>
+        </div>
+      </>
+    );
+  }
+
+  // 🔹 MANEJAR CAMBIOS
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Guardar cambios en localStorage
+  // 🔹 GUARDAR CAMBIOS
   const handleGuardar = () => {
     const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
     const index = tickets.findIndex((t) => t.id === ticket.id);
+
     if (index !== -1) {
-      tickets[index] = { ...tickets[index], ...formData, fecha: new Date().toLocaleString() };
+      tickets[index] = {
+        ...tickets[index],
+        ...formData,
+        fecha: new Date().toLocaleString(),
+      };
       localStorage.setItem("tickets", JSON.stringify(tickets));
     }
+
     setEditMode(false);
     navigate("/Tickets");
   };
@@ -58,113 +89,132 @@ export default function TicketDetalle() {
   return (
     <>
       <SigmaHeader />
-      <div className="layout-container">
+
+      <div className="layout-container-admin">
         <VerticalNav items={menuItems} />
 
-        <main className="detalle-ticket-container">
+        <main className="detalle-ticket-container-Detalleadmin">
           <h1>Ticket #{ticket.id.slice(0, 6)}</h1>
 
-          {editMode ? (
-            <article className="card-detalle">
-              <div className="campo">
-                <label>Título:</label>
-                <input
-                  type="text"
-                  name="titulo"
-                  value={formData.titulo}
-                  onChange={handleChange}
-                />
-              </div>
+          <article className="card-detalle-admin">
+            {editMode ? (
+              <>
+                <div className="campo">
+                  <label>Título:</label>
+                  <input
+                    name="titulo"
+                    value={formData.titulo}
+                    onChange={handleChange}
+                  />
+                </div>
 
-              <div className="campo">
-                <label>Estado:</label>
-                <select name="estado" value={formData.estado} onChange={handleChange}>
-                  <option>Abierto</option>
-                  <option>En progreso</option>
-                  <option>Cerrado</option>
-                </select>
-              </div>
+                <div className="campo">
+                  <label>Estado:</label>
+                  <select
+                    name="estado"
+                    value={formData.estado}
+                    onChange={handleChange}
+                  >
+                    <option>Abierto</option>
+                    <option>En progreso</option>
+                    <option>Cerrado</option>
+                  </select>
+                </div>
 
-              <div className="campo">
-                <label>Prioridad:</label>
-                <select name="prioridad" value={formData.prioridad} onChange={handleChange}>
-                  <option>Alta</option>
-                  <option>Media</option>
-                  <option>Baja</option>
-                </select>
-              </div>
+                <div className="campo">
+                  <label>Prioridad:</label>
+                  <select
+                    name="prioridad"
+                    value={formData.prioridad}
+                    onChange={handleChange}
+                  >
+                    <option>Alta</option>
+                    <option>Media</option>
+                    <option>Baja</option>
+                  </select>
+                </div>
 
-              <div className="campo">
-                <label>Activo asociado:</label>
-                <input
-                  type="text"
-                  name="activo"
-                  value={formData.activo}
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="campo">
+                  <label>Activo:</label>
+                  <input
+                    name="activo"
+                    value={formData.activo}
+                    onChange={handleChange}
+                  />
+                </div>
 
-              <div className="campo">
-                <label>Responsable:</label>
-                <input
-                  type="text"
-                  name="responsable"
-                  value={formData.responsable}
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="campo">
+                  <label>Responsable:</label>
+                  <input
+                    name="responsable"
+                    value={formData.responsable}
+                    onChange={handleChange}
+                  />
+                </div>
 
-              <div className="campo">
-                <label>Descripción:</label>
-                <textarea
-                  name="descripcion"
-                  value={formData.descripcion}
-                  onChange={handleChange}
-                  rows={4}
-                />
-              </div>
+                <div className="campo">
+                  <label>Descripción:</label>
+                  <textarea
+                    name="descripcion"
+                    rows={4}
+                    value={formData.descripcion}
+                    onChange={handleChange}
+                  />
+                </div>
 
-              <div className="acciones-detalle">
-                <button className="btn-volver" onClick={() => setEditMode(false)}>
-                  Cancelar
-                </button>
-                <button className="btn-editar" onClick={handleGuardar}>
-                  Guardar cambios
-                </button>
-              </div>
-            </article>
-          ) : (
-            <article className="card-detalle">
-              <div className="campo">
-                <label>Título:</label>
-                <span>{ticket.titulo}</span>
-              </div>
-              <div className="campo">
-                <label>Estado:</label>
-                <span className={`estado estado-${ticket.estado?.toLowerCase().replace(/ /g, "-") || "desconocido"}`}>
-                  {ticket.estado}
-                </span>
-              </div>
-              <div className="campo">
-                <label>Prioridad:</label>
-                <span className={`prioridad prioridad-${ticket.prioridad?.toLowerCase() || "media"}`}>
-                  {ticket.prioridad}
-                </span>
-              </div>
-              <div className="campo">
-                <label>Activo asociado:</label>
-                <span>{ticket.activo || "No asignado"}</span>
-              </div>
-              <div className="campo">
-                <label>Responsable:</label>
-                <span>{ticket.responsable || "No asignado"}</span>
-              </div>
-              <div className="campo">
-                <label>Descripción:</label>
-                <p>{ticket.descripcion || "No hay descripción"}</p>
-              </div>
-            </article>
-          )}
+                <div className="acciones-detalle">
+                  <button className="btn-volver" onClick={() => setEditMode(false)}>
+                    Cancelar
+                  </button>
+                  <button className="btn-editar" onClick={handleGuardar}>
+                    Guardar cambios
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="campo">
+                  <label>Título:</label>
+                  <span>{ticket.titulo}</span>
+                </div>
+
+                <div className="campo">
+                  <label>Estado:</label>
+                  <span
+                    className={`estado estado-${ticket.estado
+                      ?.toLowerCase()
+                      .replace(/ /g, "-")}`}
+                  >
+                    {ticket.estado}
+                  </span>
+                </div>
+
+                <div className="campo">
+                  <label>Prioridad:</label>
+                  <span
+                    className={`prioridad prioridad-${ticket.prioridad?.toLowerCase()}`}
+                  >
+                    {ticket.prioridad}
+                  </span>
+                </div>
+
+                <div className="campo">
+                  <label>Activo:</label>
+                  <span>{ticket.activo || "No asignado"}</span>
+                </div>
+
+                <div className="campo">
+                  <label>Responsable:</label>
+                  <span>{ticket.responsable || "No asignado"}</span>
+                </div>
+
+                <div className="campo">
+                  <label>Descripción:</label>
+                  <p>{ticket.descripcion || "Sin descripción"}</p>
+                </div>
+              </>
+            )}
+          </article>
 
           {!editMode && (
             <section className="acciones-detalle">
