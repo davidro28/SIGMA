@@ -1,0 +1,154 @@
+.tickets-box {
+    width: 730px;
+    height: 610px;
+    background: #10151c;
+    padding: 20px 24px;
+    border-radius: 12px;
+    color: #c9d1d9;
+    font-family: system-ui, sans-serif;
+}
+
+.tickets-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.tickets-header h3 {
+    margin: 0;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.tickets-header span {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.ver-todos {
+    font-size: 12px;
+    color: #8b949e;
+    text-decoration: none;
+}
+
+.ver-todos:hover {
+    text-decoration: underline;
+}
+
+/* Resumen */
+.resumen-lista {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.resumen-item .titulo {
+    margin: 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+}
+
+.sub {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+/* Badges */
+.badge {
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.badge.urgente {
+    background: rgba(248, 81, 73, 0.15);
+    color: #f85149;
+}
+
+.badge.seguimiento {
+    background: rgba(210, 153, 34, 0.15);
+    color: #d29922;
+}
+
+.badge.ok {
+    background: rgba(46, 160, 67, 0.15);
+    color: #2ea043;
+}
+
+/* Secciones */
+.seccion {
+    margin: 24px 0 10px;
+    font-size: 13px;
+    color: #ffffff;
+}
+
+/* Tabla */
+.tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.head,
+.fila {
+    display: grid;
+    grid-template-columns: 0.8fr 1.6fr 1.2fr 1fr;
+    align-items: center;
+}
+
+.head {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.fila {
+    font-size: 13px;
+}
+
+.bold {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.estado {
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.estado.abierto {
+    background: rgba(210, 153, 34, 0.15);
+    color: #d29922;
+}
+
+.estado.progreso {
+    background: rgba(46, 160, 67, 0.15);
+    color: #2ea043;
+}
+
+/* Acciones */
+.acciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 12px;
+    color: #8b949e;
+}
+
+/* Gráfico */
+.grafico {
+    margin-top: 10px;
+    padding: 30px;
+    border: 1px dashed #30363d;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 12px;
+    color: #8b949e;
+}

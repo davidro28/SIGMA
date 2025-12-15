@@ -1,0 +1,67 @@
+.resumen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #10151c;
+    padding: 20px 24px;
+    color: #c9d1d9;
+    font-family: system-ui, sans-serif;
+    width: 630px;
+    height: 100px;
+    margin-left: 40px;
+}
+
+.resumen-texto h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.resumen-texto span {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.resumen-derecha {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.detalle-link {
+    font-size: 12px;
+    color: #8b949e;
+    text-decoration: none;
+}
+
+.detalle-link:hover {
+    text-decoration: underline;
+}
+
+.leyenda {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.dot.operativo {
+    background: #2ea043;
+}
+
+.dot.incidencia {
+    background: #d29922;
+}

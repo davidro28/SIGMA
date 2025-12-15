@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
-import SigmaHeader from "../../../../Components/sigmaHeader";
-import VerticalNav from "../../../../Components/verticalNav";
+import SigmaHeader from "../../../Components/sigmaHeader";
+import VerticalNav from "../../../Components/verticalNav";
 
 function HomeTecniMantenimiento() {
     const menuItems = [

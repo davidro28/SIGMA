@@ -9,15 +9,17 @@ import DetalleActivo from "./Paginas/Home/Activos-admin/DetalleActivo.jsx"
 import Tickets from "./Paginas/Home/Tickets-admin/Tickets.jsx"
 import NuevoTicket from "./Paginas/Home/Tickets-admin/NuevoTicket.jsx";
 import TicketDetalle from "./Paginas/Home/Tickets-admin/TicketDetalle.jsx"
-import Mantenimiento_Admin from "./Paginas/Home/Mantenimiento_Admin/index.jsx"
+import Mantenimiento_Admin from "./Paginas/Mantenimiento_Admin/index.jsx"
 import Home_gestortickets from "./Paginas/gestortickets/Home_gestortickets/Home_gestortickets.jsx"
 import MantenimientoGestor from "./Paginas/gestortickets/MantenimientoGestor/MantenimientoGestor.jsx"
 import NuevoTicketGestor from "./Paginas/gestortickets/Home_gestortickets/NuevoTicketGestor.jsx";
 import DetalleGestor from "./Paginas/gestortickets/Home_gestortickets/DetalleGestor.jsx";
-import Home_responsable from "./Paginas/Responsable/Home_responsable/Home_responsable.jsx";
+import Activos_responsable from "./Paginas/Responsable/Activos_responsable/Activos_responsable.jsx";
 import MisTickets from "./Paginas/Responsable/Tickets_responsable/MisTickets.jsx";
 import NuevoMisTickets from "./Paginas/Responsable/Tickets_responsable/NuevoMisTickets.jsx";
 import DetalleMisTickets from "./Paginas/Responsable/Tickets_responsable/DetalleMisTickets.jsx";
+import HomeTecniMantenimiento from "./Paginas/tecnico_mantenimiento/Home_tecnimantenimineto/index.jsx"
+import Home_responsable from "./Paginas/Responsable/Home_responsable/index.jsx"
 
 
 
@@ -40,10 +42,12 @@ function App() {
       <Route path="/MantenimientoGestor" element={<MantenimientoGestor />} />
       <Route path="/NuevoTicketGestor" element={<NuevoTicketGestor />} />
       <Route path="/DetalleGestor/:id" element={<DetalleGestor />} />
-      <Route path="/Home_responsable" element={<Home_responsable />} />
+      <Route path="/Activos_responsable" element={<Activos_responsable />} />
       <Route path="/MisTickets" element={<MisTickets />} />
       <Route path="/NuevoMisTickets" element={<NuevoMisTickets />} />
       <Route path="/DetalleMisTickets/:id" element={<DetalleMisTickets />} />
+      <Route path="/HomeTecniMantenimiento" element={<HomeTecniMantenimiento />} />
+      <Route path="/Home_responsable" element={<Home_responsable />} />
 
       {/* fallback: si no coincide, ir a login */}
       <Route path="*" element={<Login />} />

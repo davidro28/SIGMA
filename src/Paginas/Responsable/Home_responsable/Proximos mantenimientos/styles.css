@@ -1,0 +1,42 @@
+.bloque-mantenimientos {
+    width: 630px;
+    background: #10151c;
+    padding: 20px 24px;
+    color: #c9d1d9;
+    font-family: system-ui, sans-serif;
+    margin-top: 8px;
+    margin-left: 40px;
+}
+
+.titulo {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.head,
+.fila {
+    display: grid;
+    grid-template-columns: 1.6fr 1.2fr 1fr 1.4fr;
+    align-items: center;
+}
+
+.head {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.fila {
+    font-size: 13px;
+}
+
+.nombre {
+    font-weight: 600;
+    color: #ffffff;
+}
