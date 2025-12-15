@@ -1,63 +1,77 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import VerticalNav from "../../../Components/verticalNav/index.jsx";
-import SigmaHeader from "../../../Components/sigmaHeader";
-import "./NuevoTicket.css";
+import SigmaHeader from "../../../Components/sigmaHeader/index.jsx";
+import "./NuevoTicketGestor.css";
 
 export default function NuevoTicket() {
   const navigate = useNavigate();
 
-  // Estados del formulario
-  const [titulo, setTitulo] = useState("");
-  const [tipo, setTipo] = useState("");
-  const [prioridad, setPrioridad] = useState("");
-  const [activo, setActivo] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [archivo, setArchivo] = useState(null);
-  const [responsable, setResponsable] = useState(""); // nuevo estado
+  const [formData, setFormData] = useState({
+    titulo: "",
+    tipo: "",
+    prioridad: "",
+    activo: "",
+    descripcion: "",
+    responsable: "",
+    archivo: null,
+  });
 
   const menuItems = [
-    { to: "/Home", label: "General" },
-    { to: "/Activos", label: "Activos" },
-    { to: "/Tickets", label: "Tickets" },
-    { to: "/mantenimiento_Admin", label: "Mantenimiento" }
+    { to: "/Home_gestortickets", label: "General" },
+    { to: "/MantenimientoGestor", label: "Mantenimiento" },
   ];
 
-  // Guardar ticket en localStorage
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: files ? files[0] : value,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const nuevoTicket = {
       id: crypto.randomUUID(),
-      titulo,
-      tipo,
-      prioridad,
-      activo,
-      descripcion,
-      responsable, // se guarda el responsable
+      titulo: formData.titulo,
+      tipo: formData.tipo,
+      prioridad: formData.prioridad,
+      estado: "Abierto",
+      activo: formData.activo,
+      descripcion: formData.descripcion,
+      responsable: formData.responsable,
       fecha: new Date().toLocaleString(),
-      archivoNombre: archivo ? archivo.name : null,
+      archivoNombre: formData.archivo ? formData.archivo.name : null,
     };
 
-    // Guardar en localStorage
-    const existentes = JSON.parse(localStorage.getItem("tickets")) || [];
-    existentes.push(nuevoTicket);
-    localStorage.setItem("tickets", JSON.stringify(existentes));
+    const tickets =
+      JSON.parse(localStorage.getItem("Home_gestortickets")) || [];
 
-    navigate("/Tickets");
+    localStorage.setItem(
+      "Home_gestortickets",
+      JSON.stringify([...tickets, nuevoTicket])
+    );
+
+    navigate("/Home_gestortickets");
   };
 
   return (
     <>
       <SigmaHeader />
 
-      <div className="layout-container-nuevo">
+      <div className="layout-container-ticketg">
         <VerticalNav items={menuItems} />
 
         <main className="page-content nuevo-ticket-container">
+          {/* HEADER */}
           <header className="header-nuevo-ticket">
             <h1>Nuevo ticket</h1>
-            <button className="volver-lista" onClick={() => navigate("/Tickets")}>
+            <button
+              className="volver-lista"
+              onClick={() => navigate("/Home_gestortickets")}
+            >
               Volver a lista
             </button>
           </header>
@@ -66,6 +80,7 @@ export default function NuevoTicket() {
             Crea un ticket de incidente o solicitud asociado a un activo
           </p>
 
+          {/* FORM */}
           <form onSubmit={handleSubmit} className="form-ticket">
             <section className="form-section">
               <h3>Información del ticket</h3>
@@ -74,28 +89,27 @@ export default function NuevoTicket() {
               </p>
 
               <div className="campo-form">
-                <label htmlFor="titulo">Título o resumen</label>
+                <label>Título o resumen</label>
                 <input
-                  id="titulo"
                   type="text"
-                  placeholder="Ej. Pantalla no enciende al inicio de turno"
-                  value={titulo}
-                  onChange={(e) => setTitulo(e.target.value)}
+                  name="titulo"
+                  value={formData.titulo}
+                  onChange={handleChange}
                   required
                 />
               </div>
 
               <div className="form-row">
                 <div className="campo-form">
-                  <label htmlFor="tipo">Tipo de ticket</label>
+                  <label>Tipo de ticket</label>
                   <select
-                    id="tipo"
-                    value={tipo}
-                    onChange={(e) => setTipo(e.target.value)}
+                    name="tipo"
+                    value={formData.tipo}
+                    onChange={handleChange}
                     required
                   >
                     <option value="" disabled>
-                      Selecciona tipo (Incidente, Solicitud, Mantenimiento)
+                      Selecciona tipo
                     </option>
                     <option value="Incidente">Incidente</option>
                     <option value="Solicitud">Solicitud</option>
@@ -104,15 +118,15 @@ export default function NuevoTicket() {
                 </div>
 
                 <div className="campo-form">
-                  <label htmlFor="prioridad">Prioridad</label>
+                  <label>Prioridad</label>
                   <select
-                    id="prioridad"
-                    value={prioridad}
-                    onChange={(e) => setPrioridad(e.target.value)}
+                    name="prioridad"
+                    value={formData.prioridad}
+                    onChange={handleChange}
                     required
                   >
                     <option value="" disabled>
-                      Selecciona prioridad (Alta, Media, Baja)
+                      Selecciona prioridad
                     </option>
                     <option value="Alta">Alta</option>
                     <option value="Media">Media</option>
@@ -122,43 +136,41 @@ export default function NuevoTicket() {
               </div>
 
               <div className="campo-form">
-                <label htmlFor="activo">Activo relacionado</label>
+                <label>Activo relacionado</label>
                 <input
-                  id="activo"
                   type="text"
-                  placeholder="Opcional"
-                  value={activo}
-                  onChange={(e) => setActivo(e.target.value)}
+                  name="activo"
+                  value={formData.activo}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="campo-form">
-                <label htmlFor="responsable">Responsable</label>
+                <label>Responsable</label>
                 <input
-                  id="responsable"
                   type="text"
-                  placeholder="Nombre del responsable"
-                  value={responsable}
-                  onChange={(e) => setResponsable(e.target.value)}
+                  name="responsable"
+                  value={formData.responsable}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="campo-form">
-                <label htmlFor="descripcion">Descripción</label>
+                <label>Descripción</label>
                 <textarea
-                  id="descripcion"
-                  placeholder="Describe el problema"
-                  value={descripcion}
-                  onChange={(e) => setDescripcion(e.target.value)}
+                  name="descripcion"
                   rows={4}
+                  value={formData.descripcion}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="campo-form adjuntos">
-                <label>Adjuntos (opcional)</label>
+                <label>Adjuntos</label>
                 <input
                   type="file"
-                  onChange={(e) => setArchivo(e.target.files[0])}
+                  name="archivo"
+                  onChange={handleChange}
                 />
               </div>
             </section>
@@ -167,7 +179,7 @@ export default function NuevoTicket() {
               <button
                 type="button"
                 className="btn-cancelar"
-                onClick={() => navigate("/Tickets")}
+                onClick={() => navigate("/Home_gestortickets")}
               >
                 Cancelar
               </button>

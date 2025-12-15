@@ -1,0 +1,200 @@
+/* ===========================================
+   LAYOUT GENERAL
+=========================================== */
+.layout-container-responsable {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #0d1117;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* HEADER */
+.sigma-header {
+  background-color: #14b8a6;
+  padding: 15px 30px;
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+/* CONTENEDOR HORIZONTAL */
+.content-area {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.vertical-nav {
+  width: 220px;
+  background-color: #0f172a;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* MAIN CONTENT */
+.page-content {
+  flex: 1;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* HEADER SECCION */
+.header-tickets h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.header-tickets p {
+  font-size: 15px;
+  color: #94a3b8;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* FILTROS RAPIDOS */
+.filtros-rapidos {
+  width: 100%;
+  background-color: #161b22;
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid rgba(20, 184, 166, 0.15);
+  box-shadow: 0 0 18px rgba(20, 184, 166, 0.35);
+}
+
+.filtros-rapidos h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.descripcion-filtros {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 22px;
+}
+
+.busqueda-filtros {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.input-busqueda {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+  background-color: #0d1117;
+  color: #e2e8f0;
+  font-size: 16px;
+}
+
+.input-busqueda:focus {
+  outline: none;
+  border-color: #14b8a6;
+}
+
+.grupo-filtro label {
+  font-weight: 600;
+  margin-right: 6px;
+  color: #e2e8f0;
+  font-size: 15px;
+}
+
+.filtros-rapidos select {
+  background-color: #0d1117;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #e2e8f0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* TABLA */
+.tabla-tickets {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.tabla-tickets th,
+.tabla-tickets td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.tabla-tickets thead {
+  background-color: #161b22;
+  color: #94a3b8;
+}
+
+.tabla-tickets tbody tr {
+  border-bottom: 1px solid #334155;
+}
+
+.tabla-tickets tbody tr:hover {
+  background-color: #212c3b;
+}
+
+/* ACTIVO CON IMAGEN */
+.td-activo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.img-activo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #0d1117;
+  border: 1px solid #334155;
+}
+
+.detalle-activo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ESTADOS */
+.estado {
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: white;
+  font-size: 14px;
+}
+
+.estado-en-uso { background-color: #3b82f6; }
+.estado-operativo { background-color: #22c55e; }
+.estado-asignado { background-color: #f59e0b; }
+
+/* INFO FALTANTE */
+.info-faltante {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #e2e8f0;
+}
+
+.info-faltante strong {
+  display: block;
+  margin-bottom: 6px;
+}

@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import VerticalNav from "../../../Components/verticalNav/index.jsx";
-import SigmaHeader from "../../../Components/sigmaHeader";
-import "./Tickets.css";
+import VerticalNav from "../../../Components/verticalNav/index";
+import SigmaHeader from "../../../Components/sigmaHeader/index";
+import "./Home_gestortickets.css";
 
 export default function Tickets() {
   const navigate = useNavigate();
 
   const menuItems = [
-    { to: "/General", label: "General" },
-    { to: "/Activos", label: "Activos" },
-    { to: "/Tickets", label: "Tickets" },
-    { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
+    { to: "/Home_gestortickets", label: "General" },
+    { to: "/MantenimientoGestor", label: "Mantenimiento" },
   ];
 
   // FILTROS
@@ -25,11 +23,11 @@ export default function Tickets() {
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("tickets")) || [];
+    const data = JSON.parse(localStorage.getItem("Home_gestortickets")) || [];
     setTickets(data);
   }, []);
 
-  // FILTRAR
+  // FILTRAR TICKETS
   const ticketsFiltrados = tickets.filter(ticket => {
     const matchesBusqueda =
       ticket.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -47,12 +45,16 @@ export default function Tickets() {
     const matchesResponsable =
       filtroResponsable === "Todos" || ticket.responsable === filtroResponsable;
 
-    return matchesBusqueda && matchesEstado && matchesPrioridad && matchesActivo && matchesResponsable;
+    return (
+      matchesBusqueda &&
+      matchesEstado &&
+      matchesPrioridad &&
+      matchesActivo &&
+      matchesResponsable
+    );
   });
 
   const estadosRapidos = ["Abierto", "En progreso", "Cerrado"];
-
-  // Obtener valores únicos para filtros dinámicos
   const activosUnicos = [...new Set(tickets.map(t => t.activo).filter(Boolean))];
   const responsablesUnicos = [...new Set(tickets.map(t => t.responsable).filter(Boolean))];
 
@@ -60,19 +62,18 @@ export default function Tickets() {
     <>
       <SigmaHeader />
 
-      <div className="layout-container-adminT">
+      <div className="layout-container-gestor">
         <VerticalNav items={menuItems} />
 
-        <div className="page-content tickets-container">
-
+        <div className="page-content-gestor tickets-container">
           {/* TITULO */}
-          <div className="header-tickets">
+          <div className="header-tickets-gestor">
             <h1>Tickets</h1>
             <p>Visualiza, filtra y crea tickets para incidentes y solicitudes</p>
           </div>
 
           {/* FILTROS */}
-          <div className="filtros-rapidos">
+          <div className="filtros-rapidos-gestor">
             <h4>Filtros rápidos</h4>
             <p className="descripcion-filtros">
               Encuentra tickets por estado, prioridad, activo o responsable
@@ -87,7 +88,7 @@ export default function Tickets() {
                 className="input-busqueda"
               />
 
-              <div className="grupo-filtro">
+              <div className="grupo-filtro-gestor">
                 <label>Estado:</label>
                 <select value={filtroEstado} onChange={e => setFiltroEstado(e.target.value)}>
                   <option>Todos</option>
@@ -97,12 +98,9 @@ export default function Tickets() {
                 </select>
               </div>
 
-              <div className="grupo-filtro">
+              <div className="grupo-filtro-gestor">
                 <label>Prioridad:</label>
-                <select
-                  value={filtroPrioridad}
-                  onChange={e => setFiltroPrioridad(e.target.value)}
-                >
+                <select value={filtroPrioridad} onChange={e => setFiltroPrioridad(e.target.value)}>
                   <option>Todas</option>
                   <option>Alta</option>
                   <option>Media</option>
@@ -110,12 +108,9 @@ export default function Tickets() {
                 </select>
               </div>
 
-              <div className="grupo-filtro">
+              <div className="grupo-filtro-gestor">
                 <label>Activo:</label>
-                <select
-                  value={filtroActivo}
-                  onChange={e => setFiltroActivo(e.target.value)}
-                >
+                <select value={filtroActivo} onChange={e => setFiltroActivo(e.target.value)}>
                   <option>Todos</option>
                   {activosUnicos.map((a, i) => (
                     <option key={i}>{a}</option>
@@ -123,12 +118,9 @@ export default function Tickets() {
                 </select>
               </div>
 
-              <div className="grupo-filtro">
+              <div className="grupo-filtro-gestor">
                 <label>Responsable:</label>
-                <select
-                  value={filtroResponsable}
-                  onChange={e => setFiltroResponsable(e.target.value)}
-                >
+                <select value={filtroResponsable} onChange={e => setFiltroResponsable(e.target.value)}>
                   <option>Todos</option>
                   {responsablesUnicos.map((r, i) => (
                     <option key={i}>{r}</option>
@@ -154,9 +146,7 @@ export default function Tickets() {
               {estadosRapidos.map(estado => (
                 <button
                   key={estado}
-                  className={`btn-estado-rapido ${
-                    filtroEstado === estado ? "active" : ""
-                  }`}
+                  className={`btn-estado-rapido ${filtroEstado === estado ? "active" : ""}`}
                   onClick={() => setFiltroEstado(estado)}
                 >
                   {estado}
@@ -165,7 +155,7 @@ export default function Tickets() {
             </div>
           </div>
 
-          {/* TABLA */}
+          {/* TABLA DE TICKETS */}
           <table className="tabla-tickets">
             <thead>
               <tr>
@@ -189,30 +179,23 @@ export default function Tickets() {
                   <td>{ticket.responsable || "—"}</td>
                   <td>
                     <span
-                      className={`estado estado-${
-                        (ticket.estado || "Abierto").toLowerCase().replace(/ /g, "-")
-                      }`}
+                      className={`estado estado-${(ticket.estado || "Abierto").toLowerCase().replace(/ /g, "-")}`}
                     >
                       {ticket.estado || "Abierto"}
                     </span>
                   </td>
-
                   <td>
-                    <span
-                      className={`prioridad prioridad-${ticket.prioridad.toLowerCase()}`}
-                    >
+                    <span className={`prioridad prioridad-${ticket.prioridad.toLowerCase()}`}>
                       {ticket.prioridad}
                     </span>
                   </td>
-
                   <td>{ticket.fecha}</td>
-
                   <td>
                     <button
                       className="btn-ver"
-                      onClick={() => navigate(`/Ticket/${ticket.id}`, { state: ticket })}
+                      onClick={() => navigate(`/DetalleGestor/${ticket.id}`, { state: ticket })}
                     >
-                        Ver
+                      Ver
                     </button>
                   </td>
                 </tr>
@@ -238,7 +221,7 @@ export default function Tickets() {
 
           <button
             className="btn-nuevo-ticket"
-            onClick={() => navigate("/NuevoTicket")}
+            onClick={() => navigate("/NuevoTicketGestor")}
           >
             Nuevo ticket
           </button>

@@ -1,0 +1,169 @@
+.layout-container-DetalleMis{
+    display: flex;
+    background: #0d1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+}
+
+
+
+.detalle-ticket-container-Mis    {
+  padding: 30px 40px;
+  color: #e2e8f0;
+  flex: 1;
+}
+
+/* SUBTÍTULO */
+.subtitulo {
+  margin-top: -6px;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+/* ==========================
+   CARD DETALLE
+========================== */
+.card-detalle {
+  background: #1e293b;
+  padding: 28px;
+  border-radius: 14px;
+  margin-top: 24px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* CAMPOS */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.campo span,
+.campo p {
+  font-size: 15px;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+/* ==========================
+   ESTADOS Y PRIORIDADES
+========================== */
+.estado,
+.prioridad {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  width: fit-content;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+/* ESTADOS */
+.estado-abierto {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.estado-en-progreso {
+  background: #f59e0b;
+  color: #1e293b;
+}
+
+.estado-cerrado {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.estado-desconocido {
+  background: #64748b;
+  color: #ffffff;
+}
+
+/* PRIORIDADES */
+.prioridad-alta {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.prioridad-media {
+  background: #f59e0b;
+  color: #1e293b;
+}
+
+.prioridad-baja {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.prioridad-desconocida {
+  background: #64748b;
+  color: #ffffff;
+}
+
+/* ==========================
+   ACCIONES
+========================== */
+.acciones-detalle {
+  margin-top: 28px;
+  display: flex;
+  gap: 14px;
+}
+
+/* SOLO BOTÓN VOLVER */
+.btn-volver {
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  background: #475569;
+  color: #ffffff;
+  border: none;
+  transition: background 0.25s ease;
+}
+
+.btn-volver:hover {
+  background: #334155;
+}
+
+/* ==========================
+   MENSAJE NO TICKET
+========================== */
+.no-ticket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  color: #e2e8f0;
+  text-align: center;
+}
+
+.no-ticket h2 {
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+
+.no-ticket button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #475569;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  transition: background 0.25s ease;
+}
+
+.no-ticket button:hover {
+  background: #334155;
+}
