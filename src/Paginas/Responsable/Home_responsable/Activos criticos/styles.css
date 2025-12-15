@@ -1,0 +1,67 @@
+.activos-box {
+    width: 630px;
+    background: #10151c;
+    padding: 20px 24px;
+    color: #c9d1d9;
+    font-family: system-ui, sans-serif;
+    margin-top: 8px;
+    margin-left: 40px;
+}
+
+.titulo {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.separador {
+    margin-top: 28px;
+}
+
+.tabla-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.thead {
+    display: grid;
+    grid-template-columns: 1.4fr 1.4fr 1fr 1fr;
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.fila {
+    display: grid;
+    grid-template-columns: 1.4fr 1.4fr 1fr 1fr;
+    font-size: 13px;
+    align-items: center;
+}
+
+.bold {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.badge {
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.badge.incidencia {
+    background: rgba(210, 153, 34, 0.15);
+    color: #d29922;
+}
+
+.badge.revision {
+    background: rgba(46, 160, 67, 0.15);
+    color: #2ea043;
+}
+
+.badge.pendiente {
+    background: rgba(248, 81, 73, 0.15);
+    color: #f85149;
+}

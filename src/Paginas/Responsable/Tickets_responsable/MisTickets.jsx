@@ -8,8 +8,9 @@ export default function MisTickets() {
   const navigate = useNavigate();
 
   const menuItems = [
-    { to: "/Home_responsable", label: "Mis Activos" },
-    { to: "/MisTickets", label: "Mis Tickets" },
+    { to: "/Home_responsable", label: "General" },
+    { to: "/Activos_responsable", label: "Activos" },
+    { to: "/MisTickets", label: "Tickets" }
   ];
 
   const [tickets, setTickets] = useState([]);

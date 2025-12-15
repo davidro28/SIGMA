@@ -1,0 +1,68 @@
+.home-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Layout principal */
+.layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Contenido */
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #0d1117;
+}
+
+/* Títulos */
+.contenedor_parrafos {
+    color: #fff;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.parrafo_principal {
+    font-size: 26px;
+}
+
+.subparrafo_principal {
+    font-size: 12px;
+    color: #a3a3a3;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.cuadros-container {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 12px auto;
+}
+
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    gap: 12px;                          /* antes 12px */
+    margin-top: 10px;
+}
+
+
+.container-izquierdo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Columna derecha */
+.container-derecho {
+    display: flex;
+    flex-direction: column;
+}

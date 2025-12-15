@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import SigmaHeader from '../../../Components/sigmaHeader/';
-import VerticalNav from '../../../Components/verticalNav';
-import CuadroInformativo from '../../../Components/cuadroInformacion';
-import BuscadorMantenimiento from '../../../Components/buscadorMantenimiento';
-import NuevaOrden from "../../../Components/nuevaOrden";
-import OrdenesMantenimiento from '../../../Components/ordenesMantenimiento';
-import FiltrarEstado from '../../../Components/filtrarEstado';
-import FiltrarPrioridad from '../../../Components/filtrarPrioridad';
+import SigmaHeader from '../../Components/sigmaHeader';
+import VerticalNav from '../../Components/verticalNav';
+import CuadroInformativo from '../../Components/cuadroInformacion';
+import BuscadorMantenimiento from '../../Components/buscadorMantenimiento';
+import NuevaOrden from "../../Components/nuevaOrden";
+import OrdenesMantenimiento from '../../Components/ordenesMantenimiento';
+import FiltrarEstado from '../../Components/filtrarEstado';
+import FiltrarPrioridad from '../../Components/filtrarPrioridad';
 import './styles.css';
 
 function Mantenimiento_Admin() {
@@ -14,7 +14,7 @@ function Mantenimiento_Admin() {
         { to: "/General", label: "General" },
         { to: "/Activos", label: "Activos" },
         { to: "/Tickets", label: "Tickets" },
-        { to: "/Mantenimiento", label: "Mantenimiento" }
+        { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
     ];
 
     const [ordenes, setOrdenes] = useState([

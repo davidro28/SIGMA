@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import VerticalNav from "../../../Components/verticalNav";
-import "./Home_responsable.css";
+import "./Activos_responsable.css";
 
 const activosIniciales = [
   {
@@ -33,10 +33,11 @@ const activosIniciales = [
   },
 ];
 
-function Home_responsable() {
+function Activos_responsable() {
   const menuItems = [
-    { to: "/Home_responsable", label: "Mis Activos" },
-    { to: "/MisTickets", label: "Mis Tickets" },
+    { to: "/Home_responsable", label: "General" },
+    { to: "/Activos_responsable", label: "Activos" },
+    { to: "/MisTickets", label: "Tickets" }
   ];
 
   const [activos, setActivos] = useState(activosIniciales);
@@ -177,4 +178,4 @@ function Home_responsable() {
   );
 }
 
-export default Home_responsable;
+export default Activos_responsable;
