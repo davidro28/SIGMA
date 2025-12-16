@@ -1,0 +1,35 @@
+.home-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #0d1117;
+}
+
+.parrafo_principal {
+    color: #fff;
+    font-size: 26px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.cuadros-container {
+    display: flex;
+    gap: 20px;               /* espacio entre los recuadros */
+    justify-content: center;  /* centra los recuadros dentro del contenedor */
+    align-items: center;      /* centra verticalmente los recuadros */
+    width: fit-content;       /* el ancho se ajusta al contenido */
+    margin: 20px auto;           /* centra el contenedor horizontalmente */
+}

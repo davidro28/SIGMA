@@ -2,6 +2,8 @@ import React from "react";
 import "./styles.css";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import VerticalNav from "../../../Components/verticalNav";
+import CuadroInformativo from "../../../Components/cuadroInformacion";
+import AgendaMantenimientos from "./Agenda_mantenimientos/index"
 
 function HomeTecniMantenimiento() {
     const menuItems = [
@@ -11,12 +13,29 @@ function HomeTecniMantenimiento() {
         { to: "/MantenimientosTecniMantenimiento", label: "Mantenimientos" }
     ];
     return (
-        <div>
+        <div className="home-container">
             <header>
                 <SigmaHeader />
             </header>
-            <div>
+            <div className="layout">
                 <VerticalNav items={menuItems} />
+                <main className="content">
+                    <section>
+                        <p className='parrafo_principal'>Vista principal</p>
+                        <div className="cuadros-container">
+                            <CuadroInformativo titulo="Ordenes de trabajo hoy" valor={7} estadistica="3 en curso - 2 pendientes" sugerencia="Completadas: 2"/>
+                            <CuadroInformativo titulo="Mantenimientos preventivos" valor={11} estadistica="8 programados - 3 completados" sugerencia="Semana actual"/>
+                            <CuadroInformativo titulo="Tickets asignados a ti" valor={9} estadistica="-1 vs ayer" sugerencia="Alta prioridad: 3"/>
+                            <CuadroInformativo titulo="Cumplimiento SLA técnico" valor="89%" estadistica="+5 pts vs periodo anterior" sugerencia="Ultimos 30 días"/>
+                        </div>
+                        <div>
+                            <div className="container-izquierdo">
+                                <AgendaMantenimientos />
+                            </div>
+                            <div className="container-derecho"></div>
+                        </div>
+                    </section>
+                </main>
             </div>
         </div>
     )
