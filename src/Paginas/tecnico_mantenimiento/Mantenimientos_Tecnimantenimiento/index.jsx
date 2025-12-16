@@ -3,7 +3,7 @@ import "./styles.css";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import VerticalNav from "../../../Components/verticalNav";
 
-function HomeTecniMantenimiento() {
+function MantenimientosTecniMantenimiento() {
     const menuItems = [
         { to: "/HomeTecniMantenimiento", label: "General" },
         { to: "/Activos", label: "Activos" },
@@ -22,4 +22,4 @@ function HomeTecniMantenimiento() {
     )
 }
 
-export default HomeTecniMantenimiento;
+export default MantenimientosTecniMantenimiento;
