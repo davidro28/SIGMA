@@ -20,8 +20,7 @@ import NuevoMisTickets from "./Paginas/Responsable/Tickets_responsable/NuevoMisT
 import DetalleMisTickets from "./Paginas/Responsable/Tickets_responsable/DetalleMisTickets.jsx";
 import HomeTecniMantenimiento from "./Paginas/tecnico_mantenimiento/Home_tecnimantenimineto/index.jsx"
 import Home_responsable from "./Paginas/Responsable/Home_responsable/index.jsx"
-
-
+import MantenimientosTecniMantenimiento from './Paginas/tecnico_mantenimiento/Mantenimientos_Tecnimantenimiento/index.jsx'
 
 
 function App() {
@@ -48,6 +47,7 @@ function App() {
       <Route path="/DetalleMisTickets/:id" element={<DetalleMisTickets />} />
       <Route path="/HomeTecniMantenimiento" element={<HomeTecniMantenimiento />} />
       <Route path="/Home_responsable" element={<Home_responsable />} />
+      <Route path="/MantenimientosTecniMantenimiento" element={<MantenimientosTecniMantenimiento />} />
 
       {/* fallback: si no coincide, ir a login */}
       <Route path="*" element={<Login />} />
