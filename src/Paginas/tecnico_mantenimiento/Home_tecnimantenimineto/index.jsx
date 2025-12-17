@@ -8,8 +8,8 @@ import AgendaMantenimientos from "./Agenda_mantenimientos/index"
 function HomeTecniMantenimiento() {
     const menuItems = [
         { to: "/HomeTecniMantenimiento", label: "General" },
-        { to: "/Activos", label: "Activos" },
-        { to: "/Tickets", label: "Tickets" },
+        { to: "/Activos_mantenimiento", label: "Activos" },
+        { to: "/Tickets_mantenimiento", label: "Tickets" },
         { to: "/MantenimientosTecniMantenimiento", label: "Mantenimientos" }
     ];
     return (
