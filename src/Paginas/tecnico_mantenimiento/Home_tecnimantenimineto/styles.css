@@ -18,11 +18,12 @@
     background-color: #0d1117;
 }
 
-.parrafo_principal {
+.parrafo-principal {
     color: #fff;
-    font-size: 26px;
+    font-size: 36px !important;
     margin-top: 10px;
     margin-left: 20px;
+    margin-bottom: 15px;
 }
 
 .cuadros-container {
@@ -32,4 +33,21 @@
     align-items: center;      /* centra verticalmente los recuadros */
     width: fit-content;       /* el ancho se ajusta al contenido */
     margin: 20px auto;           /* centra el contenedor horizontalmente */
+}
+
+.contenedor-inferior {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 25px;
+    margin-left: 40px;
+}
+
+.container-izquierdo {
+    flex: 0.7;
+}
+
+
+.container-derecho {
+    flex: 1;
 }

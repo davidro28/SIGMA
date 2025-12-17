@@ -1,14 +1,10 @@
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
 .agenda-container {
   background: #0b0f14;
   color: #e5e7eb;
   padding: 24px;
   border-radius: 12px;
-  max-width: 900px;
+  width: 780px;
+  height: 670px;
 }
 
 .agenda-header {
