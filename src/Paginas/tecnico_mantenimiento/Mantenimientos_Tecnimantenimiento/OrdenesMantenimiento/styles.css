@@ -1,0 +1,123 @@
+.oat-container {
+    background: #12171f;
+    padding: 20px;
+    color: #e6edf3;
+    font-family: system-ui, sans-serif;
+    width: 780px;
+}
+
+.oat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.oat-header h3 {
+    font-size: 15px;
+    margin: 0 0 6px;
+}
+
+.oat-link {
+    font-size: 13px;
+    color: #8b949e;
+    cursor: pointer;
+}
+
+.oat-legend {
+    display: flex;
+    gap: 70px;
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.dot::before {
+    content: "●";
+    margin-right: 6px;
+}
+
+.dot.preventivo::before { color: #2ea043; }
+.dot.correctivo::before { color: #d29922; }
+.dot.inspeccion::before { color: #58a6ff; }
+
+/* TABLAS */
+.oat-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.oat-table thead th {
+    text-align: left;
+    color: #8b949e;
+    font-weight: 500;
+    padding-bottom: 8px;
+}
+
+.oat-table tbody td {
+    padding: 8px 0;
+    border-top: 1px solid #21262d;
+}
+
+.oat-table.small tbody td {
+    padding: 7px 0;
+}
+
+/* DIVIDER */
+.oat-divider {
+    height: 1px;
+    background: #21262d;
+    margin: 16px 0;
+}
+
+.oat-subtitle {
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 8px;
+}
+
+/* BADGES */
+.badge {
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+/* Tipo */
+.badge.tipo.preventivo { background: #1f6f3a; }
+.badge.tipo.correctivo { background: #7a4e0b; }
+.badge.tipo.inspeccion { background: #1f4f8f; }
+
+/* Estado */
+.badge.estado.ejecucion { background: #238636; }
+.badge.estado.pendiente { background: #9e6a03; }
+.badge.estado.completado { background: #2ea043; }
+.badge.estado.programado { background: #30363d; }
+.badge.estado.espera { background: #6e7681; }
+.badge.estado.planificado { background: #30363d; }
+
+/* ACCIONES */
+.accion-btn {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border 0.2s ease;
+}
+
+.accion-btn:hover {
+    background: #30363d;
+    border-color: #58a6ff;
+}
+
+/* AJUSTE COLUMNA ACCIONES */
+.oat-table th:last-child,
+.oat-table td:last-child {
+    text-align: right;
+    width: 110px;
+}
