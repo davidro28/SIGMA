@@ -138,8 +138,6 @@ export default function MisTickets() {
               </button>
             </div>
           </section>
-
-          {/* TABLA */}
           <table className="tabla-tickets">
             <thead>
               <tr>

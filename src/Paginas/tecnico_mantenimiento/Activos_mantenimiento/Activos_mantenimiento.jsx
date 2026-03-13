@@ -78,7 +78,6 @@ function Activos_mantenimiento() {
 
   return (
     <div>
-      {/* HEADER */}
       <header>
         <SigmaHeader />
       </header>
@@ -94,8 +93,6 @@ function Activos_mantenimiento() {
               servicio
             </p>
           </div>
-
-          {/* FILTROS */}
           <section className="filtros-rapidos-gestor">
             <h4>Listado de activos</h4>
             <p className="descripcion-filtros">
@@ -144,8 +141,6 @@ function Activos_mantenimiento() {
               </button>
             </div>
           </section>
-
-          {/* TABLA */}
           <table className="tabla-tickets">
             <thead>
               <tr>

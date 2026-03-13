@@ -94,7 +94,6 @@ function Tickets_mantenimiento() {
         <VerticalNav items={menuItems} />
 
         <main className="page-content-gestor">
-          {/* CABECERA */}
           <div className="header-tickets-gestor">
             <h1>Tickets de mantenimiento</h1>
             <p>
@@ -103,7 +102,6 @@ function Tickets_mantenimiento() {
             </p>
           </div>
 
-          {/* FILTROS */}
           <section className="filtros-rapidos-gestor">
             <h4>Listado de tickets</h4>
             <p className="descripcion-filtros">
@@ -150,8 +148,6 @@ function Tickets_mantenimiento() {
               </button>
             </div>
           </section>
-
-          {/* TABLA */}
           <table className="tabla-tickets">
             <thead>
               <tr>
@@ -218,8 +214,6 @@ function Tickets_mantenimiento() {
               ))}
             </tbody>
           </table>
-
-          {/* NOTA FINAL */}
           <div className="nota-final">
             <strong>¿No encuentras un ticket?</strong>
             <p>

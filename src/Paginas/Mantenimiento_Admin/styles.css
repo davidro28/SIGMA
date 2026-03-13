@@ -26,38 +26,38 @@
 
 .cuadros-container {
     display: flex;
-    gap: 20px;               /* espacio entre los recuadros */
-    justify-content: center;  /* centra los recuadros dentro del contenedor */
-    align-items: center;      /* centra verticalmente los recuadros */
-    width: fit-content;       /* el ancho se ajusta al contenido */
-    margin: 20px auto;           /* centra el contenedor horizontalmente */
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 20px auto;
 }
 
 .parte-principal {
     display: flex;
-    justify-content: space-between;  /* Mantenimiento a la izquierda, componentes a la derecha */
+    justify-content: space-between;
     align-items: center;
 }
 
 .grupo-derecha {
     display: flex;
     align-items: center;
-    gap: 10px;           /* espacio entre buscador y botón */
+    gap: 10px;
     margin-right: 20px;
 }
 
 .container-grande {
     display: flex;
-    justify-content: space-between;   /* separa filtros y órdenes */
-    gap: 25px;                         /* espacio entre ellos */
+    justify-content: space-between;
+    gap: 25px;
 }
 
 .container-filtros {
     display: flex;
     flex-direction: column;
-    gap: 15px;                         /* separación entre los filtros */
+    gap: 15px;
 }
 
 .container-ordenes {
-    flex: 1;                            /* ocupa todo el espacio restante */
+    flex: 1;
 }

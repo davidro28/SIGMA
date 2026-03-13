@@ -1,18 +1,16 @@
-/* ===== CONTENEDOR GENERAL ===== */
+
 .layout-container-NuevoA {
     display: flex;
-    background: #0d1117; /* fondo oscuro principal */
+    background: #0d1117; 
     color: #e2e8f0;
     min-height: 100vh;
 }
 
-/* ===== CONTENEDOR DE LA PÁGINA ===== */
 .nuevo-activo-container {
     padding: 30px;
     width: 100%;
 }
 
-/* TITULOS */
 .nuevo-activo-container h1 {
     font-size: 28px;
     font-weight: 700;
@@ -24,23 +22,20 @@
     color: #94a3b8;
 }
 
-/* ===== TARJETA DEL FORMULARIO ===== */
 .form-card {
-    background: #1e293b; /* gris oscuro */
+    background: #1e293b;
     border: 1px solid #334155;
     padding: 25px;
     border-radius: 16px;
     margin-bottom: 25px;
 }
 
-/* ===== SECCIONES DEL FORMULARIO ===== */
 .section-title {
     font-size: 18px;
     margin-bottom: 10px;
     font-weight: 600;
 }
 
-/* ===== INPUTS GENERALES ===== */
 .form-group {
     margin-bottom: 20px;
 }
@@ -60,7 +55,7 @@ textarea {
     padding: 12px 14px;
     border-radius: 10px;
     border: 1px solid #334155;
-    background: #0f172a; /* fondo más oscuro */
+    background: #0f172a;
     color: #e2e8f0;
     font-size: 14px;
 }
@@ -69,14 +64,12 @@ textarea {
     cursor: pointer;
 }
 
-/* ===== GRID DE 2 COLUMNAS ===== */
 .form-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-/* ===== SUBIDA DE IMAGEN ===== */
 .image-upload-box {
     background: #0f172a;
     border: 2px dashed #334155;
@@ -118,7 +111,6 @@ textarea {
     border-radius: 10px;
 }
 
-/* ===== BOTONES FINALES ===== */
 .actions {
     margin-top: 20px;
     display: flex;
@@ -154,7 +146,6 @@ textarea {
     background: #0fa393;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
     .form-grid-2 {
         grid-template-columns: 1fr;

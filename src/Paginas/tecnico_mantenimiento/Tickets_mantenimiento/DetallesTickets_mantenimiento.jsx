@@ -16,7 +16,6 @@ function DetallesTickets_mantenimiento() {
 
   return (
     <div>
-      {/* HEADER */}
       <header>
         <SigmaHeader />
       </header>
@@ -25,7 +24,6 @@ function DetallesTickets_mantenimiento() {
         <VerticalNav items={menuItems} />
 
         <main className="detalle-ticket-content">
-          {/* CABECERA */}
           <div className="detalle-header">
             <div>
               <h1>Detalle del ticket</h1>
@@ -42,8 +40,6 @@ function DetallesTickets_mantenimiento() {
               Volver a tickets
             </button>
           </div>
-
-          {/* INFO PRINCIPAL */}
           <section className="detalle-info">
             <div className="detalle-left">
               <h2>Fallas intermitentes en laptop de campo</h2>
@@ -60,8 +56,6 @@ function DetallesTickets_mantenimiento() {
                 <span className="badge badge-info">Tipo: Incidente</span>
                 <span className="badge badge-info">SLA: 4h</span>
               </div>
-
-              {/* DESCRIPCIÓN */}
               <div className="bloque">
                 <h4>Descripción detallada</h4>
                 <p>
@@ -74,8 +68,6 @@ function DetallesTickets_mantenimiento() {
                   persiste. No se han instalado aplicaciones nuevas recientemente.
                 </p>
               </div>
-
-              {/* HISTORIAL */}
               <div className="bloque">
                 <h4>Historial y actualizaciones</h4>
 
@@ -105,8 +97,6 @@ function DetallesTickets_mantenimiento() {
                   </div>
                 </div>
               </div>
-
-              {/* NOTAS */}
               <div className="bloque">
                 <h4>Notas internas</h4>
                 <textarea
@@ -115,8 +105,6 @@ function DetallesTickets_mantenimiento() {
                 <button className="btn-guardar">Guardar nota</button>
               </div>
             </div>
-
-            {/* PANEL DERECHO */}
             <aside className="detalle-right">
               <div className="card">
                 <h4>Acciones rápidas</h4>

@@ -25,7 +25,6 @@ export default function DetalleGestor() {
     descripcion: "",
   });
 
-  // 🔹 Cargar ticket
   useEffect(() => {
     const tickets =
       JSON.parse(localStorage.getItem("Home_gestortickets")) || [];
@@ -47,7 +46,6 @@ export default function DetalleGestor() {
     }
   }, [id]);
 
-  // 🔹 Si no existe
   if (!ticket) {
     return (
       <>
@@ -65,13 +63,11 @@ export default function DetalleGestor() {
     );
   }
 
-  // 🔹 Manejar cambios
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🔹 Guardar cambios
   const handleGuardar = () => {
     const tickets =
       JSON.parse(localStorage.getItem("Home_gestortickets")) || [];
@@ -106,7 +102,6 @@ export default function DetalleGestor() {
           <h1>Detalle del Ticket #{ticket.id.slice(0, 6)}</h1>
 
           <article className="card-detalle">
-            {/* TÍTULO */}
             <div className="campo">
               <label>Título</label>
               {editMode ? (
@@ -119,8 +114,6 @@ export default function DetalleGestor() {
                 <span>{ticket.titulo}</span>
               )}
             </div>
-
-            {/* ACTIVO */}
             <div className="campo">
               <label>Activo</label>
               {editMode ? (
@@ -133,8 +126,6 @@ export default function DetalleGestor() {
                 <span>{ticket.activo || "No asignado"}</span>
               )}
             </div>
-
-            {/* RESPONSABLE */}
             <div className="campo">
               <label>Responsable</label>
               {editMode ? (
@@ -147,8 +138,6 @@ export default function DetalleGestor() {
                 <span>{ticket.responsable || "No asignado"}</span>
               )}
             </div>
-
-            {/* ESTADO */}
             <div className="campo">
               <label>Estado</label>
               {editMode ? (
@@ -171,8 +160,6 @@ export default function DetalleGestor() {
                 </span>
               )}
             </div>
-
-            {/* PRIORIDAD */}
             <div className="campo">
               <label>Prioridad</label>
               {editMode ? (
@@ -193,8 +180,6 @@ export default function DetalleGestor() {
                 </span>
               )}
             </div>
-
-            {/* DESCRIPCIÓN */}
             <div className="campo">
               <label>Descripción</label>
               {editMode ? (
@@ -208,8 +193,6 @@ export default function DetalleGestor() {
                 <p>{ticket.descripcion || "No hay descripción"}</p>
               )}
             </div>
-
-            {/* ACCIONES */}
             <div className="acciones-detalle">
               <button
                 className="btn-volver"

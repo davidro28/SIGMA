@@ -20,12 +20,11 @@ export default function NuevoActivo() {
         img: ""
     });
 
-    // Manejo de inputs del formulario
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    // Manejo de imagen
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -34,8 +33,6 @@ export default function NuevoActivo() {
         setPreview(url);
         setForm({ ...form, img: url });
     };
-
-    // Guardar activo en localStorage
     const handleGuardar = () => {
 
         if (!form.titulo || !form.tipo || !form.estado) {
@@ -85,11 +82,8 @@ export default function NuevoActivo() {
                     <div className="form-card">
 
                         <h2 className="section-title">Información del activo</h2>
-
-                        {/* GRID DE DOS COLUMNAS */}
                         <div className="form-grid-2">
 
-                            {/* Nombre del activo */}
                             <div className="form-group">
                                 <label className="form-label">Nombre del activo</label>
                                 <input 
@@ -100,8 +94,6 @@ export default function NuevoActivo() {
                                     placeholder="Ej: iPhone 14 Pro Max"
                                 />
                             </div>
-
-                            {/* Tipo */}
                             <div className="form-group">
                                 <label className="form-label">Tipo</label>
                                 <select 
@@ -117,8 +109,6 @@ export default function NuevoActivo() {
                                     <option>Computadora</option>
                                 </select>
                             </div>
-
-                            {/* Número de serie */}
                             <div className="form-group">
                                 <label className="form-label">Número de serie</label>
                                 <input 
@@ -129,8 +119,6 @@ export default function NuevoActivo() {
                                     placeholder="Ej: SN-329392"
                                 />
                             </div>
-
-                            {/* NUEVO CAMPO: Responsable */}
                             <div className="form-group">
                                 <label className="form-label">Responsable asignado</label>
                                 <input 
@@ -141,8 +129,6 @@ export default function NuevoActivo() {
                                     placeholder="Ej: Juan Pérez"
                                 />
                             </div>
-
-                            {/* Estado */}
                             <div className="form-group">
                                 <label className="form-label">Estado</label>
                                 <select 
@@ -159,8 +145,6 @@ export default function NuevoActivo() {
                             </div>
 
                         </div>
-
-                        {/* Descripción */}
                         <div className="form-group">
                             <label className="form-label">Descripción</label>
                             <textarea 
@@ -170,8 +154,6 @@ export default function NuevoActivo() {
                                 placeholder="Información adicional del activo"
                             ></textarea>
                         </div>
-
-                        {/* Subida de imagen */}
                         <h2 className="section-title">Imagen del activo</h2>
 
                         <label className="image-upload-box">
@@ -192,8 +174,6 @@ export default function NuevoActivo() {
                             </div>
                         )}
                     </div>
-
-                    {/* BOTONES */}
                     <div className="actions">
                         <button 
                             className="btn-cancelar" 

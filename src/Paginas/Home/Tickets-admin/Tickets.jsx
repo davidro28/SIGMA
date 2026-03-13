@@ -14,14 +14,12 @@ export default function Tickets() {
     { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
   ];
 
-  // FILTROS
   const [filtroEstado, setFiltroEstado] = useState("Todos");
   const [filtroPrioridad, setFiltroPrioridad] = useState("Todas");
   const [filtroActivo, setFiltroActivo] = useState("Todos");
   const [filtroResponsable, setFiltroResponsable] = useState("Todos");
   const [busqueda, setBusqueda] = useState("");
 
-  // TICKETS DESDE LOCALSTORAGE
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
@@ -29,7 +27,6 @@ export default function Tickets() {
     setTickets(data);
   }, []);
 
-  // FILTRAR
   const ticketsFiltrados = tickets.filter(ticket => {
     const matchesBusqueda =
       ticket.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -51,8 +48,6 @@ export default function Tickets() {
   });
 
   const estadosRapidos = ["Abierto", "En progreso", "Cerrado"];
-
-  // Obtener valores únicos para filtros dinámicos
   const activosUnicos = [...new Set(tickets.map(t => t.activo).filter(Boolean))];
   const responsablesUnicos = [...new Set(tickets.map(t => t.responsable).filter(Boolean))];
 
@@ -65,13 +60,10 @@ export default function Tickets() {
 
         <div className="page-content tickets-container">
 
-          {/* TITULO */}
           <div className="header-tickets">
             <h1>Tickets</h1>
             <p>Visualiza, filtra y crea tickets para incidentes y solicitudes</p>
           </div>
-
-          {/* FILTROS */}
           <div className="filtros-rapidos">
             <h4>Filtros rápidos</h4>
             <p className="descripcion-filtros">
@@ -164,8 +156,6 @@ export default function Tickets() {
               ))}
             </div>
           </div>
-
-          {/* TABLA */}
           <table className="tabla-tickets">
             <thead>
               <tr>

@@ -21,7 +21,6 @@ export default function DetalleActivo() {
   const [preview, setPreview] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  // Función para recargar activos en Activos.jsx
   const recargarActivos = location.state?.recargar;
 
   useEffect(() => {
@@ -65,8 +64,6 @@ export default function DetalleActivo() {
     activosGuardados[index] = activo;
     localStorage.setItem("activos", JSON.stringify(activosGuardados));
     alert("Cambios guardados");
-
-    // Recargar activos en lista principal
     if (recargarActivos) recargarActivos();
 
     navigate("/Activos");

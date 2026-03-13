@@ -10,7 +10,6 @@ export default function Activos() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("Todos");
 
-  // Cargar activos desde localStorage
   const cargarActivos = () => {
     const data = JSON.parse(localStorage.getItem("activos")) || [];
     setActivos(data);
@@ -27,7 +26,6 @@ export default function Activos() {
     { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
   ];
 
-  // Filtrar activos según búsqueda y filtro
   const activosFiltrados = activos.filter(item => {
     const matchesSearch = item.titulo?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filter === "Todos" || item.tipo === filter;
@@ -70,7 +68,6 @@ export default function Activos() {
           </div>
 
           <div className="assets-grid">
-            {/* Tarjeta de creación */}
             <div className="create-card">
               <h3>Crear nuevo activo</h3>
               <p>Registra un nuevo equipo con su imagen y tipo.</p>
@@ -78,8 +75,6 @@ export default function Activos() {
                 + Nuevo activo
               </button>
             </div>
-
-            {/* Tarjetas de activos */}
             {activosFiltrados.length > 0 ? (
               activosFiltrados.map(item => (
                 <div key={item.id} className="asset-card">
@@ -93,8 +88,6 @@ export default function Activos() {
 
                   <div className="asset-meta">
                     <span>{item.tipo || "Sin tipo"}</span>
-
-                    {/* ESTADO DINÁMICO CON COLORES */}
                     <span
                       className={`estado estado-${(item.estado || "")
                         .toLowerCase()

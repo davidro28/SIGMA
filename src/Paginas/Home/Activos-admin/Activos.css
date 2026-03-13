@@ -1,4 +1,4 @@
-/* CONTENEDOR GENERAL */
+
 .layout-container-admin {
     display: flex;
     background: #0d1117;
@@ -6,13 +6,11 @@
     min-height: 100vh;
 }
 
-/* CONTENEDOR DE LA PÁGINA */
+
 .activos-container {
     padding: 30px;
     width: 100%;
 }
-
-/* TITULOS */
 .page-title {
     font-size: 28px;
     font-weight: 700;
@@ -24,7 +22,7 @@
     color: #94a3b8;
 }
 
-/* TOP BAR */
+
 .top-bar {
     display: flex;
     align-items: center;
@@ -51,7 +49,6 @@
     font-weight: 600;
 }
 
-/* FILTROS */
 .filter-options {
     display: flex;
     gap: 10px;
@@ -72,14 +69,12 @@
     border-color: #14b8a6;
 }
 
-/* GRID DE ACTIVOS */
 .assets-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
 }
 
-/* TARJETA NUEVO ACTIVO */
 .create-card {
     background: #1e293b;
     border: 1px solid #334155;
@@ -97,7 +92,6 @@
     cursor: pointer;
 }
 
-/* TARJETAS DE ACTIVOS */
 .asset-card {
     background: #1e293b;
     border: 1px solid #334155;
@@ -125,7 +119,6 @@
     color: #94a3b8;
 }
 
-/* ESTADOS (DINÁMICOS) */
 .estado {
     padding: 4px 12px;
     border-radius: 8px;
@@ -135,23 +128,19 @@
     color: white;
 }
 
-/* VERDE → Disponible / Asignado */
 .estado-disponible,
 .estado-asignado {
     background: #22c55e;
 }
 
-/* NARANJA → En reparación */
 .estado-en-reparación {
     background: #f97316;
 }
 
-/* ROJO → De baja */
 .estado-de-baja {
     background: #ef4444;
 }
 
-/* GRIS → Desconocido */
 .estado-desconocido,
 .estado- {
     background: #6b7280;
@@ -171,7 +160,6 @@
     font-weight: 500;
 }
 
-/* PAGINACION */
 .pagination {
     margin-top: 25px;
     display: flex;

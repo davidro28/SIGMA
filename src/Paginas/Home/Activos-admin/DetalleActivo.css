@@ -57,7 +57,6 @@
   font-size: 14px;
 }
 
-/* Campos deshabilitados */
 .form-input:disabled,
 .form-select:disabled,
 textarea:disabled {
@@ -73,7 +72,7 @@ textarea:disabled {
   color: #475569;
 }
 
-/* Campos modificables y con foco */
+
 .form-input:enabled,
 .form-select:enabled,
 textarea:enabled {
@@ -100,7 +99,6 @@ textarea:enabled:focus {
   background-color: #134e4a;
 }
 
-/* Botones */
 
 .actions {
   margin-top: 30px;
@@ -141,7 +139,7 @@ textarea:enabled:focus {
   background: #0f766e;
 }
 
-/* Upload label */
+
 .image-upload-box {
   cursor: pointer;
   color: #14b8a6;

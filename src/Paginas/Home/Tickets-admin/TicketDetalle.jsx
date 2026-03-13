@@ -28,7 +28,6 @@ export default function TicketDetalle() {
     descripcion: "",
   });
 
-  // 🔹 CARGAR TICKET (state o localStorage)
   useEffect(() => {
     const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
 
@@ -49,7 +48,6 @@ export default function TicketDetalle() {
     }
   }, [id, location.state]);
 
-  // 🔹 SI NO EXISTE
   if (!ticket) {
     return (
       <>
@@ -62,13 +60,11 @@ export default function TicketDetalle() {
     );
   }
 
-  // 🔹 MANEJAR CAMBIOS
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🔹 GUARDAR CAMBIOS
   const handleGuardar = () => {
     const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
     const index = tickets.findIndex((t) => t.id === ticket.id);

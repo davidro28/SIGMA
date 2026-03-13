@@ -1,4 +1,4 @@
-/* RESET GENERAL */
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
   font-family: "Inter", sans-serif;
 }
 
-/* Fondo general */
+
 .auth-container {
   width: 100%;
   min-height: 100vh;
@@ -17,7 +17,7 @@
   padding: 20px;
 }
 
-/* Caja principal */
+
 .auth-box {
   width: 420px;
   background: linear-gradient(180deg, #171b1e 0%, #1a1f24 100%);
@@ -27,7 +27,6 @@
   color: #fff;
 }
 
-/* Logo */
 .logo {
   display: flex;
   align-items: center;
@@ -44,14 +43,12 @@
 }
 .logo-text { font-size: 18px; font-weight: 600; }
 
-/* Títulos */
+
 h2 { margin-top: 5px; font-size: 22px; }
 .subtitle { color: #8b9aa5; margin-bottom: 18px; }
 
-/* Labels */
 label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; color: #d0d8df; }
 
-/* Input groups */
 .input-group {
   padding: 8px 12px;
   border-radius: 8px;
@@ -76,7 +73,21 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
 .input-group i { color: #9ba3af; font-size: 16px; }
 .input-group:hover { border-color: #2be4ac; }
 
-/* Botón ojo */
+.input-group select {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e6edf3;
+  width: 100%;
+  font-size: 14px;
+  appearance: none;
+  cursor: pointer;
+}
+.input-group select option {
+  background: #1a1f24;
+  color: #ffffff;
+} 
+
 .password-group .toggle-password {
   background: none !important;
   border: none !important;
@@ -91,7 +102,6 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
   font-size: 18px !important;
 }
 
-/* Opciones términos */
 .options.terms {
   display: flex;
   align-items: center;
@@ -103,7 +113,7 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
 .options.terms input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
 .terms-link { color: #00d892; text-decoration: underline; cursor: pointer; }
 
-/* Botón principal */
+
 .btn-primary {
   width: 100%;
   padding: 12px;
@@ -125,11 +135,9 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
 }
 .btn-primary:hover:not(:disabled) { box-shadow: 0 10px 30px rgba(0,216,146,0.12); }
 
-/* Enlace de iniciar sesión */
 .register-text { margin-top: 14px; text-align: center; color: #8a9aa4; }
 .register-text a { color: #00d892; font-weight: 600; text-decoration: none; }
 
-/* Modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -143,7 +151,6 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
   z-index: 1200;
 }
 
-/* Modal content */
 .modal-content {
   background: #ffffff;
   color: #111;
@@ -162,7 +169,7 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
 .modal-text p, .modal-text ul { font-size: 14px; line-height: 1.45; color: #2f3740; margin-top: 6px; padding-left: 12px; }
 .modal-text ul { list-style-type: disc; padding-left: 20px; }
 
-/* Botones del modal, siempre visibles y separados del contenido */
+
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
@@ -175,7 +182,7 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
   padding-bottom: 6px;
 }
 
-/* Botón base */
+
 .modal-btn {
   padding: 10px 16px;
   border-radius: 8px;
@@ -185,7 +192,7 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
   font-size: 14px;
 }
 
-/* Cancelar */
+
 .cancel-btn {
   background: #f3f3f3;
   color: #222;
@@ -193,7 +200,6 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
 }
 .cancel-btn:hover { background: #e9e9e9; }
 
-/* Volver a login (link estilizado) */
 .login-btn {
   background: #ffffff;
   color: #0f1720;
@@ -205,14 +211,12 @@ label { margin-top: 12px; margin-bottom: 6px; display: block; font-size: 14px; c
 }
 .login-btn:hover { background: #f7f7f7; }
 
-/* Aceptar */
 .accept-btn {
   background: #00d892;
   color: #07110a;
 }
 .accept-btn:hover { filter: brightness(0.95); }
 
-/* pequeña responsividad */
 @media (max-width: 480px) {
   .auth-box { width: 92%; padding: 24px; }
   .modal-content { padding: 18px; }

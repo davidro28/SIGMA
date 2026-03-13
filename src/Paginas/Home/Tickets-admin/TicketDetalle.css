@@ -10,7 +10,6 @@
   font-size: 16px;
 }
 
-/* CARD DETALLE */
 .card-detalle-admin {
   background: #1e293b;
   padding: 24px;
@@ -33,7 +32,6 @@ label {
   margin-bottom: 6px;
 }
 
-/* ESTADOS Y PRIORIDADES */
 .estado, .prioridad {
   padding: 6px 12px;
   border-radius: 8px;
@@ -43,19 +41,16 @@ label {
   transition: background 0.3s;
 }
 
-/* Estados */
 .estado-abierto { background: #2563eb; color: #ffffff; }
 .estado-en-proceso { background: #facc15; color: #1e293b; }
 .estado-cerrado { background: #16a34a; color: #ffffff; }
 .estado-desconocido { background: #64748b; color: #ffffff; }
 
-/* Prioridades */
 .prioridad-alta { background: #dc2626; color: #ffffff; }
 .prioridad-media { background: #f59e0b; color: #1e293b; }
 .prioridad-baja { background: #10b981; color: #ffffff; }
 .prioridad-desconocida { background: #64748b; color: #ffffff; }
 
-/* BOTONES */
 .acciones-detalle {
   margin-top: 25px;
   display: flex;
@@ -91,7 +86,6 @@ label {
   background: #2563eb;
 }
 
-/* Mensaje no ticket */
 .no-ticket {
   display: flex;
   flex-direction: column;

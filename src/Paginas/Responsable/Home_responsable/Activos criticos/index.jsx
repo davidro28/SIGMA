@@ -4,7 +4,6 @@ import "./styles.css";
 function ActivosCriticos() {
     return (
         <div className="activos-box">
-        {/* Activos críticos */}
             <h3 className="titulo">Activos críticos asignados</h3>
             <div className="tabla-grid">
                 <div className="thead">

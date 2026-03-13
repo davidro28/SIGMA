@@ -1,4 +1,4 @@
-/* LAYOUT GENERAL */
+
 .layout-container-adminT {
   display: flex;
   min-height: 100vh;
@@ -8,7 +8,7 @@
   text-align: left;
 }
 
-/* HEADER */
+
 .header-tickets {
   width: 100%;
   padding: 0;
@@ -26,13 +26,12 @@
   color: #94a3b8;
 }
 
-/* PAGE CONTENT */
+
 .page-content {
   flex: 1;
   padding: 30px;
 }
 
-/* FILTROS RÁPIDOS */
 .filtros-rapidos {
   width: 100%;
   background: #161b22;
@@ -101,8 +100,6 @@
 .filtros-rapidos select:focus {
   border-color: #14b8a6;
 }
-
-/* BOTONES FILTROS */
 .btn-limpiar {
   padding: 10px 16px;
   background: #2d3a4b;
@@ -144,7 +141,6 @@
   color: white;
 }
 
-/* TABLA DE TICKETS */
 .tabla-tickets {
   width: 100%;
   border-collapse: collapse;
@@ -172,7 +168,6 @@
   background-color: #212c3b;
 }
 
-/* ESTADO Y PRIORIDAD */
 .estado, .prioridad {
   padding: 5px 12px;
   border-radius: 12px;
@@ -190,7 +185,6 @@
 .prioridad-media { background: #8b5cf6; }
 .prioridad-baja { background: #10b981; }
 
-/* BOTÓN VER */
 .btn-ver {
   background: none;
   border: none;
@@ -204,7 +198,6 @@
   color: #0d9488;
 }
 
-/* PAGINACIÓN */
 .paginacion {
   display: flex;
   justify-content: center;
@@ -235,7 +228,6 @@
   color: white;
 }
 
-/* BOTÓN NUEVO TICKET */
 .btn-nuevo-ticket {
   position: fixed;
   bottom: 30px;

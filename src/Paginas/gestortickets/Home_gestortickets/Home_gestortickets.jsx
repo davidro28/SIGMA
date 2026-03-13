@@ -12,14 +12,13 @@ export default function Tickets() {
     { to: "/MantenimientoGestor", label: "Mantenimiento" },
   ];
 
-  // FILTROS
+
   const [filtroEstado, setFiltroEstado] = useState("Todos");
   const [filtroPrioridad, setFiltroPrioridad] = useState("Todas");
   const [filtroActivo, setFiltroActivo] = useState("Todos");
   const [filtroResponsable, setFiltroResponsable] = useState("Todos");
   const [busqueda, setBusqueda] = useState("");
 
-  // TICKETS DESDE LOCALSTORAGE
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
@@ -27,7 +26,6 @@ export default function Tickets() {
     setTickets(data);
   }, []);
 
-  // FILTRAR TICKETS
   const ticketsFiltrados = tickets.filter(ticket => {
     const matchesBusqueda =
       ticket.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -66,13 +64,11 @@ export default function Tickets() {
         <VerticalNav items={menuItems} />
 
         <div className="page-content-gestor tickets-container">
-          {/* TITULO */}
           <div className="header-tickets-gestor">
             <h1>Tickets</h1>
             <p>Visualiza, filtra y crea tickets para incidentes y solicitudes</p>
           </div>
 
-          {/* FILTROS */}
           <div className="filtros-rapidos-gestor">
             <h4>Filtros rápidos</h4>
             <p className="descripcion-filtros">
@@ -154,8 +150,6 @@ export default function Tickets() {
               ))}
             </div>
           </div>
-
-          {/* TABLA DE TICKETS */}
           <table className="tabla-tickets">
             <thead>
               <tr>

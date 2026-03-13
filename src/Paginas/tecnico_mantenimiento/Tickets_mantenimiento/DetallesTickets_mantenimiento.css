@@ -10,7 +10,6 @@
   padding: 28px;
 }
 
-/* CABECERA */
 .detalle-header {
   display: flex;
   justify-content: space-between;
@@ -32,7 +31,6 @@
   cursor: pointer;
 }
 
-/* CONTENIDO */
 .detalle-info {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -76,7 +74,6 @@
   background: #334155;
 }
 
-/* BLOQUES */
 .bloque {
   background: #020617;
   border-radius: 12px;
@@ -88,7 +85,6 @@
   margin-bottom: 10px;
 }
 
-/* TIMELINE */
 .timeline .evento {
   display: flex;
   gap: 12px;
@@ -103,7 +99,6 @@
   margin-top: 6px;
 }
 
-/* NOTAS */
 textarea {
   width: 100%;
   background: #020617;
@@ -123,7 +118,6 @@ textarea {
   cursor: pointer;
 }
 
-/* PANEL DERECHO */
 .detalle-right .card {
   background: #020617;
   border-radius: 12px;

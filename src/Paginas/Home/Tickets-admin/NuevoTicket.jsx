@@ -7,14 +7,13 @@ import "./NuevoTicket.css";
 export default function NuevoTicket() {
   const navigate = useNavigate();
 
-  // Estados del formulario
   const [titulo, setTitulo] = useState("");
   const [tipo, setTipo] = useState("");
   const [prioridad, setPrioridad] = useState("");
   const [activo, setActivo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [archivo, setArchivo] = useState(null);
-  const [responsable, setResponsable] = useState(""); // nuevo estado
+  const [responsable, setResponsable] = useState("");
 
   const menuItems = [
     { to: "/Home", label: "General" },
@@ -23,7 +22,6 @@ export default function NuevoTicket() {
     { to: "/mantenimiento_Admin", label: "Mantenimiento" }
   ];
 
-  // Guardar ticket en localStorage
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -34,12 +32,11 @@ export default function NuevoTicket() {
       prioridad,
       activo,
       descripcion,
-      responsable, // se guarda el responsable
+      responsable,
       fecha: new Date().toLocaleString(),
       archivoNombre: archivo ? archivo.name : null,
     };
 
-    // Guardar en localStorage
     const existentes = JSON.parse(localStorage.getItem("tickets")) || [];
     existentes.push(nuevoTicket);
     localStorage.setItem("tickets", JSON.stringify(existentes));

@@ -15,8 +15,6 @@ function OrdenesMantenimiento() {
                 </div>
                 <span className="oat-link">Exportar</span>
             </div>
-
-            {/* TABLA PRINCIPAL */}
             <table className="oat-table">
                 <thead>
                     <tr>
@@ -87,8 +85,6 @@ function OrdenesMantenimiento() {
             </table>
 
             <div className="oat-divider" />
-
-            {/* TABLA SECUNDARIA */}
             <h4 className="oat-subtitle">
                 Próximos mantenimientos preventivos de equipos
             </h4>

@@ -28,11 +28,11 @@
 
 .cuadros-container {
     display: flex;
-    gap: 20px;               /* espacio entre los recuadros */
-    justify-content: center;  /* centra los recuadros dentro del contenedor */
-    align-items: center;      /* centra verticalmente los recuadros */
-    width: fit-content;       /* el ancho se ajusta al contenido */
-    margin: 20px auto;           /* centra el contenedor horizontalmente */
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 20px auto;
 }
 
 .contenedor-inferior {

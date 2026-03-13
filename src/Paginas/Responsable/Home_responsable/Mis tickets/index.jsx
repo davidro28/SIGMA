@@ -4,7 +4,6 @@ import "./styles.css";
 function MisTickets() {
     return (
         <div className="tickets-box">
-        {/* Header */}
             <div className="tickets-header">
                 <div>
                     <h3>Mis tickets</h3>
@@ -12,7 +11,6 @@ function MisTickets() {
                 </div>
                 <a href="#" className="ver-todos">Ver todos</a>
             </div>
-        {/* Resumen */}
             <div className="resumen-lista">
                 <div className="resumen-item">
                     <p className="titulo">
@@ -42,7 +40,6 @@ function MisTickets() {
                 </span>
             </div>
         </div>
-    {/* Tickets asignados */}
         <h4 className="seccion">Tickets asignados a ti</h4>
         <div className="tabla">
             <div className="head">
@@ -70,7 +67,6 @@ function MisTickets() {
                 <span>Media</span>
             </div>
         </div>
-    {/* Acciones rápidas */}
         <h4 className="seccion">Acciones rápidas</h4>
         <div className="acciones">
             <span>Crear ticket para un activo mío</span>
@@ -78,7 +74,6 @@ function MisTickets() {
             <span>Registrar mantenimiento realizado</span>
             <span>Adjuntar evidencia</span>
         </div>
-    {/* Rendimiento */}
         <h4 className="seccion">Rendimiento personal</h4>
         <div className="grafico">
             Gráfico · Tickets creados vs resueltos por día (tú)

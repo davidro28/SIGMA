@@ -9,7 +9,6 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  // Usuarios y rutas por rol
   const users = {
     admin: { password: "1234", route: "/General" },
     gestortickets: { password: "5678", route: "/Home_gestortickets" },
@@ -17,9 +16,8 @@ export default function Login() {
     responsable: { password: "3456", route: "/Home_responsable" }
   };
 
-  // Lógica de login
   const handleEntrar = () => {
-    const username = email.split("@")[0]; // admin@gmail.com → "admin"
+    const username = email.split("@")[0];
 
     if (!users[username]) {
       alert("Usuario no encontrado");
@@ -31,7 +29,7 @@ export default function Login() {
       return;
     }
 
-    navigate(users[username].route); // redirige según el rol
+    navigate(users[username].route);
   };
 
   return (
@@ -51,7 +49,6 @@ export default function Login() {
 
         <form onSubmit={(e) => e.preventDefault()}>
 
-          {/* Email */}
           <div className="input-group">
             <i className="fa-solid fa-envelope"></i>
             <input
@@ -62,8 +59,6 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
-          {/* Password */}
           <div className="input-group password-group">
             <i className="fa-solid fa-lock"></i>
 
@@ -83,8 +78,6 @@ export default function Login() {
               <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`} />
             </button>
           </div>
-
-          {/* Opciones */}
           <div className="options">
             <label className="remember">
               <input type="checkbox" />
@@ -95,8 +88,6 @@ export default function Login() {
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
-
-          {/* Botón entrar */}
           <button
             type="button"
             className="btn-primary"

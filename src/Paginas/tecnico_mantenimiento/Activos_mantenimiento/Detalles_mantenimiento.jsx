@@ -51,7 +51,6 @@ function Detalles_mantenimiento() {
 
   return (
     <div>
-      {/* HEADER */}
       <header>
         <SigmaHeader />
       </header>
@@ -60,7 +59,6 @@ function Detalles_mantenimiento() {
         <VerticalNav items={menuItems} />
 
         <main className="contenido-mantenimiento">
-          {/* CABECERA */}
           <div className="cabecera-historial">
             <div>
               <h1>Historial de mantenimiento</h1>
@@ -77,8 +75,6 @@ function Detalles_mantenimiento() {
               Volver a activos
             </button>
           </div>
-
-          {/* INFO ACTIVO */}
           <section className="info-activo">
             <div className="activo-datos">
               <strong>Laptop mantenimiento campo</strong>
@@ -96,8 +92,6 @@ function Detalles_mantenimiento() {
               </button>
             </div>
           </section>
-
-          {/* RESUMEN */}
           <section className="resumen-historial">
             <div className="card-resumen">
               <h4>Órdenes en los últimos 12 meses</h4>
@@ -119,8 +113,6 @@ function Detalles_mantenimiento() {
               <span>Rango de fechas</span>
             </div>
           </section>
-
-          {/* TABLA */}
           <table className="tabla-historial">
             <thead>
               <tr>

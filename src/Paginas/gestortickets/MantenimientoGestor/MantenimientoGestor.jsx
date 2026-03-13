@@ -48,12 +48,10 @@ function MantenimientoGestor() {
 
     const [busqueda, setBusqueda] = useState("");
 
-    // Función para agregar nueva orden
     const agregarOrden = (nuevaOrden) => {
         setOrdenes([nuevaOrden, ...ordenes]);
     };
 
-    // Filtrar órdenes según buscador
     const ordenesFiltradas = ordenes.filter((o) => {
         const texto = busqueda.toLowerCase();
         return (

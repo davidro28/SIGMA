@@ -100,7 +100,6 @@ body {
   cursor: pointer;
 }
 
-/* BOTÓN LIMPIAR */
 .btn-limpiar {
   padding: 12px 26px;
   background: none;
@@ -116,9 +115,6 @@ body {
   color: white;
 }
 
-/* ===========================================
-   TABLA
-=========================================== */
 .tabla-tickets {
   width: 100%;
   border-collapse: collapse;
@@ -144,17 +140,11 @@ body {
   background-color: #212c3b;
 }
 
-/* ===========================================
-   TEXTO AUXILIAR
-=========================================== */
 .codigo {
   font-size: 12px;
   color: #94a3b8;
 }
 
-/* ===========================================
-   ESTADOS
-=========================================== */
 .estado {
   padding: 6px 14px;
   border-radius: 12px;
@@ -165,26 +155,22 @@ body {
   text-transform: capitalize;
 }
 
-/* Estados específicos */
 .estado-pendiente-revisión {
-  background-color: #f59e0b; /* amarillo */
+  background-color: #f59e0b; 
 }
 
 .estado-en-mantenimiento {
-  background-color: #3b82f6; /* azul */
+  background-color: #3b82f6; 
 }
 
 .estado-operativo {
-  background-color: #22c55e; /* verde */
+  background-color: #22c55e; 
 }
 
 .estado-programado {
-  background-color: #8b5cf6; /* morado */
+  background-color: #8b5cf6; 
 }
 
-/* ===========================================
-   PRIORIDADES
-=========================================== */
 .prioridad {
   padding: 6px 14px;
   border-radius: 12px;
@@ -195,26 +181,22 @@ body {
   text-transform: capitalize;
 }
 
-/* Prioridades específicas */
 .prioridad-crítica {
-  background-color: #dc2626; /* rojo */
+  background-color: #dc2626;
 }
 
 .prioridad-alta {
-  background-color: #f97316; /* naranja */
+  background-color: #f97316;
 }
 
 .prioridad-media {
-  background-color: #eab308; /* amarillo */
+  background-color: #eab308;
 }
 
 .prioridad-baja {
-  background-color: #10b981; /* verde */
+  background-color: #10b981;
 }
 
-/* ===========================================
-   BOTONES
-=========================================== */
 .btn-ver {
   background: none;
   border: none;
@@ -227,7 +209,7 @@ body {
   color: #0d9488;
 }
 
-/* BOTÓN FLOTANTE */
+
 .btn-nuevo-ticket {
   position: fixed;
   bottom: 30px;

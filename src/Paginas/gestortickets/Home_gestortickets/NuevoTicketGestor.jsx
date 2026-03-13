@@ -65,7 +65,6 @@ export default function NuevoTicket() {
         <VerticalNav items={menuItems} />
 
         <main className="page-content nuevo-ticket-container">
-          {/* HEADER */}
           <header className="header-nuevo-ticket">
             <h1>Nuevo ticket</h1>
             <button
@@ -79,8 +78,6 @@ export default function NuevoTicket() {
           <p className="descripcion-intro">
             Crea un ticket de incidente o solicitud asociado a un activo
           </p>
-
-          {/* FORM */}
           <form onSubmit={handleSubmit} className="form-ticket">
             <section className="form-section">
               <h3>Información del ticket</h3>

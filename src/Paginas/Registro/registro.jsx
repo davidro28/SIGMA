@@ -8,12 +8,13 @@ export default function Register() {
   const [termsChecked, setTermsChecked] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
 
-  // campos controlados (mantienen tu estructura visual original)
   const [form, setForm] = useState({
     nombre: "",
     email: "",
     telefono: "",
     empresa: "",
+    tipoDocumento: "",
+    numeroDocumento: "",
     password: "",
     confirmPassword: ""
   });
@@ -31,17 +32,16 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // validación simple: términos y contraseñas coincidentes
     if (!termsChecked) {
       alert("Debes aceptar los términos y condiciones.");
       return;
     }
+
     if (form.password !== form.confirmPassword) {
       alert("Las contraseñas no coinciden.");
       return;
     }
 
-    // aquí enviarías el formulario al backend
     console.log("Enviando datos:", form);
     alert("Cuenta creada (mock).");
   };
@@ -111,6 +111,37 @@ export default function Register() {
                 onChange={handleChange}
                 type="text"
                 placeholder="Ej: SIGMA"
+                required
+              />
+            </div>
+
+
+            <label>Tipo de documento</label>
+            <div className="input-group">
+              <i className="fa-solid fa-id-card"></i>
+              <select
+                name="tipoDocumento"
+                value={form.tipoDocumento}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Selecciona tipo</option>
+                <option value="CC">Cédula de ciudadanía</option>
+                <option value="CE">Cédula de extranjería</option>
+                <option value="TI">Tarjeta de identidad</option>
+                <option value="PAS">Pasaporte</option>
+              </select>
+            </div>
+
+            <label>Número de documento</label>
+            <div className="input-group">
+              <i className="fa-solid fa-address-card"></i>
+              <input
+                name="numeroDocumento"
+                value={form.numeroDocumento}
+                onChange={handleChange}
+                type="text"
+                placeholder="Ingresa tu número de documento"
                 required
               />
             </div>
@@ -190,7 +221,6 @@ export default function Register() {
         </div>
       </div>
 
-      {/* Modal de términos: botones FUERA del texto y SIEMPRE visibles */}
       {showTermsModal && (
         <div className="modal-overlay" onClick={() => setShowTermsModal(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>

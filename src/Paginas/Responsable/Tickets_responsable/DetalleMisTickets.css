@@ -13,16 +13,12 @@
   flex: 1;
 }
 
-/* SUBTÍTULO */
 .subtitulo {
   margin-top: -6px;
   color: #94a3b8;
   font-size: 15px;
 }
 
-/* ==========================
-   CARD DETALLE
-========================== */
 .card-detalle {
   background: #1e293b;
   padding: 28px;
@@ -34,7 +30,6 @@
   gap: 18px;
 }
 
-/* CAMPOS */
 .campo {
   display: flex;
   flex-direction: column;
@@ -54,9 +49,6 @@
   line-height: 1.5;
 }
 
-/* ==========================
-   ESTADOS Y PRIORIDADES
-========================== */
 .estado,
 .prioridad {
   padding: 6px 14px;
@@ -67,7 +59,6 @@
   text-transform: capitalize;
 }
 
-/* ESTADOS */
 .estado-abierto {
   background: #2563eb;
   color: #ffffff;
@@ -88,7 +79,6 @@
   color: #ffffff;
 }
 
-/* PRIORIDADES */
 .prioridad-alta {
   background: #dc2626;
   color: #ffffff;
@@ -109,16 +99,12 @@
   color: #ffffff;
 }
 
-/* ==========================
-   ACCIONES
-========================== */
 .acciones-detalle {
   margin-top: 28px;
   display: flex;
   gap: 14px;
 }
 
-/* SOLO BOTÓN VOLVER */
 .btn-volver {
   padding: 10px 22px;
   border-radius: 10px;
@@ -134,10 +120,6 @@
 .btn-volver:hover {
   background: #334155;
 }
-
-/* ==========================
-   MENSAJE NO TICKET
-========================== */
 .no-ticket {
   display: flex;
   flex-direction: column;

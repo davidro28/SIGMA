@@ -40,7 +40,6 @@
 .dot.correctivo::before { color: #d29922; }
 .dot.inspeccion::before { color: #58a6ff; }
 
-/* TABLAS */
 .oat-table {
     width: 100%;
     border-collapse: collapse;
@@ -63,7 +62,6 @@
     padding: 7px 0;
 }
 
-/* DIVIDER */
 .oat-divider {
     height: 1px;
     background: #21262d;
@@ -76,7 +74,6 @@
     margin-bottom: 8px;
 }
 
-/* BADGES */
 .badge {
     padding: 3px 10px;
     border-radius: 999px;
@@ -85,12 +82,10 @@
     display: inline-block;
 }
 
-/* Tipo */
 .badge.tipo.preventivo { background: #1f6f3a; }
 .badge.tipo.correctivo { background: #7a4e0b; }
 .badge.tipo.inspeccion { background: #1f4f8f; }
 
-/* Estado */
 .badge.estado.ejecucion { background: #238636; }
 .badge.estado.pendiente { background: #9e6a03; }
 .badge.estado.completado { background: #2ea043; }
@@ -98,7 +93,6 @@
 .badge.estado.espera { background: #6e7681; }
 .badge.estado.planificado { background: #30363d; }
 
-/* ACCIONES */
 .accion-btn {
     background: #21262d;
     border: 1px solid #30363d;
@@ -115,7 +109,6 @@
     border-color: #58a6ff;
 }
 
-/* AJUSTE COLUMNA ACCIONES */
 .oat-table th:last-child,
 .oat-table td:last-child {
     text-align: right;
