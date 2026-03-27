@@ -18,33 +18,76 @@ export default function Register() {
     password: "",
     confirmPassword: ""
   });
+  
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const acceptTerms = () => {
-    setTermsChecked(true);
-    setShowTermsModal(false);
-  };
+  if (!termsChecked) {
+    alert("Debes aceptar los términos y condiciones.");
+    return;
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  if (form.password !== form.confirmPassword) {
+    alert("Las contraseñas no coinciden.");
+    return;
+  }
 
-    if (!termsChecked) {
-      alert("Debes aceptar los términos y condiciones.");
+  try {
+    const usuario = {
+      nombre: form.nombre,
+      email: form.email,
+      telefono: form.telefono,
+      empresa: form.empresa,
+      tipoDocumento: form.tipoDocumento,
+      docnum: form.numeroDocumento,
+      password: form.password
+    };
+
+    console.log("Enviando al backend:", usuario);
+
+    const res = await fetch("http://localhost:8080/api/usuarios/registrar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(usuario)
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      console.error("Error backend:", errorData);
+      alert(`Error al registrar usuario: ${res.status}`);
       return;
     }
 
-    if (form.password !== form.confirmPassword) {
-      alert("Las contraseñas no coinciden.");
-      return;
-    }
+    const data = await res.json().catch(() => ({}));
+    console.log("Respuesta backend:", data);
+    alert("Cuenta creada correctamente ✅");
 
-    console.log("Enviando datos:", form);
-    alert("Cuenta creada (mock).");
-  };
+    // Limpiar formulario
+    setForm({
+      nombre: "",
+      email: "",
+      telefono: "",
+      empresa: "",
+      tipoDocumento: "",
+      numeroDocumento: "",
+      password: "",
+      confirmPassword: ""
+    });
+
+  } catch (error) {
+    console.error("Error de conexión:", error);
+    alert("Error de conexión con el servidor ❌");
+  }
+};
+
+// 🔹 También necesitas esto para actualizar el form:
+const handleChange = (e) => {
+  setForm({
+    ...form,
+    [e.target.name]: e.target.value
+  });
+};
 
   return (
     <>
