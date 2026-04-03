@@ -30,26 +30,28 @@ export default function NuevoActivo() {
         setForm({ ...form, img: url });
     };
 
-    const handleGuardar = () => {
-        if (!form.titulo || !form.tipo || !form.estado) {
-            alert("Por favor, completa los campos obligatorios.");
-            return;
+    const handleGuardar = async () => {
+    if (!form.titulo || !form.tipo || !form.estado) {
+        alert("Por favor, completa los campos obligatorios.");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:8080/api/activos", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(form)
+        });
+
+        if (response.ok) {
+            navigate("/Activos");
+        } else {
+            alert("Error al guardar el activo.");
         }
-        const activosGuardados = JSON.parse(localStorage.getItem("activos")) || [];
-        const nuevoActivo = {
-            id: Date.now(),
-            titulo: form.titulo,
-            tipo: form.tipo,
-            serie: form.serie,
-            estado: form.estado,
-            responsable: form.responsable,
-            descripcion: form.descripcion,
-            img: form.img || ""
-        };
-        activosGuardados.push(nuevoActivo);
-        localStorage.setItem("activos", JSON.stringify(activosGuardados));
-        navigate("/Activos");
-    };
+    } catch (error) {
+        alert("No se pudo conectar con el servidor.");
+    }
+};
 
     return (
         <>
@@ -171,25 +173,26 @@ export default function NuevoActivo() {
                             )}
                         </div>
 
-                    </div>
+                        {/* Botones dentro del card */}
+                        <div className="actions">
+                            <button 
+                                className="btn-cancelar" 
+                                onClick={() => navigate("/Activos")}
+                            >
+                                Salir sin guardar
+                            </button>
+                            <button 
+                                className="btn-guardar"
+                                onClick={handleGuardar}
+                            >
+                                Guardar activo
+                            </button>
+                        </div>
 
-                    <div className="actions">
-                        <button 
-                            className="btn-cancelar" 
-                            onClick={() => navigate("/Activos")}
-                        >
-                            Salir sin guardar
-                        </button>
-                        <button 
-                            className="btn-guardar"
-                            onClick={handleGuardar}
-                        >
-                            Guardar activo
-                        </button>
-                    </div>
+                    </div> {/* cierre form-card */}
 
-                </div>
-            </div>
+                </div> {/* cierre nuevo-activo-container */}
+            </div> {/* cierre layout-container */}
         </>
     );
 }

@@ -9,10 +9,16 @@ export default function Activos() {
   const [activos, setActivos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("Todos");
+  const [activoSeleccionado, setActivoSeleccionado] = useState(null);
 
-  const cargarActivos = () => {
-    const data = JSON.parse(localStorage.getItem("activos")) || [];
-    setActivos(data);
+  const cargarActivos = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/activos");
+      const data = await response.json();
+      setActivos(data);
+    } catch (error) {
+      console.error("Error al cargar activos:", error);
+    }
   };
 
   useEffect(() => {
@@ -68,39 +74,25 @@ export default function Activos() {
           </div>
 
           <div className="assets-grid">
-            <div className="create-card">
-              <h3>Crear nuevo activo</h3>
-              <p>Registra un nuevo equipo con su imagen y tipo.</p>
-              <button className="btn-create" onClick={() => navigate("/NuevoActivo")}>
-                + Nuevo activo
-              </button>
-            </div>
             {activosFiltrados.length > 0 ? (
               activosFiltrados.map(item => (
-                <div key={item.id} className="asset-card">
+                <div key={item._id} className="asset-card">
                   <img
                     src={item.img || "/placeholder.png"}
                     className="asset-img"
                     alt={item.titulo || "Activo"}
                   />
-
                   <h3 className="asset-title">{item.titulo || "Sin título"}</h3>
-
                   <div className="asset-meta">
                     <span>{item.tipo || "Sin tipo"}</span>
-                    <span
-                      className={`estado estado-${(item.estado || "")
-                        .toLowerCase()
-                        .replace(/ /g, "-")}`}
-                    >
+                    <span className={`estado estado-${(item.estado || "").toLowerCase().replace(/ /g, "-")}`}>
                       {item.estado || "Desconocido"}
                     </span>
                   </div>
-
                   <div className="asset-links">
                     <button
                       className="link"
-                      onClick={() => navigate(`/DetalleActivo/${item.id}`)}
+                      onClick={() => setActivoSeleccionado(item)}
                     >
                       Ver detalles
                     </button>
@@ -114,6 +106,49 @@ export default function Activos() {
           </div>
         </div>
       </div>
+
+      {/* MODAL */}
+      {activoSeleccionado && (
+        <div className="modal-overlay" onClick={() => setActivoSeleccionado(null)}>
+          <div className="modal-card" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setActivoSeleccionado(null)}>✕</button>
+
+            <div className="modal-img-container">
+              <img
+                src={activoSeleccionado.img || "/placeholder.png"}
+                alt={activoSeleccionado.titulo}
+                className="modal-img"
+              />
+            </div>
+
+            <div className="modal-info">
+              <h2 className="modal-titulo">{activoSeleccionado.titulo}</h2>
+              <span className={`estado estado-${(activoSeleccionado.estado || "").toLowerCase().replace(/ /g, "-")}`}>
+                {activoSeleccionado.estado}
+              </span>
+
+              <div className="modal-detalles">
+                <div className="modal-fila">
+                  <span className="modal-label">Tipo</span>
+                  <span>{activoSeleccionado.tipo}</span>
+                </div>
+                <div className="modal-fila">
+                  <span className="modal-label">N° de serie</span>
+                  <span>{activoSeleccionado.serie}</span>
+                </div>
+                <div className="modal-fila">
+                  <span className="modal-label">Responsable</span>
+                  <span>{activoSeleccionado.responsable}</span>
+                </div>
+                <div className="modal-fila">
+                  <span className="modal-label">Descripción</span>
+                  <span>{activoSeleccionado.descripcion}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
