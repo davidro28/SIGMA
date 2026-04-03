@@ -1,4 +1,4 @@
-import "./styles.csS";
+import "./styles.css";
 
 function PanelAlerta() {
     return (

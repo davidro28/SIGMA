@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./registro.css";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [termsChecked, setTermsChecked] = useState(false);
@@ -20,74 +21,65 @@ export default function Register() {
   });
   
 
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // 👇 Función que faltaba — acepta términos y cierra modal
+  const acceptTerms = () => {
+    setTermsChecked(true);
+    setShowTermsModal(false);
+  };
+
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!termsChecked) {
-    alert("Debes aceptar los términos y condiciones.");
-    return;
-  }
-
-  if (form.password !== form.confirmPassword) {
-    alert("Las contraseñas no coinciden.");
-    return;
-  }
-
-  try {
-    const usuario = {
-      nombre: form.nombre,
-      email: form.email,
-      telefono: form.telefono,
-      empresa: form.empresa,
-      tipoDocumento: form.tipoDocumento,
-      docnum: form.numeroDocumento,
-      password: form.password
-    };
-
-    console.log("Enviando al backend:", usuario);
-
-    const res = await fetch("http://localhost:8080/api/usuarios/registrar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(usuario)
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      console.error("Error backend:", errorData);
-      alert(`Error al registrar usuario: ${res.status}`);
+    if (!termsChecked) {
+      alert("Debes aceptar los términos y condiciones.");
       return;
     }
 
-    const data = await res.json().catch(() => ({}));
-    console.log("Respuesta backend:", data);
-    alert("Cuenta creada correctamente ✅");
+    if (form.password !== form.confirmPassword) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
 
-    // Limpiar formulario
-    setForm({
-      nombre: "",
-      email: "",
-      telefono: "",
-      empresa: "",
-      tipoDocumento: "",
-      numeroDocumento: "",
-      password: "",
-      confirmPassword: ""
-    });
+    try {
+      const usuario = {
+        nombre:   form.nombre,
+        email:    form.email,
+        telefono: form.telefono,
+        empresa:  form.empresa,
+        documento: {
+          tipo:   form.tipoDocumento,
+          numero: form.numeroDocumento
+        },
+        usuario:  form.email,
+        password: form.password
+      };
+      console.log("JSON enviado:", JSON.stringify(usuario));
+      
+      const res = await fetch("http://localhost:8080/api/usuarios/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(usuario)
+      });
 
-  } catch (error) {
-    console.error("Error de conexión:", error);
-    alert("Error de conexión con el servidor ❌");
-  }
-};
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Error backend:", errorData);
+        alert(`Error al registrar usuario: ${res.status}`);
+        return;
+      }
 
-// 🔹 También necesitas esto para actualizar el form:
-const handleChange = (e) => {
-  setForm({
-    ...form,
-    [e.target.name]: e.target.value
-  });
-};
+      alert("Cuenta creada correctamente ✅");
+      navigate("/login");
+
+    } catch (error) {
+      console.error("Error de conexión:", error);
+      alert("Error de conexión con el servidor ❌");
+    }
+  };
 
   return (
     <>

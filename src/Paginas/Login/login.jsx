@@ -6,37 +6,61 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const users = {
-    admin: { password: "1234", route: "/General" },
-    gestortickets: { password: "5678", route: "/Home_gestortickets" },
-    tecnimantenimiento: { password: "9012", route: "/HomeTecniMantenimiento" },
-    responsable: { password: "3456", route: "/Home_responsable" }
-  };
-
-  const handleEntrar = () => {
-    const username = email.split("@")[0];
-
-    if (!users[username]) {
-      alert("Usuario no encontrado");
+  const handleEntrar = async () => {
+    if (!email || !password) {
+      alert("Por favor ingresa tu correo y contraseña.");
       return;
     }
 
-    if (users[username].password !== password) {
-      alert("Contraseña incorrecta");
-      return;
-    }
+    setLoading(true);
 
-    navigate(users[username].route);
+    try {
+      const res = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario: email,      // 👈 el backend recibe "usuario" no "email"
+          password: password
+        })
+      });
+
+      if (!res.ok) {
+        alert("Credenciales incorrectas ❌");
+        return;
+      }
+
+      const data = await res.json();
+      // data = { token, roles: ["RESPONSABLE"], usuario: "email@...", status, mensaje }
+
+      // Guardar en localStorage para uso posterior
+      localStorage.setItem("token",   data.token);
+      localStorage.setItem("roles",   JSON.stringify(data.roles));
+      localStorage.setItem("usuario", data.usuario);
+
+      // Redirigir según rol
+      const rol = data.roles[0];
+      if      (rol === "Responsable") navigate("/Home_responsable");
+      else if (rol === "Admin")       navigate("/General");
+      else if (rol === "Gestor_Tickets")      navigate("/Home_gestortickets");
+      else if (rol === "Tecni_Mantenimiento")     navigate("/HomeTecniMantenimiento");
+      else                            navigate("/");
+
+    } catch (error) {
+      console.error("Error de conexión:", error);
+      alert("Error de conexión con el servidor ❌");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="auth-container">
       <div className="auth-box">
 
-        {/* LOGO */}
         <div className="logo">
           <div className="logo-icon">Σ</div>
           <span className="logo-text">Sigma</span>
@@ -47,7 +71,7 @@ export default function Login() {
           Accede a tu panel de control para gestionar tus activos.
         </p>
 
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => { e.preventDefault(); handleEntrar(); }}>
 
           <div className="input-group">
             <i className="fa-solid fa-envelope"></i>
@@ -59,9 +83,9 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
           <div className="input-group password-group">
             <i className="fa-solid fa-lock"></i>
-
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Contraseña"
@@ -69,7 +93,6 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-
             <button
               type="button"
               className="toggle-password"
@@ -78,28 +101,29 @@ export default function Login() {
               <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`} />
             </button>
           </div>
+
           <div className="options">
             <label className="remember">
               <input type="checkbox" />
               Recordarme
             </label>
-
             <Link to="/recuperar_contraseña" className="forgot-password">
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
+
           <button
-            type="button"
+            type="submit"
             className="btn-primary"
-            onClick={handleEntrar}
+            disabled={loading}
           >
-            Entrar en Sigma
+            {loading ? "Ingresando..." : "Entrar en Sigma"}
           </button>
 
           <div className="divider">o continuar con</div>
 
           <button type="button" className="btn-google">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" /> 
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" />
             Google
           </button>
 
