@@ -1,11 +1,12 @@
 .vertical-nav {
     width: 260px;
-    height: 92vh;
+    height: 100%;        /* <-- cambia 92vh por 100% */
     background-color: #131c2b;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;      /* <-- agrega esto para que no se encoja */
 }
 
 .vertical-nav ul {

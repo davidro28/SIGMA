@@ -7,9 +7,7 @@ import "./NuevoActivo.css";
 export default function NuevoActivo() {
 
     const navigate = useNavigate();
-
     const [preview, setPreview] = useState(null);
-
     const [form, setForm] = useState({
         titulo: "",
         tipo: "",
@@ -24,24 +22,20 @@ export default function NuevoActivo() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
         const url = URL.createObjectURL(file);
         setPreview(url);
         setForm({ ...form, img: url });
     };
-    const handleGuardar = () => {
 
+    const handleGuardar = () => {
         if (!form.titulo || !form.tipo || !form.estado) {
             alert("Por favor, completa los campos obligatorios.");
             return;
         }
-
         const activosGuardados = JSON.parse(localStorage.getItem("activos")) || [];
-
         const nuevoActivo = {
             id: Date.now(),
             titulo: form.titulo,
@@ -52,11 +46,8 @@ export default function NuevoActivo() {
             descripcion: form.descripcion,
             img: form.img || ""
         };
-
         activosGuardados.push(nuevoActivo);
-
         localStorage.setItem("activos", JSON.stringify(activosGuardados));
-
         navigate("/Activos");
     };
 
@@ -82,6 +73,7 @@ export default function NuevoActivo() {
                     <div className="form-card">
 
                         <h2 className="section-title">Información del activo</h2>
+
                         <div className="form-grid-2">
 
                             <div className="form-group">
@@ -94,13 +86,10 @@ export default function NuevoActivo() {
                                     placeholder="Ej: iPhone 14 Pro Max"
                                 />
                             </div>
+
                             <div className="form-group">
                                 <label className="form-label">Tipo</label>
-                                <select 
-                                    className="form-select"
-                                    name="tipo"
-                                    onChange={handleChange}
-                                >
+                                <select className="form-select" name="tipo" onChange={handleChange}>
                                     <option value="">Seleccionar tipo</option>
                                     <option>Celular</option>
                                     <option>Tablet</option>
@@ -109,6 +98,7 @@ export default function NuevoActivo() {
                                     <option>Computadora</option>
                                 </select>
                             </div>
+
                             <div className="form-group">
                                 <label className="form-label">Número de serie</label>
                                 <input 
@@ -119,6 +109,7 @@ export default function NuevoActivo() {
                                     placeholder="Ej: SN-329392"
                                 />
                             </div>
+
                             <div className="form-group">
                                 <label className="form-label">Responsable asignado</label>
                                 <input 
@@ -129,13 +120,10 @@ export default function NuevoActivo() {
                                     placeholder="Ej: Juan Pérez"
                                 />
                             </div>
+
                             <div className="form-group">
                                 <label className="form-label">Estado</label>
-                                <select 
-                                    className="form-select"
-                                    name="estado"
-                                    onChange={handleChange}
-                                >
+                                <select className="form-select" name="estado" onChange={handleChange}>
                                     <option value="">Seleccionar estado</option>
                                     <option>Disponible</option>
                                     <option>Asignado</option>
@@ -144,36 +132,47 @@ export default function NuevoActivo() {
                                 </select>
                             </div>
 
+                            <div className="form-group">
+                                <label className="form-label">Descripción</label>
+                                <textarea 
+                                    rows="3"
+                                    name="descripcion"
+                                    onChange={handleChange}
+                                    placeholder="Información adicional del activo"
+                                    style={{ resize: "none", overflowY: "auto", height: "80px" }}
+                                ></textarea>
+                            </div>
+
                         </div>
-                        <div className="form-group">
-                            <label className="form-label">Descripción</label>
-                            <textarea 
-                                rows="3"
-                                name="descripcion"
-                                onChange={handleChange}
-                                placeholder="Información adicional del activo"
-                            ></textarea>
-                        </div>
+
                         <h2 className="section-title">Imagen del activo</h2>
 
-                        <label className="image-upload-box">
-                            <span className="upload-icon">📁</span>
-                            <span>Haz clic para subir una imagen</span>
-                            <input 
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageUpload}
-                                style={{ display: "none" }}
-                            />
-                        </label>
+                        <div className="form-grid-imagen">
+                            <label className="image-upload-box">
+                                <span className="upload-icon">📁</span>
+                                <span>Haz clic para subir una imagen</span>
+                                <input 
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload}
+                                    style={{ display: "none" }}
+                                />
+                            </label>
 
-                        {preview && (
-                            <div className="preview-container">
-                                <p>Vista previa:</p>
-                                <img src={preview} alt="preview" />
-                            </div>
-                        )}
+                            {preview ? (
+                                <div className="preview-container">
+                                    <p>Vista previa:</p>
+                                    <img src={preview} alt="preview" />
+                                </div>
+                            ) : (
+                                <div className="preview-placeholder">
+                                    <span>La vista previa aparecerá aquí</span>
+                                </div>
+                            )}
+                        </div>
+
                     </div>
+
                     <div className="actions">
                         <button 
                             className="btn-cancelar" 
@@ -181,7 +180,6 @@ export default function NuevoActivo() {
                         >
                             Salir sin guardar
                         </button>
-
                         <button 
                             className="btn-guardar"
                             onClick={handleGuardar}
@@ -189,6 +187,7 @@ export default function NuevoActivo() {
                             Guardar activo
                         </button>
                     </div>
+
                 </div>
             </div>
         </>
