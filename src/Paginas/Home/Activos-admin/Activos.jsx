@@ -10,6 +10,9 @@ export default function Activos() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("Todos");
   const [activoSeleccionado, setActivoSeleccionado] = useState(null);
+  const [modalResponsable, setModalResponsable] = useState(false);
+  const [usuarios, setUsuarios] = useState([]);
+  const [activoParaResponsable, setActivoParaResponsable] = useState(null);
 
   const cargarActivos = async () => {
     try {
@@ -18,6 +21,39 @@ export default function Activos() {
       setActivos(data);
     } catch (error) {
       console.error("Error al cargar activos:", error);
+    }
+  };
+
+  const cargarUsuarios = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/usuarios");
+      const data = await response.json();
+      setUsuarios(data);
+    } catch (error) {
+      console.error("Error al cargar usuarios:", error);
+    }
+  };
+
+  const abrirModalResponsable = (activo) => {
+    setActivoParaResponsable(activo);
+    setModalResponsable(true);
+    cargarUsuarios();
+  };
+
+  const asignarResponsable = async (nombreResponsable) => {
+    const id = activoParaResponsable.id;
+    try {
+        const response = await fetch(`http://localhost:8080/api/activos/${id}/responsable`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ responsable: nombreResponsable })
+        });
+        console.log("Status:", response.status);
+        setModalResponsable(false);
+        setActivoParaResponsable(null);
+        cargarActivos();
+    } catch (error) {
+        console.error("Error:", error);
     }
   };
 
@@ -76,7 +112,7 @@ export default function Activos() {
           <div className="assets-grid">
             {activosFiltrados.length > 0 ? (
               activosFiltrados.map(item => (
-                <div key={item._id} className="asset-card">
+                <div key={item.id} className="asset-card">
                   <img
                     src={item.img || "/placeholder.png"}
                     className="asset-img"
@@ -90,13 +126,15 @@ export default function Activos() {
                     </span>
                   </div>
                   <div className="asset-links">
-                    <button
-                      className="link"
-                      onClick={() => setActivoSeleccionado(item)}
-                    >
+                    <button className="link" onClick={() => setActivoSeleccionado(item)}>
                       Ver detalles
                     </button>
-                    <button className="link">Mantenimiento</button>
+                    <button className="link" onClick={() => abrirModalResponsable(item)}>
+                      Responsable
+                    </button>
+                    <button className="link">
+                      Mantenimiento
+                    </button>
                   </div>
                 </div>
               ))
@@ -107,7 +145,7 @@ export default function Activos() {
         </div>
       </div>
 
-      {/* MODAL */}
+      {/* MODAL VER DETALLES */}
       {activoSeleccionado && (
         <div className="modal-overlay" onClick={() => setActivoSeleccionado(null)}>
           <div className="modal-card" onClick={e => e.stopPropagation()}>
@@ -145,6 +183,40 @@ export default function Activos() {
                   <span>{activoSeleccionado.descripcion}</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL RESPONSABLE */}
+      {modalResponsable && (
+        <div className="modal-overlay" onClick={() => setModalResponsable(false)}>
+          <div className="modal-card" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setModalResponsable(false)}>✕</button>
+
+            <h2 className="modal-titulo">Asignar responsable</h2>
+            <p className="modal-subtitulo">
+              Activo: <strong>{activoParaResponsable?.titulo}</strong>
+            </p>
+            <p className="modal-responsable-actual">
+              Responsable actual: <strong>{activoParaResponsable?.responsable || "Sin asignar"}</strong>
+            </p>
+
+            <div className="usuarios-lista">
+              {usuarios.length > 0 ? (
+                usuarios.map(u => (
+                  <div key={u.id} className="usuario-item" onClick={() => asignarResponsable(u.nombre)}>
+                    <div className="usuario-avatar">{u.nombre?.charAt(0).toUpperCase()}</div>
+                    <div className="usuario-datos">
+                      <span className="usuario-nombre">{u.nombre}</span>
+                      <span className="usuario-email">{u.email}</span>
+                    </div>
+                    <span className="usuario-seleccionar">Asignar →</span>
+                  </div>
+                ))
+              ) : (
+                <p>Cargando usuarios...</p>
+              )}
             </div>
           </div>
         </div>
