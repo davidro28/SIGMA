@@ -2,7 +2,7 @@
     display: flex;
     background: #0d1117;
     color: #e2e8f0;
-    height: calc(100vh - 60px);  /* <-- mismo ajuste */
+    height: calc(100vh - 60px);
     overflow: hidden;
 }
 
@@ -83,7 +83,6 @@ textarea {
     gap: 20px;
 }
 
-/* --- NUEVO --- */
 .form-grid-imagen {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -115,7 +114,6 @@ textarea {
     opacity: 0.8;
 }
 
-/* --- MODIFICADO: quitado margin-top para que encaje en el grid --- */
 .preview-container {
     background: #0f172a;
     padding: 15px;
@@ -135,7 +133,6 @@ textarea {
     border-radius: 10px;
 }
 
-/* --- NUEVO --- */
 .preview-placeholder {
     background: #0f172a;
     border: 2px dashed #334155;
@@ -183,12 +180,40 @@ textarea {
     background: #0fa393;
 }
 
+.autocomplete-container {
+    position: relative;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 100;
+    margin-top: 5px;
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #e2e8f0;
+    transition: background 0.2s;
+}
+
+.autocomplete-item:hover {
+    background: #1e293b;
+}
+
 @media (max-width: 900px) {
     .form-grid-2 {
         grid-template-columns: 1fr;
     }
 
-    /* --- NUEVO --- */
     .form-grid-imagen {
         grid-template-columns: 1fr;
     }
