@@ -1,4 +1,4 @@
-
+/* ── Layout ─────────────────────────────────────────────────────────────── */
 .layout-container-responsable {
   display: flex;
   flex-direction: column;
@@ -8,186 +8,363 @@
   color: #e2e8f0;
   font-family: 'Segoe UI', Tahoma, sans-serif;
 }
-
-.sigma-header {
-  background-color: #14b8a6;
-  padding: 15px 30px;
-  color: white;
-  font-weight: 700;
-  font-size: 24px;
-}
-
-
+ 
 .content-area {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
-
-
-.vertical-nav {
-  width: 220px;
-  background-color: #0f172a;
-  padding: 20px;
-  box-sizing: border-box;
-  color: #e2e8f0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
+ 
 .page-content {
   flex: 1;
   padding: 30px 40px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 24px;
   overflow-y: auto;
   min-width: 0;
 }
-
+ 
+/* ── Header ─────────────────────────────────────────────────────────────── */
 .header-tickets h1 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
-
+ 
 .header-tickets p {
   font-size: 15px;
   color: #94a3b8;
-  margin-top: 0;
-  margin-bottom: 24px;
+  margin: 0;
 }
-
+ 
+/* ── Sección filtros ────────────────────────────────────────────────────── */
 .filtros-rapidos {
   width: 100%;
   background-color: #161b22;
   border-radius: 16px;
   padding: 28px;
   border: 1px solid rgba(20, 184, 166, 0.15);
-  box-shadow: 0 0 18px rgba(20, 184, 166, 0.35);
+  box-shadow: 0 0 18px rgba(20, 184, 166, 0.08);
+  box-sizing: border-box;
 }
-
+ 
 .filtros-rapidos h4 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin: 0 0 4px;
 }
-
-.descripcion-filtros {
+ 
+.filtros-rapidos > p {
   font-size: 14px;
   color: #94a3b8;
-  margin-bottom: 22px;
+  margin: 0 0 20px;
 }
-
+ 
+/* ── Barra búsqueda + filtros ───────────────────────────────────────────── */
 .busqueda-filtros {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
-
+ 
 .input-busqueda {
   flex: 1;
-  padding: 14px 18px;
-  border-radius: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
   border: 1px solid #334155;
   background-color: #0d1117;
   color: #e2e8f0;
-  font-size: 16px;
+  font-size: 14px;
+  min-width: 200px;
 }
-
+ 
 .input-busqueda:focus {
   outline: none;
   border-color: #14b8a6;
 }
-
-.grupo-filtro label {
-  font-weight: 600;
-  margin-right: 6px;
-  color: #e2e8f0;
-  font-size: 15px;
+ 
+.grupo-filtro {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 500;
 }
-
-.filtros-rapidos select {
-  background-color: #0d1117;
+ 
+.grupo-filtro select {
+  background-color: #1e293b;
   border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 12px 16px;
+  border-radius: 10px;
+  padding: 10px 14px;
   color: #e2e8f0;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
+  transition: border-color 0.2s;
 }
-
+ 
+.grupo-filtro select:focus {
+  outline: none;
+  border-color: #14b8a6;
+}
+ 
+/* ── Tabla ──────────────────────────────────────────────────────────────── */
 .tabla-tickets {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 25px;
   font-size: 14px;
 }
-
-.tabla-tickets th,
-.tabla-tickets td {
-  padding: 14px 18px;
+ 
+.tabla-tickets th {
+  padding: 12px 16px;
   text-align: left;
-}
-
-.tabla-tickets thead {
-  background-color: #161b22;
   color: #94a3b8;
-}
-
-.tabla-tickets tbody tr {
+  font-weight: 600;
+  background-color: #0f172a;
   border-bottom: 1px solid #334155;
 }
-
-.tabla-tickets tbody tr:hover {
-  background-color: #212c3b;
+ 
+.tabla-tickets td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #1e293b;
 }
-
-
+ 
+.tabla-tickets tbody tr:hover {
+  background-color: #1e293b;
+}
+ 
+/* ── Celda activo (imagen + nombre) ────────────────────────────────────── */
 .td-activo {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
+ 
 .img-activo {
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
   border-radius: 8px;
-  background-color: #0d1117;
+  background-color: #0f172a;
   border: 1px solid #334155;
+  flex-shrink: 0;
 }
-
+ 
 .detalle-activo {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
-
-
-.estado {
-  padding: 6px 14px;
-  border-radius: 12px;
+ 
+.detalle-activo strong {
+  font-size: 14px;
   font-weight: 600;
-  color: white;
-  font-size: 14px;
-}
-
-.estado-en-uso { background-color: #3b82f6; }
-.estado-operativo { background-color: #22c55e; }
-.estado-asignado { background-color: #f59e0b; }
-
-
-.info-faltante {
-  margin-top: 20px;
-  font-size: 14px;
   color: #e2e8f0;
 }
-
+ 
+.detalle-activo span {
+  font-size: 12px;
+  color: #64748b;
+}
+ 
+/* ── Badges de estado ───────────────────────────────────────────────────── */
+.estado {
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: white;
+  display: inline-block;
+}
+ 
+.estado-disponible    { background-color: #22c55e; }
+.estado-asignado      { background-color: #f59e0b; }
+.estado-en-reparación,
+.estado-en-reparacion { background-color: #f97316; }
+.estado-de-baja       { background-color: #ef4444; }
+.estado-en-uso        { background-color: #3b82f6; }
+.estado-operativo     { background-color: #22c55e; }
+.estado-desconocido,
+.estado-              { background-color: #6b7280; }
+ 
+/* ── Botones de acción en tabla ─────────────────────────────────────────── */
+.td-acciones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+ 
+.btn-accion {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+ 
+.btn-accion:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+ 
+.btn-detalle {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+}
+ 
+.btn-ticket {
+  background-color: rgba(20, 184, 166, 0.15);
+  color: #14b8a6;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+}
+ 
+.btn-mant {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+ 
+/* ── Info faltante ──────────────────────────────────────────────────────── */
+.info-faltante {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+ 
 .info-faltante strong {
   display: block;
   margin-bottom: 6px;
+  color: #e2e8f0;
+  font-size: 15px;
+}
+ 
+/* ── Loading ────────────────────────────────────────────────────────────── */
+.loading-msg {
+  text-align: center;
+  color: #94a3b8;
+  padding: 40px;
+  font-size: 15px;
+}
+ 
+/* ── Modal overlay ──────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+ 
+.modal-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #e2e8f0;
+}
+ 
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #64748b;
+  transition: color 0.2s;
+}
+ 
+.modal-close:hover {
+  color: #e2e8f0;
+}
+ 
+.modal-img-container {
+  width: 100%;
+  height: 200px;
+  background-color: #0f172a;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+ 
+.modal-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+ 
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+ 
+.modal-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0;
+}
+ 
+.modal-detalles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+ 
+.modal-fila {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+ 
+.modal-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+ 
+/* ── Acciones dentro del modal ──────────────────────────────────────────── */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+ 
+.modal-actions .btn-accion {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 10px;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import VerticalNav from "../../../Components/verticalNav/index.jsx";
 import SigmaHeader from "../../../Components/sigmaHeader";
@@ -15,6 +15,11 @@ export default function NuevoTicket() {
   const [archivo, setArchivo] = useState(null);
   const [responsable, setResponsable] = useState("");
 
+  const [activos, setActivos] = useState([]);
+  const [responsables, setResponsables] = useState([]);
+
+  const API_TICKETS = "http://localhost:8080/api/tickets";
+
   const menuItems = [
     { to: "/Home", label: "General" },
     { to: "/Activos", label: "Activos" },
@@ -22,26 +27,54 @@ export default function NuevoTicket() {
     { to: "/mantenimiento_Admin", label: "Mantenimiento" }
   ];
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    fetch("http://localhost:8080/api/activos")
+      .then(r => r.json())
+      .then(setActivos)
+      .catch(() => setActivos([]));
+
+    fetch("http://localhost:8080/api/usuarios")
+      .then(r => r.json())
+      .then(setResponsables)
+      .catch(() => setResponsables([]));
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const nuevoTicket = {
-      id: crypto.randomUUID(),
-      titulo,
-      tipo,
-      prioridad,
-      activo,
-      descripcion,
-      responsable,
-      fecha: new Date().toLocaleString(),
-      archivoNombre: archivo ? archivo.name : null,
+      tit: titulo,
+      descrip: descripcion,
+
+      // 🔥 FIX ENUMS
+      tip: tipo.toUpperCase(),
+      priori: prioridad.toUpperCase(),
+
+      activoId: activo || null,
+      asignadoId: responsable || null,
+      archivoNombre: archivo ? archivo.name : null
     };
 
-    const existentes = JSON.parse(localStorage.getItem("tickets")) || [];
-    existentes.push(nuevoTicket);
-    localStorage.setItem("tickets", JSON.stringify(existentes));
+    try {
+      const res = await fetch(API_TICKETS, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(nuevoTicket)
+      });
 
-    navigate("/Tickets");
+      if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+      }
+
+      navigate("/Tickets");
+
+    } catch (err) {
+      console.error("ERROR:", err);
+      alert("No se pudo guardar el ticket");
+    }
   };
 
   return (
@@ -52,115 +85,102 @@ export default function NuevoTicket() {
         <VerticalNav items={menuItems} />
 
         <main className="page-content nuevo-ticket-container">
+
           <header className="header-nuevo-ticket">
             <h1>Nuevo ticket</h1>
-            <button className="volver-lista" onClick={() => navigate("/Tickets")}>
-              Volver a lista
+
+            <button
+              type="button"
+              className="volver-lista"
+              onClick={() => navigate("/Tickets")}
+            >
+              Cancelar
             </button>
           </header>
 
-          <p className="descripcion-intro">
-            Crea un ticket de incidente o solicitud asociado a un activo
-          </p>
-
           <form onSubmit={handleSubmit} className="form-ticket">
-            <section className="form-section">
-              <h3>Información del ticket</h3>
-              <p className="info-text">
-                Define lo mínimo necesario para que el equipo pueda atenderlo
-              </p>
 
+            <div className="campo-form">
+              <label>Título</label>
+              <input
+                type="text"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-row">
               <div className="campo-form">
-                <label htmlFor="titulo">Título o resumen</label>
-                <input
-                  id="titulo"
-                  type="text"
-                  placeholder="Ej. Pantalla no enciende al inicio de turno"
-                  value={titulo}
-                  onChange={(e) => setTitulo(e.target.value)}
+                <label>Tipo</label>
+                <select
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
                   required
-                />
-              </div>
-
-              <div className="form-row">
-                <div className="campo-form">
-                  <label htmlFor="tipo">Tipo de ticket</label>
-                  <select
-                    id="tipo"
-                    value={tipo}
-                    onChange={(e) => setTipo(e.target.value)}
-                    required
-                  >
-                    <option value="" disabled>
-                      Selecciona tipo (Incidente, Solicitud, Mantenimiento)
-                    </option>
-                    <option value="Incidente">Incidente</option>
-                    <option value="Solicitud">Solicitud</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
-                  </select>
-                </div>
-
-                <div className="campo-form">
-                  <label htmlFor="prioridad">Prioridad</label>
-                  <select
-                    id="prioridad"
-                    value={prioridad}
-                    onChange={(e) => setPrioridad(e.target.value)}
-                    required
-                  >
-                    <option value="" disabled>
-                      Selecciona prioridad (Alta, Media, Baja)
-                    </option>
-                    <option value="Alta">Alta</option>
-                    <option value="Media">Media</option>
-                    <option value="Baja">Baja</option>
-                  </select>
-                </div>
+                >
+                  <option value="">Selecciona</option>
+                  <option value="INCIDENTE">Incidente</option>
+                  <option value="SOLICITUD">Solicitud</option>
+                  <option value="MANTENIMIENTO">Mantenimiento</option>
+                </select>
               </div>
 
               <div className="campo-form">
-                <label htmlFor="activo">Activo relacionado</label>
-                <input
-                  id="activo"
-                  type="text"
-                  placeholder="Opcional"
-                  value={activo}
-                  onChange={(e) => setActivo(e.target.value)}
-                />
+                <label>Prioridad</label>
+                <select
+                  value={prioridad}
+                  onChange={(e) => setPrioridad(e.target.value)}
+                  required
+                >
+                  <option value="">Selecciona</option>
+                  <option value="ALTA">Alta</option>
+                  <option value="MEDIA">Media</option>
+                  <option value="BAJA">Baja</option>
+                </select>
               </div>
+            </div>
 
-              <div className="campo-form">
-                <label htmlFor="responsable">Responsable</label>
-                <input
-                  id="responsable"
-                  type="text"
-                  placeholder="Nombre del responsable"
-                  value={responsable}
-                  onChange={(e) => setResponsable(e.target.value)}
-                />
-              </div>
+            <div className="campo-form">
+              <label>Activo</label>
+              <select value={activo} onChange={(e) => setActivo(e.target.value)}>
+                <option value="">Selecciona activo</option>
+                {activos.map(a => (
+                  <option key={a.id} value={a.id}>
+                    {a.titulo}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-              <div className="campo-form">
-                <label htmlFor="descripcion">Descripción</label>
-                <textarea
-                  id="descripcion"
-                  placeholder="Describe el problema"
-                  value={descripcion}
-                  onChange={(e) => setDescripcion(e.target.value)}
-                  rows={4}
-                />
-              </div>
+            <div className="campo-form">
+              <label>Responsable</label>
+              <select value={responsable} onChange={(e) => setResponsable(e.target.value)}>
+                <option value="">Selecciona responsable</option>
+                {responsables.map(r => (
+                  <option key={r.id} value={r.id}>
+                    {r.nombre || r.email}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-              <div className="campo-form adjuntos">
-                <label>Adjuntos (opcional)</label>
-                <input
-                  type="file"
-                  onChange={(e) => setArchivo(e.target.files[0])}
-                />
-              </div>
-            </section>
+            <div className="campo-form">
+              <label>Descripción</label>
+              <textarea
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+              />
+            </div>
 
-            <footer className="form-footer">
+            <div className="campo-form">
+              <label>Archivo</label>
+              <input
+                type="file"
+                onChange={(e) => setArchivo(e.target.files[0])}
+              />
+            </div>
+
+            <div className="form-footer">
               <button
                 type="button"
                 className="btn-cancelar"
@@ -168,10 +188,12 @@ export default function NuevoTicket() {
               >
                 Cancelar
               </button>
+
               <button type="submit" className="btn-crear">
                 Crear ticket
               </button>
-            </footer>
+            </div>
+
           </form>
         </main>
       </div>

@@ -20,18 +20,62 @@ export default function Tickets() {
   const [filtroActivo, setFiltroActivo] = useState("Todos");
   const [filtroResponsable, setFiltroResponsable] = useState("Todos");
   const [busqueda, setBusqueda] = useState("");
-
   const [tickets, setTickets] = useState([]);
 
+  // 🔥 NUEVO: caches de nombres
+  const [activosMap, setActivosMap] = useState({});
+  const [usuariosMap, setUsuariosMap] = useState({});
+
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("tickets")) || [];
-    setTickets(data);
+    fetch("http://localhost:8080/api/tickets")
+      .then(async (res) => {
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || "Error al obtener tickets");
+        }
+        return res.json();
+      })
+      .then(data => setTickets(data))
+      .catch(err => console.error("Error tickets:", err));
   }, []);
 
-  const ticketsFiltrados = tickets.filter(ticket => {
+  // 🔥 CARGAR NOMBRES DE ACTIVOS
+  useEffect(() => {
+    fetch("http://localhost:8080/activos")
+      .then(res => res.json())
+      .then(data => {
+        const map = {};
+        data.forEach(a => {
+          map[a.id] = a.titulo; // 👈 tu modelo real
+        });
+        setActivosMap(map);
+      });
+  }, []);
+
+  // 🔥 CARGAR NOMBRES DE USUARIOS
+  useEffect(() => {
+    fetch("http://localhost:8080/usuarios")
+      .then(res => res.json())
+      .then(data => {
+        const map = {};
+        data.forEach(u => {
+          map[u.id] = u.nom; // 👈 tu modelo real
+        });
+        setUsuariosMap(map);
+      });
+  }, []);
+
+  const ticketsNormalizados = tickets.map(t => ({
+    ...t,
+    titulo: t.tit,
+    estado: t.est || "Abierto",
+    prioridad: t.priori
+  }));
+
+  const ticketsFiltrados = ticketsNormalizados.filter(ticket => {
     const matchesBusqueda =
-      ticket.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-      ticket.id.toString().includes(busqueda);
+      (ticket.titulo || "").toLowerCase().includes(busqueda.toLowerCase()) ||
+      (ticket.id || "").includes(busqueda);
 
     const matchesEstado =
       filtroEstado === "Todos" || ticket.estado === filtroEstado;
@@ -40,17 +84,29 @@ export default function Tickets() {
       filtroPrioridad === "Todas" || ticket.prioridad === filtroPrioridad;
 
     const matchesActivo =
-      filtroActivo === "Todos" || ticket.activo === filtroActivo;
+      filtroActivo === "Todos" || ticket.activoId === filtroActivo;
 
     const matchesResponsable =
-      filtroResponsable === "Todos" || ticket.responsable === filtroResponsable;
+      filtroResponsable === "Todos" || ticket.asignadoId === filtroResponsable;
 
-    return matchesBusqueda && matchesEstado && matchesPrioridad && matchesActivo && matchesResponsable;
+    return (
+      matchesBusqueda &&
+      matchesEstado &&
+      matchesPrioridad &&
+      matchesActivo &&
+      matchesResponsable
+    );
   });
 
   const estadosRapidos = ["Abierto", "En progreso", "Cerrado"];
-  const activosUnicos = [...new Set(tickets.map(t => t.activo).filter(Boolean))];
-  const responsablesUnicos = [...new Set(tickets.map(t => t.responsable).filter(Boolean))];
+
+  const activosUnicos = [
+    ...new Set(tickets.map(t => t.activoId).filter(Boolean))
+  ];
+
+  const responsablesUnicos = [
+    ...new Set(tickets.map(t => t.asignadoId).filter(Boolean))
+  ];
 
   return (
     <>
@@ -63,18 +119,16 @@ export default function Tickets() {
 
           <div className="header-tickets">
             <h1>Tickets</h1>
-            <p>Visualiza, filtra y crea tickets para incidentes y solicitudes</p>
+            <p>Visualiza, filtra y crea tickets</p>
           </div>
+
           <div className="filtros-rapidos">
             <h4>Filtros rápidos</h4>
-            <p className="descripcion-filtros">
-              Encuentra tickets por estado, prioridad, activo o responsable
-            </p>
 
             <div className="busqueda-filtros">
               <input
                 type="text"
-                placeholder="Buscar por código o título..."
+                placeholder="Buscar..."
                 value={busqueda}
                 onChange={e => setBusqueda(e.target.value)}
                 className="input-busqueda"
@@ -82,7 +136,7 @@ export default function Tickets() {
 
               <div className="grupo-filtro">
                 <label>Estado:</label>
-                <select value={filtroEstado} onChange={e => setFiltroEstado(e.target.value)}>
+                <select onChange={e => setFiltroEstado(e.target.value)}>
                   <option>Todos</option>
                   <option>Abierto</option>
                   <option>En progreso</option>
@@ -92,10 +146,7 @@ export default function Tickets() {
 
               <div className="grupo-filtro">
                 <label>Prioridad:</label>
-                <select
-                  value={filtroPrioridad}
-                  onChange={e => setFiltroPrioridad(e.target.value)}
-                >
+                <select onChange={e => setFiltroPrioridad(e.target.value)}>
                   <option>Todas</option>
                   <option>Alta</option>
                   <option>Media</option>
@@ -105,10 +156,7 @@ export default function Tickets() {
 
               <div className="grupo-filtro">
                 <label>Activo:</label>
-                <select
-                  value={filtroActivo}
-                  onChange={e => setFiltroActivo(e.target.value)}
-                >
+                <select onChange={e => setFiltroActivo(e.target.value)}>
                   <option>Todos</option>
                   {activosUnicos.map((a, i) => (
                     <option key={i}>{a}</option>
@@ -118,29 +166,13 @@ export default function Tickets() {
 
               <div className="grupo-filtro">
                 <label>Responsable:</label>
-                <select
-                  value={filtroResponsable}
-                  onChange={e => setFiltroResponsable(e.target.value)}
-                >
+                <select onChange={e => setFiltroResponsable(e.target.value)}>
                   <option>Todos</option>
                   {responsablesUnicos.map((r, i) => (
                     <option key={i}>{r}</option>
                   ))}
                 </select>
               </div>
-
-              <button
-                className="btn-limpiar"
-                onClick={() => {
-                  setFiltroEstado("Todos");
-                  setFiltroPrioridad("Todas");
-                  setFiltroActivo("Todos");
-                  setFiltroResponsable("Todos");
-                  setBusqueda("");
-                }}
-              >
-                Limpiar filtros
-              </button>
             </div>
 
             <div className="botones-estado-rapido">
@@ -157,6 +189,7 @@ export default function Tickets() {
               ))}
             </div>
           </div>
+
           <table className="tabla-tickets">
             <thead>
               <tr>
@@ -166,7 +199,6 @@ export default function Tickets() {
                 <th>Responsable</th>
                 <th>Estado</th>
                 <th>Prioridad</th>
-                <th>Actualizado</th>
                 <th></th>
               </tr>
             </thead>
@@ -174,36 +206,22 @@ export default function Tickets() {
             <tbody>
               {ticketsFiltrados.map(ticket => (
                 <tr key={ticket.id}>
-                  <td>#{ticket.id.slice(0, 6)}</td>
+                  <td>#{ticket.id?.slice(0, 6)}</td>
                   <td>{ticket.titulo}</td>
-                  <td>{ticket.activo || "—"}</td>
-                  <td>{ticket.responsable || "—"}</td>
-                  <td>
-                    <span
-                      className={`estado estado-${
-                        (ticket.estado || "Abierto").toLowerCase().replace(/ /g, "-")
-                      }`}
-                    >
-                      {ticket.estado || "Abierto"}
-                    </span>
-                  </td>
 
-                  <td>
-                    <span
-                      className={`prioridad prioridad-${ticket.prioridad.toLowerCase()}`}
-                    >
-                      {ticket.prioridad}
-                    </span>
-                  </td>
+                  {/* 🔥 AQUÍ YA MUESTRA NOMBRE */}
+                  <td>{activosMap[ticket.activoId] || ticket.activoId || "—"}</td>
+                  <td>{usuariosMap[ticket.asignadoId] || ticket.asignadoId || "—"}</td>
 
-                  <td>{ticket.fecha}</td>
+                  <td>{ticket.estado}</td>
+                  <td>{ticket.prioridad}</td>
 
                   <td>
                     <button
                       className="btn-ver"
-                      onClick={() => navigate(`/Ticket/${ticket.id}`, { state: ticket })}
+                      onClick={() => navigate(`/Ticket/${ticket.id}`)}
                     >
-                        Ver
+                      Ver
                     </button>
                   </td>
                 </tr>
@@ -211,21 +229,13 @@ export default function Tickets() {
 
               {ticketsFiltrados.length === 0 && (
                 <tr>
-                  <td colSpan="8" style={{ textAlign: "center" }}>
-                    No se encontraron tickets.
+                  <td colSpan="7" style={{ textAlign: "center" }}>
+                    No se encontraron tickets
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
-
-          <div className="paginacion">
-            <button disabled>Anterior</button>
-            <button className="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>Siguiente</button>
-          </div>
 
           <button
             className="btn-nuevo-ticket"
@@ -233,6 +243,7 @@ export default function Tickets() {
           >
             Nuevo ticket
           </button>
+
         </div>
       </div>
     </>
