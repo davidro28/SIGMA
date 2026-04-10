@@ -1,23 +1,15 @@
 
 .layout-container-nuevo {
   display: flex;
-  min-height: 100vh;
-  background: #0d1117;
-  color: #e2e8f0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  width: 100vw;
-  overflow-x: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .page-content {
   flex: 1;
-  padding: 30px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 0;
+  overflow-y: auto;
+  height: 100vh;
 }
-
 .nuevo-ticket-container h1 {
   font-weight: 700;
   font-size: 32px;

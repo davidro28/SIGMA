@@ -18,7 +18,7 @@ export default function NuevoMisTickets() {
   });
 
   const menuItems = [
-    { to: "/Home_responsable", label: "Mis Activos" },
+    { to: "/Activos_responsable", label: "Mis Activos" },
     { to: "/MisTickets", label: "Mis Tickets" },
   ];
 
