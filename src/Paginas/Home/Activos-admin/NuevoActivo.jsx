@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../../Components/modalAlerta";
+import { useModal } from "../../../Hooks/useModalAlert";
 import VerticalNav from "../../../Components/verticalNav";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import "./NuevoActivo.css";
@@ -8,6 +10,7 @@ export default function NuevoActivo() {
 
     const navigate = useNavigate();
     const [preview, setPreview] = useState(null);
+    const { modal, showModal, closeModal } = useModal();
     const [form, setForm] = useState({
         titulo: "",
         tipo: "",
@@ -32,7 +35,7 @@ export default function NuevoActivo() {
 
     const handleGuardar = async () => {
     if (!form.titulo || !form.tipo || !form.estado) {
-        alert("Por favor, completa los campos obligatorios.");
+        showModal("warning", "Campos incompletos", "Por favor completa el nombre, tipo y estado del activo antes de continuar.", "Entendido");
         return;
     }
 
@@ -46,10 +49,10 @@ export default function NuevoActivo() {
         if (response.ok) {
             navigate("/Activos");
         } else {
-            alert("Error al guardar el activo.");
+            showModal("error", "Error al guardar", "No pudimos registrar el activo. Intenta de nuevo.", "Cerrar");
         }
     } catch (error) {
-        alert("No se pudo conectar con el servidor.");
+        showModal("error", "Error de conexión", "No pudimos conectar con el servidor. Revisa tu conexión e intenta de nuevo.", "Cerrar");
     }
 };
 
@@ -188,11 +191,10 @@ export default function NuevoActivo() {
                                 Guardar activo
                             </button>
                         </div>
-
-                    </div> {/* cierre form-card */}
-
-                </div> {/* cierre nuevo-activo-container */}
-            </div> {/* cierre layout-container */}
+                    </div>
+                </div>
+            </div>
+            {modal && <Modal {...modal} onClose={closeModal} />}
         </>
     );
 }

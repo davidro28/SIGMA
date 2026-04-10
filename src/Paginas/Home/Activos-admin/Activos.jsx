@@ -65,7 +65,8 @@ export default function Activos() {
     { to: "/General", label: "General" },
     { to: "/Activos", label: "Activos" },
     { to: "/Tickets", label: "Tickets" },
-    { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
+    { to: "/Mantenimiento_Admin", label: "Mantenimiento" },
+    { to: "/Panel_Admin", label: "Panel de control"}
   ];
 
   const activosFiltrados = activos.filter(item => {

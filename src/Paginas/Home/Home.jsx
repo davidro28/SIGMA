@@ -13,7 +13,8 @@ function MiHome() {
         { to: "/General", label: "General" },
         { to: "/Activos", label: "Activos" },
         { to: "/Tickets", label: "Tickets" },
-        { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
+        { to: "/Mantenimiento_Admin", label: "Mantenimiento" },
+        { to: "/Panel_Admin", label: "Panel de control"}
     ];
     return (
         <div className="home-container">

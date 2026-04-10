@@ -25,12 +25,7 @@ import Activos_mantenimiento from "./Paginas/tecnico_mantenimiento/Activos_mante
 import Detalles_mantenimiento from "./Paginas/tecnico_mantenimiento/Activos_mantenimiento/Detalles_mantenimiento.jsx";
 import Tickets_mantenimiento from "./Paginas/tecnico_mantenimiento/Tickets_mantenimiento/Tickets_mantenimiento.jsx"
 import DetallesTickets_mantenimiento from "./Paginas/tecnico_mantenimiento/Tickets_mantenimiento/DetallesTickets_mantenimiento.jsx";
-
-
-
-
-
-
+import Panel_Admin from "./Paginas/Home/Panel_Admin/index.jsx";
 
 
 function App() {
@@ -62,6 +57,7 @@ function App() {
       <Route path="/Detalles_mantenimiento" element={<Detalles_mantenimiento />} />
       <Route path="/Tickets_mantenimiento" element={<Tickets_mantenimiento />} />
       <Route path="/DetallesTickets_mantenimiento" element={<DetallesTickets_mantenimiento />} />
+      <Route path="/Panel_Admin" element={<Panel_Admin />} />
 
       {/* fallback: si no coincide, ir a login */}
       <Route path="*" element={<Login />} />
