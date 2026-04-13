@@ -1,0 +1,110 @@
+.card {
+    background: #0b141a;
+    color: #e6edf3;
+    padding: 20px;
+    border-radius: 12px;
+    width: 320px;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.user-info h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.email,
+.area {
+    margin: 2px 0;
+    font-size: 12px;
+    color: #9aa4ad;
+}
+
+.status {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.status.activo {
+    background: #0f5132;
+    color: #3ddc97;
+}
+
+.status.inactivo {
+    background: #3a1a1a;
+    color: #ff6b6b;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 13px;
+    color: #9aa4ad;
+    margin-bottom: 10px;
+}
+
+.roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.role {
+    background: #111c24;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #c9d1d9;
+}
+
+.role.active {
+    background: #00c896;
+    color: #001f1a;
+    font-weight: bold;
+}
+
+.permissions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.permissions span {
+    background: #111c24;
+    padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.primary {
+    background: #0d3b36;
+    color: #bfffe8;
+}
+
+.secondary {
+    background: #111c24;
+    color: #9aa4ad;
+}

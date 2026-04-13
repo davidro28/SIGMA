@@ -1,0 +1,88 @@
+.home-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #0d1117;
+}
+
+.parrafo_principal {
+    color: #fff;
+    font-size: 26px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.cuadros-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 20px auto;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 38px;
+    margin-right: 38px;
+}
+
+.filter-btn {
+    padding: 8px 4px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #1f2a33;
+    background: #0f1a21;
+    color: #9aa4ad;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: #16232c;
+    color: #e6edf3;
+}
+
+.filter-btn.active {
+    background: #2be4ac;
+    color: #002d26;
+    border-color: #2be4ac;
+    font-weight: 500;
+}
+
+.contenedor-usuarios {
+    margin: 20px;
+    background: #0f1a21;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.contenedor-usuarios .titulo-directorio {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #e6edf3;
+}
+
+.usuarios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    max-height: calc(2 * 260px + 6px);
+    overflow-y: auto;
+}
