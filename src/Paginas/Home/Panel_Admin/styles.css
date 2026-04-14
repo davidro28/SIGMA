@@ -20,7 +20,7 @@
 
 .parrafo_principal {
     color: #fff;
-    font-size: 26px;
+    font-size: 32px;
     margin-top: 10px;
     margin-left: 20px;
 }
@@ -66,15 +66,14 @@
 }
 
 .contenedor-usuarios {
-    margin: 20px;
+    margin: 35px;
     background: #0f1a21;
     padding: 16px;
     border-radius: 10px;
 }
 
-.contenedor-usuarios .titulo-directorio {
-    font-size: 22px;
-    font-weight: 600;
+.titulo-directorio {
+    font-size: 25px;
     margin-bottom: 12px;
     color: #e6edf3;
 }
