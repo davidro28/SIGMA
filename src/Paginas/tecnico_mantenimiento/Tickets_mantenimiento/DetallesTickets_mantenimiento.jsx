@@ -1,11 +1,18 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./DetallesTickets_mantenimiento.css";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import VerticalNav from "../../../Components/verticalNav";
+import { ticketService } from "../../../services/api";
 
 function DetallesTickets_mantenimiento() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const ticket = location.state?.ticket;
+
+  const [estado, setEstado] = useState(ticket?.est || "PENDIENTE");
+  const [nota, setNota] = useState("");
+  const [guardando, setGuardando] = useState(false);
 
   const menuItems = [
     { to: "/HomeTecniMantenimiento", label: "General" },
@@ -14,141 +21,110 @@ function DetallesTickets_mantenimiento() {
     { to: "/MantenimientosTecniMantenimiento", label: "Mantenimientos" }
   ];
 
+  const handleAplicarCambios = async () => {
+    if (!ticket?.id) return;
+    setGuardando(true);
+    try {
+      await ticketService.cambiarEstado(ticket.id, estado);
+      alert("Estado actualizado correctamente");
+      navigate("/Tickets_mantenimiento");
+    } catch (err) {
+      console.error("Error al actualizar:", err);
+      alert("Error al actualizar el estado");
+    } finally {
+      setGuardando(false);
+    }
+  };
+
+  const handleMarcarResuelto = async () => {
+    if (!ticket?.id) return;
+    setGuardando(true);
+    try {
+      await ticketService.cambiarEstado(ticket.id, "CERRADO");
+      navigate("/Tickets_mantenimiento");
+    } catch (err) {
+      console.error("Error:", err);
+    } finally {
+      setGuardando(false);
+    }
+  };
+
+  if (!ticket) return (
+    <div>
+      <SigmaHeader />
+      <p style={{ padding: "2rem" }}>No se encontró información del ticket.</p>
+    </div>
+  );
+
   return (
     <div>
-      <header>
-        <SigmaHeader />
-      </header>
-
+      <header><SigmaHeader /></header>
       <div className="layout-main">
         <VerticalNav items={menuItems} />
-
         <main className="detalle-ticket-content">
           <div className="detalle-header">
             <div>
               <h1>Detalle del ticket</h1>
-              <p>
-                Revisa la información del ticket y actualiza el estado según el
-                avance del trabajo
-              </p>
+              <p>Revisa la información del ticket y actualiza el estado según el avance del trabajo</p>
             </div>
-
-            <button
-              className="btn-volver"
-              onClick={() => navigate("/Tickets_mantenimiento")}
-            >
+            <button className="btn-volver" onClick={() => navigate("/Tickets_mantenimiento")}>
               Volver a tickets
             </button>
           </div>
+
           <section className="detalle-info">
             <div className="detalle-left">
-              <h2>Fallas intermitentes en laptop de campo</h2>
-              <span className="id-ticket">ID ticket · TCK-2025-034</span>
-
-              <p className="descripcion-general">
-                El equipo se reinicia de forma aleatoria durante uso en campo.
-                Reportado por el área de operaciones.
-              </p>
+              <h2>{ticket.tit}</h2>
+              <span className="id-ticket">ID ticket · {ticket.numero || ticket.id}</span>
+              <p className="descripcion-general">{ticket.descripcion}</p>
 
               <div className="badges-ticket">
-                <span className="badge prioridad-alta">Prioridad: Alta</span>
-                <span className="badge estado-pendiente">Estado: Pendiente</span>
-                <span className="badge badge-info">Tipo: Incidente</span>
-                <span className="badge badge-info">SLA: 4h</span>
+                <span className={`badge prioridad-${ticket.priori?.toLowerCase()}`}>
+                  Prioridad: {ticket.priori}
+                </span>
+                <span className={`badge estado-${ticket.est?.toLowerCase()}`}>
+                  Estado: {ticket.est}
+                </span>
+                <span className="badge badge-info">Tipo: {ticket.tip}</span>
               </div>
-              <div className="bloque">
-                <h4>Descripción detallada</h4>
-                <p>
-                  La laptop asignada al equipo de operaciones en campo se
-                  reinicia sin previo aviso 2–3 veces al día. El problema ocurre
-                  tanto conectada a corriente como usando batería.
-                </p>
-                <p>
-                  Se ha probado con diferentes tomas de corriente y el problema
-                  persiste. No se han instalado aplicaciones nuevas recientemente.
-                </p>
-              </div>
-              <div className="bloque">
-                <h4>Historial y actualizaciones</h4>
 
-                <div className="timeline">
-                  <div className="evento">
-                    <span className="punto" />
-                    <div>
-                      <strong>Ticket creado</strong>
-                      <span>07/03/2025 · 09:14 · María Pérez</span>
-                      <p>
-                        Se registra el incidente con detalle de los reinicios
-                        inesperados durante la jornada.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="evento">
-                    <span className="punto" />
-                    <div>
-                      <strong>Comentario del usuario</strong>
-                      <span>07/03/2025 · 10:02 · María Pérez</span>
-                      <p>
-                        Se adjunta nota indicando que los reinicios ocurren incluso
-                        sin aplicaciones abiertas.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="bloque">
                 <h4>Notas internas</h4>
                 <textarea
                   placeholder="Escribe aquí tus observaciones técnicas, pruebas realizadas o próximos pasos..."
+                  value={nota}
+                  onChange={(e) => setNota(e.target.value)}
                 />
                 <button className="btn-guardar">Guardar nota</button>
               </div>
             </div>
+
             <aside className="detalle-right">
               <div className="card">
                 <h4>Acciones rápidas</h4>
 
                 <label>Actualizar estado</label>
-                <select>
-                  <option>Pendiente</option>
-                  <option>En progreso</option>
-                  <option>Cerrado</option>
-                </select>
-
-                <label>Asignar a técnico</label>
-                <select>
-                  <option>No asignado</option>
-                  <option>Carlos López</option>
-                  <option>Juan Gómez</option>
-                </select>
-
-                <label>Tiempo estimado</label>
-                <select>
-                  <option>1 h</option>
-                  <option>2 h</option>
-                  <option>4 h</option>
-                  <option>8 h</option>
+                <select value={estado} onChange={(e) => setEstado(e.target.value)}>
+                  <option value="PENDIENTE">Pendiente</option>
+                  <option value="EN_PROGRESO">En progreso</option>
+                  <option value="CERRADO">Cerrado</option>
                 </select>
 
                 <div className="acciones-rapidas">
-                  <button className="btn-aplicar">Aplicar cambios</button>
-                  <button className="btn-resuelto">Marcar como resuelto</button>
+                  <button className="btn-aplicar" onClick={handleAplicarCambios} disabled={guardando}>
+                    {guardando ? "Guardando..." : "Aplicar cambios"}
+                  </button>
+                  <button className="btn-resuelto" onClick={handleMarcarResuelto} disabled={guardando}>
+                    Marcar como resuelto
+                  </button>
                 </div>
               </div>
 
               <div className="card">
                 <h4>Activo relacionado</h4>
-                <p><strong>Laptop campo</strong> · ACT-MT-0098</p>
-                <p>Tipo: Laptop</p>
-                <p>Ubicación: Operaciones campo</p>
-                <p>Estado del activo: <strong>En uso</strong></p>
-                <p>Responsable: María Pérez</p>
-                <p>Último mantenimiento: 15/12/2024</p>
-
-                <button className="btn-ver-activo">
-                  Ver activo
-                </button>
+                <p><strong>{ticket.activoNombre || "—"}</strong></p>
+                <p>Responsable: {ticket.responsableNombre || "—"}</p>
+                <p>Creado: {ticket.fechaCreacion ? new Date(ticket.fechaCreacion).toLocaleDateString("es-CO") : "—"}</p>
               </div>
             </aside>
           </section>

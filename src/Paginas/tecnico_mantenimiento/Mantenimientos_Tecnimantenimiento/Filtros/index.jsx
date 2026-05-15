@@ -1,38 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import "./styles.css";
 
-function FiltrosMantenimientos() {
-    const [activeTab, setActiveTab] = useState("hoy");
-
+function FiltrosMantenimientos({ activeTab, setActiveTab }) {
     return (
         <div className="tabs-container">
-            <button
-                className={`tab ${activeTab === "hoy" ? "active" : ""}`}
-                onClick={() => setActiveTab("hoy")}
-            >
-                Mantenimientos de hoy
-            </button>
-
-            <button
-                className={`tab ${activeTab === "semana" ? "active" : ""}`}
-                onClick={() => setActiveTab("semana")}
-            >
-                Semana
-            </button>
-
-            <button
-                className={`tab ${activeTab === "historico" ? "active" : ""}`}
-                onClick={() => setActiveTab("historico")}
-            >
-                Histórico
-            </button>
-
-            <button
-                className={`tab ${activeTab === "calendario" ? "active" : ""}`}
-                onClick={() => setActiveTab("calendario")}
-            >
-                Calendario
-            </button>
+            {["hoy", "semana", "historico", "calendario"].map(tab => (
+                <button
+                    key={tab}
+                    className={`tab ${activeTab === tab ? "active" : ""}`}
+                    onClick={() => setActiveTab(tab)}
+                >
+                    {tab === "hoy" ? "Mantenimientos de hoy" :
+                     tab === "semana" ? "Semana" :
+                     tab === "historico" ? "Histórico" : "Calendario"}
+                </button>
+            ))}
         </div>
     );
 }
