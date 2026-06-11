@@ -18,42 +18,13 @@ function Mantenimiento_Admin() {
         { to: "/Panel_Admin", label: "Panel de control"}
     ];
 
-    const [ordenes, setOrdenes] = useState([
-        {
-            id: "OT-334",
-            fecha: "12/03 · 08:15",
-            tipo: "Correctivo",
-            activo: "Línea de montaje A",
-            activoInfo: "ID-0981 · Planta Norte",
-            tecnico: "J. Sánchez",
-            estado: "En curso",
-            prioridad: "Alta",
-            ventana: "Hoy 10:00 - 14:00",
-            ventanaSub: "2h retraso estimado",
-            origen: "Incidencia",
-            origenId: "#129"
-        },
-        {
-            id: "OT-334",
-            fecha: "12/03 · 08:15",
-            tipo: "Correctivo",
-            activo: "Línea de montaje A",
-            activoInfo: "ID-0981 · Planta Norte",
-            tecnico: "David Rojas",
-            estado: "En curso",
-            prioridad: "Alta",
-            ventana: "Hoy 10:00 - 14:00",
-            ventanaSub: "2h retraso estimado",
-            origen: "Incidencia",
-            origenId: "#129"
-        }
-    ]);
+    const [ordenes, setOrdenes] = useState([]);
 
     const [busqueda, setBusqueda] = useState("");
 
     // Función para agregar nueva orden
-    const agregarOrden = (nuevaOrden) => {
-        setOrdenes([nuevaOrden, ...ordenes]);
+    const onOrdenCreada = (nuevaOrden) => {
+        setOrdenes(prev => [nuevaOrden, ...prev]);
     };
 
     // Filtrar órdenes según buscador
@@ -79,7 +50,7 @@ function Mantenimiento_Admin() {
                             <p className='parrafo_principal'>Mantenimiento</p>
                             <div className='grupo-derecha'>
                                 <BuscadorMantenimiento busqueda={busqueda} setBusqueda={setBusqueda} />
-                                <NuevaOrden agregarOrden={agregarOrden} />
+                                <NuevaOrden onOrdenCreada={onOrdenCreada} />
                             </div>
                         </div>
                         <div className='cuadros-container'>

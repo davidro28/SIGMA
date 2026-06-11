@@ -62,3 +62,60 @@ export async function apiFetch(endpoint, options = {}) {
   // Si todo bien, devolvemos data (objeto JSON o null)
   return data;
 }
+
+const getToken = () => localStorage.getItem("token");
+const authHeaders = () => ({ Authorization: `Bearer ${getToken()}` });
+
+export const ordenService = {
+  listar: () =>
+    apiFetch("/ordenes", { headers: authHeaders() }),
+
+  porTecnico: (tecnicoId) =>
+    apiFetch(`/ordenes/tecnico/${tecnicoId}`, { headers: authHeaders() }),
+
+  filtrar: (estado, prioridad) => {
+    const params = new URLSearchParams();
+    if (estado) params.append("estado", estado);
+    if (prioridad) params.append("prioridad", prioridad);
+    return apiFetch(`/ordenes/filtrar?${params}`, { headers: authHeaders() });
+  },
+
+  crear: (dto) =>
+    apiFetch("/ordenes", { method: "POST", body: dto, headers: authHeaders() }),
+
+  cambiarEstado: (id, nuevoEstado) =>
+    apiFetch(`/ordenes/${id}/estado?nuevoEstado=${nuevoEstado}`, {
+      method: "PATCH",
+      headers: authHeaders()
+    }),
+
+  eliminar: (id) =>
+    apiFetch(`/ordenes/${id}`, { method: "DELETE", headers: authHeaders() })
+};
+
+export const ticketService = {
+  listar: () =>
+    apiFetch("/tickets", { headers: authHeaders() }),
+
+  porTecnico: (tecnicoId) =>
+    apiFetch(`/tickets/tecnico/${tecnicoId}`, { headers: authHeaders() }),
+
+  filtrar: (estado, prioridad) => {
+    const params = new URLSearchParams();
+    if (estado) params.append("estado", estado);
+    if (prioridad) params.append("prioridad", prioridad);
+    return apiFetch(`/tickets/filtrar?${params}`, { headers: authHeaders() });
+  },
+
+  crear: (dto) =>
+    apiFetch("/tickets", { method: "POST", body: dto, headers: authHeaders() }),
+
+  cambiarEstado: (id, nuevoEstado) =>
+    apiFetch(`/tickets/${id}/estado?nuevoEstado=${nuevoEstado}`, {
+      method: "PATCH",
+      headers: authHeaders()
+    }),
+
+  eliminar: (id) =>
+    apiFetch(`/tickets/${id}`, { method: "DELETE", headers: authHeaders() })
+};
