@@ -11,8 +11,8 @@ function FiltrosMantenimientos({ activeTab, setActiveTab }) {
                     onClick={() => setActiveTab(tab)}
                 >
                     {tab === "hoy" ? "Mantenimientos de hoy" :
-                     tab === "semana" ? "Semana" :
-                     tab === "historico" ? "Histórico" : "Calendario"}
+                    tab === "semana" ? "Semana" :
+                    tab === "historico" ? "Histórico" : "Calendario"}
                 </button>
             ))}
         </div>
