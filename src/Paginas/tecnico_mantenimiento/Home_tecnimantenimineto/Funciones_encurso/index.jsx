@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./styles.css";
-import { ticketService, ordenService } from "../../../../services/api";
+import { ticketService, ordenService } from "../../../../API/RegistroAPI";
 
 function TicketsMantenimientoCurso() {
   const tecnicoId = localStorage.getItem("usuario");

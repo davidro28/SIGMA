@@ -28,15 +28,21 @@ export default function NuevoTicket() {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/activos")
-      .then(r => r.json())
-      .then(setActivos)
-      .catch(() => setActivos([]));
+    const token = localStorage.getItem("token");
 
-    fetch("http://localhost:8080/api/usuarios")
-      .then(r => r.json())
-      .then(setResponsables)
-      .catch(() => setResponsables([]));
+    fetch("http://localhost:8080/api/activos", {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(r => r.json())
+        .then(setActivos)
+        .catch(() => setActivos([]));
+
+    fetch("http://localhost:8080/api/usuarios", {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(r => r.json())
+        .then(setResponsables)
+        .catch(() => setResponsables([]));
   }, []);
 
   const handleSubmit = async (e) => {
@@ -158,7 +164,7 @@ export default function NuevoTicket() {
                 <option value="">Selecciona responsable</option>
                 {responsables.map(r => (
                   <option key={r.id} value={r.id}>
-                    {r.nombre || r.email}
+                    {r.nombre || r.email || "Sin nombre"}
                   </option>
                 ))}
               </select>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../../Components/modalAlerta";
 import { useModal } from "../../../Hooks/useModalAlert";
@@ -11,6 +11,15 @@ export default function NuevoActivo() {
     const navigate = useNavigate();
     const [preview, setPreview] = useState(null);
     const { modal, showModal, closeModal } = useModal();
+    const [usuarios, setUsuarios] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:8080/api/usuarios", {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
+            .then(r => r.json())
+            .then(setUsuarios)
+            .catch(() => setUsuarios([]));
+    }, []);
     const [form, setForm] = useState({
         titulo: "",
         tipo: "",
@@ -66,7 +75,8 @@ export default function NuevoActivo() {
                         { to: "/Home", label: "General" },
                         { to: "/Activos", label: "Activos" },
                         { to: "/Tickets", label: "Tickets" },
-                        { to: "/Mantenimiento_Admin", label: "Mantenimiento" }
+                        { to: "/Mantenimiento_Admin", label: "Mantenimiento" },
+                        { to: "/Panel_Admin", label: "Panel de control"}
                     ]} 
                 />
 
@@ -117,13 +127,18 @@ export default function NuevoActivo() {
 
                             <div className="form-group">
                                 <label className="form-label">Responsable asignado</label>
-                                <input 
-                                    type="text"
-                                    className="form-input"
+                                <select
+                                    className="form-select"
                                     name="responsable"
                                     onChange={handleChange}
-                                    placeholder="Ej: Juan Pérez"
-                                />
+                                >
+                                <option value="">Seleccionar responsable</option>
+                                    {usuarios.map(u => (
+                                <option key={u.id} value={u.nombre}>
+                                    {u.nombre || u.email || "Sin nombre"}
+                                </option>
+                                ))}
+                                </select>
                             </div>
 
                             <div className="form-group">

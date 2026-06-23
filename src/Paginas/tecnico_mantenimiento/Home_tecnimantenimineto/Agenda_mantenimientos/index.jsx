@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./styles.css";
-import { ordenService } from "../../../../services/api";
+import { ordenService } from "../../../../API/RegistroAPI";
 
 function AgendaMantenimientos() {
   const tecnicoId = localStorage.getItem("usuario");

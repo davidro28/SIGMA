@@ -5,7 +5,7 @@ import VerticalNav from "../../../Components/verticalNav";
 import CuadroInformativo from "../../../Components/cuadroInformacion";
 import AgendaMantenimientos from "./Agenda_mantenimientos/index";
 import TicketsMantenimientoCurso from "./Funciones_encurso";
-import { ticketService, ordenService } from "../../../services/api";
+import { ticketService, ordenService } from "../../../API/RegistroAPI";
 
 function HomeTecniMantenimiento() {
     const tecnicoId = localStorage.getItem("usuario"); // ID del técnico logueado
