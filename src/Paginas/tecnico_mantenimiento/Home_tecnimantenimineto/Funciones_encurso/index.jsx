@@ -2,24 +2,24 @@ import { useState, useEffect } from "react";
 import "./styles.css";
 import { ticketService, ordenService } from "../../../../API/RegistroAPI";
 
-function TicketsMantenimientoCurso() {
-  const tecnicoId = localStorage.getItem("usuario");
-  const [tickets, setTickets] = useState([]);
-  const [ordenes, setOrdenes] = useState([]);
-  const [loading, setLoading] = useState(true);
+function TicketsMantenimientoCurso({ tecnicoId }) {
+    const [tickets, setTickets] = useState([]);
+    const [ordenes, setOrdenes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    Promise.all([
-      ticketService.porTecnico(tecnicoId),
-      ordenService.porTecnico(tecnicoId)
-    ])
-      .then(([t, o]) => {
-        setTickets(t.filter(tk => tk.est !== "CERRADO"));
-        setOrdenes(o.filter(or => or.estado === "EN_CURSO"));
-      })
-      .catch(err => console.error("Error:", err))
-      .finally(() => setLoading(false));
-  }, []);
+    useEffect(() => {
+        if (!tecnicoId) return;
+        Promise.all([
+            ticketService.porTecnico(tecnicoId),
+            ordenService.porTecnico(tecnicoId)
+        ])
+            .then(([t, o]) => {
+                setTickets(t.filter(tk => tk.est !== "CERRADO"));
+                setOrdenes(o.filter(or => or.estado === "EN_CURSO"));
+            })
+            .catch(err => console.error("Error:", err))
+            .finally(() => setLoading(false));
+    }, [tecnicoId]);
 
   const getBadgeTicket = (estado) => {
     if (!estado) return "open";

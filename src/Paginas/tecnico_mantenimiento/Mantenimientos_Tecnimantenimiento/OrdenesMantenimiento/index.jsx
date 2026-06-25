@@ -1,30 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { ordenService } from "../../../../API/RegistroAPI";
+import { useUsuarioActual } from "../../../../Hooks/useUsuarioActual";
 
 function OrdenesMantenimiento({ filtroTab, onSeleccionar }) {
-    const tecnicoId = localStorage.getItem("usuario");
+    const { usuario } = useUsuarioActual();
     const [ordenes, setOrdenes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        ordenService.porTecnico(tecnicoId)
+        if (!usuario?.id) return;
+        ordenService.porTecnico(usuario.id)
             .then(data => setOrdenes(filtrarPorTab(data, filtroTab)))
             .catch(err => console.error("Error:", err))
             .finally(() => setLoading(false));
-    }, [filtroTab]);
+    }, [filtroTab, usuario]);
 
     const filtrarPorTab = (data, tab) => {
         const hoy = new Date().toDateString();
-        if (tab === "hoy") return data.filter(o =>
-            o.fechaProgramada && new Date(o.fechaProgramada).toDateString() === hoy
-        );
+        if (tab === "hoy") return data.filter(o => {
+            if (!o.fechaProgramada) return true;
+            return new Date(o.fechaProgramada).toDateString() === hoy;
+        });
         if (tab === "semana") {
             const fin = new Date();
             fin.setDate(fin.getDate() + 7);
-            return data.filter(o =>
-                o.fechaProgramada && new Date(o.fechaProgramada) <= fin
-            );
+            return data.filter(o => {
+                if (!o.fechaProgramada) return true;
+                return new Date(o.fechaProgramada) <= fin;
+            });
         }
         return data;
     };

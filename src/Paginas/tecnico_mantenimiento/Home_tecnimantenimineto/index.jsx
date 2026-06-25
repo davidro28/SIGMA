@@ -6,18 +6,21 @@ import CuadroInformativo from "../../../Components/cuadroInformacion";
 import AgendaMantenimientos from "./Agenda_mantenimientos/index";
 import TicketsMantenimientoCurso from "./Funciones_encurso";
 import { ticketService, ordenService } from "../../../API/RegistroAPI";
+import { useUsuarioActual } from "../../../Hooks/useUsuarioActual";
 
 function HomeTecniMantenimiento() {
-    const tecnicoId = localStorage.getItem("usuario"); // ID del técnico logueado
+    const { usuario, loading: loadingUsuario } = useUsuarioActual();
 
     const [stats, setStats] = useState({
         ordenesHoy: 0,
         ordenesDetalle: "...",
+        ordenesCompletadas: "Completadas: 0",
         mantenimientosPreventivos: 0,
         mantenimientosDetalle: "...",
         ticketsAsignados: 0,
         ticketsDetalle: "...",
-        sla: "—"
+        ticketsAlta: "Alta prioridad: 0",
+        sla: "89%"
     });
 
     const menuItems = [
@@ -28,31 +31,33 @@ function HomeTecniMantenimiento() {
     ];
 
     useEffect(() => {
-        cargarDatos();
-    }, []);
+        console.log("Usuario actual:", usuario);
+        if (!usuario?.id) return;
+        cargarDatos(usuario.id);
+    }, [usuario]);
 
-    const cargarDatos = async () => {
+    const cargarDatos = async (tecnicoId) => {
+        console.log("Cargando datos para tecnicoId:", tecnicoId);
         try {
             const [tickets, ordenes] = await Promise.all([
                 ticketService.porTecnico(tecnicoId),
                 ordenService.porTecnico(tecnicoId)
             ]);
+            console.log("Tickets:", tickets);
+            console.log("Ordenes:", ordenes);
 
-            // Tickets
             const ticketsAbiertos = tickets.filter(t => t.est !== "CERRADO");
             const ticketsAltaPrioridad = tickets.filter(t => t.priori === "ALTA" || t.priori === "CRITICA");
 
-            // Órdenes de hoy
             const hoy = new Date().toDateString();
             const ordenesHoy = ordenes.filter(o => {
-                if (!o.fechaProgramada) return false;
+                if (!o.fechaProgramada) return true;
                 return new Date(o.fechaProgramada).toDateString() === hoy;
             });
             const enCurso = ordenesHoy.filter(o => o.estado === "EN_CURSO").length;
             const pendientes = ordenesHoy.filter(o => o.estado === "PENDIENTE").length;
             const completadas = ordenesHoy.filter(o => o.estado === "CERRADA").length;
 
-            // Mantenimientos preventivos de la semana
             const preventivos = ordenes.filter(o => o.tipo === "PREVENTIVO");
             const prevCompletados = preventivos.filter(o => o.estado === "CERRADA").length;
 
@@ -73,11 +78,11 @@ function HomeTecniMantenimiento() {
         }
     };
 
+    if (loadingUsuario) return <p>Cargando...</p>;
+
     return (
         <div className="home-container">
-            <header>
-                <SigmaHeader />
-            </header>
+            <header><SigmaHeader /></header>
             <div className="layout">
                 <VerticalNav items={menuItems} />
                 <main className="content">
@@ -111,10 +116,10 @@ function HomeTecniMantenimiento() {
                         </div>
                         <div className="contenedor-inferior">
                             <div className="container-izquierdo">
-                                <AgendaMantenimientos />
+                                <AgendaMantenimientos tecnicoId={usuario?.id} />
                             </div>
                             <div className="container-derecho">
-                                <TicketsMantenimientoCurso />
+                                <TicketsMantenimientoCurso tecnicoId={usuario?.id} />
                             </div>
                         </div>
                     </section>

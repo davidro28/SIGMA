@@ -1,11 +1,16 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Detalles_mantenimiento.css";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import VerticalNav from "../../../Components/verticalNav";
 
 function Detalles_mantenimiento() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const activo = location.state?.activo;
+
+  const [ordenes, setOrdenes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const menuItems = [
     { to: "/HomeTecniMantenimiento", label: "General" },
@@ -14,142 +19,134 @@ function Detalles_mantenimiento() {
     { to: "/MantenimientosTecniMantenimiento", label: "Mantenimientos" }
   ];
 
-  const historial = [
-    {
-      fecha: "05/03/2025",
-      tipo: "Mantenimiento preventivo",
-      estado: "Cerrada",
-      tecnico: "Carlos López",
-      descripcion:
-        "Revisión general, limpieza interna y actualización de software. No se detectan fallos críticos."
-    },
-    {
-      fecha: "10/12/2024",
-      tipo: "Correctivo",
-      estado: "En seguimiento",
-      tecnico: "María Pérez",
-      descripcion:
-        "Reporte de sobrecalentamiento ocasional. Se reemplaza pasta térmica y se programa nueva revisión."
-    },
-    {
-      fecha: "22/08/2024",
-      tipo: "Mantenimiento preventivo",
-      estado: "Cerrada",
-      tecnico: "Luis Gómez",
-      descripcion:
-        "Cambio de batería por degradación. Pruebas de rendimiento satisfactorias."
-    },
-    {
-      fecha: "03/05/2024",
-      tipo: "Correctivo",
-      estado: "Cerrada",
-      tecnico: "Carlos López",
-      descripcion:
-        "Reposición de cargador dañado. Se verifica correcto funcionamiento del equipo."
-    }
-  ];
+  useEffect(() => {
+    if (!activo?.id) return;
+    fetch("http://localhost:8080/api/ordenes", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    })
+      .then(r => r.json())
+      .then(data => setOrdenes(data.filter(o => o.activoId === activo.id)))
+      .catch(err => console.error("Error cargando órdenes:", err))
+      .finally(() => setLoading(false));
+  }, [activo]);
+
+  const getLabelEstado = (estado) => {
+    const map = { EN_CURSO: "En curso", PENDIENTE: "Pendiente", CERRADA: "Cerrada" };
+    return map[estado] || estado;
+  };
+
+  const getLabelTipo = (tipo) => {
+    const map = { CORRECTIVO: "Correctivo", PREVENTIVO: "Preventivo", INSPECCION: "Inspección" };
+    return map[tipo] || tipo;
+  };
+
+  const formatFecha = (fecha) => {
+    if (!fecha) return "—";
+    return new Date(fecha).toLocaleDateString("es-CO");
+  };
+
+  if (!activo) return (
+    <div>
+      <SigmaHeader />
+      <p style={{ padding: "2rem" }}>No se encontró información del activo.</p>
+    </div>
+  );
+
+  const ordenCerrada = ordenes.filter(o => o.estado === "CERRADA");
+  const ultimaOrden = ordenCerrada.sort((a, b) =>
+    new Date(b.fechaFin) - new Date(a.fechaFin)
+  )[0];
 
   return (
     <div>
-      <header>
-        <SigmaHeader />
-      </header>
-
+      <header><SigmaHeader /></header>
       <div className="layout-mantenimiento">
         <VerticalNav items={menuItems} />
-
         <main className="contenido-mantenimiento">
           <div className="cabecera-historial">
             <div>
               <h1>Historial de mantenimiento</h1>
-              <p>
-                Laptop mantenimiento campo · Revisa las intervenciones realizadas
-                y próximas acciones
-              </p>
+              <p>{activo.titulo} · Revisa las intervenciones realizadas y próximas acciones</p>
             </div>
-
-            <button
-              className="btn-volver"
-              onClick={() => navigate("/Activos_mantenimiento")}
-            >
+            <button className="btn-volver" onClick={() => navigate("/Activos_mantenimiento")}>
               Volver a activos
             </button>
           </div>
+
           <section className="info-activo">
             <div className="activo-datos">
-              <strong>Laptop mantenimiento campo</strong>
-              <span>ID: ACT-MT-0098 · Portátil</span>
-              <span>Ubicación: Vehículo servicio 03</span>
-              <span>Último mantenimiento: 05/03/2025</span>
+              <strong>{activo.titulo}</strong>
+              <span>Serie: {activo.serie || "—"} · {activo.tipo}</span>
+              <span>Responsable: {activo.responsable || "—"}</span>
+              <span>Último mantenimiento: {ultimaOrden ? formatFecha(ultimaOrden.fechaFin) : "Sin registros"}</span>
             </div>
-
             <div className="estado-actual">
-              <span className="badge-operativo">
-                Estado actual: Operativo
-              </span>
-              <button className="btn-nuevo">
-                Nueva orden de mantenimiento
-              </button>
+              <span className="badge-operativo">Estado: {activo.estado}</span>
+              <button className="btn-nuevo">Nueva orden de mantenimiento</button>
             </div>
           </section>
+
           <section className="resumen-historial">
             <div className="card-resumen">
-              <h4>Órdenes en los últimos 12 meses</h4>
-              <p className="valor">4</p>
-              <span>2 preventivas · 2 correctivas</span>
+              <h4>Órdenes totales</h4>
+              <p className="valor">{ordenes.length}</p>
+              <span>
+                {ordenes.filter(o => o.tipo === "PREVENTIVO").length} preventivas ·{" "}
+                {ordenes.filter(o => o.tipo === "CORRECTIVO").length} correctivas
+              </span>
             </div>
-
             <div className="card-resumen">
-              <h4>Tiempo promedio de resolución</h4>
-              <p className="valor">8 h</p>
-              <span>Basado en 4 intervenciones cerradas</span>
+              <h4>Órdenes cerradas</h4>
+              <p className="valor">{ordenCerrada.length}</p>
+              <span>De {ordenes.length} intervenciones totales</span>
             </div>
-
-            <div className="card-resumen filtros">
-              <h4>Filtrar historial</h4>
-              <span>Tipo de mantenimiento: Todos</span>
-              <span>Estado de orden: Todos</span>
-              <span>Técnico: Todos</span>
-              <span>Rango de fechas</span>
+            <div className="card-resumen">
+              <h4>Estado actual</h4>
+              <p className="valor">{activo.estado}</p>
+              <span>Descripción: {activo.descripcion || "—"}</span>
             </div>
           </section>
-          <table className="tabla-historial">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Tipo de orden</th>
-                <th>Estado</th>
-                <th>Técnico</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
 
-            <tbody>
-              {historial.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.fecha}</td>
-                  <td>{item.tipo}</td>
-                  <td>
-                    <span
-                      className={`estado-orden ${
-                        item.estado === "Cerrada"
-                          ? "cerrada"
-                          : "seguimiento"
-                      }`}
-                    >
-                      {item.estado}
-                    </span>
-                  </td>
-                  <td>{item.tecnico}</td>
-                  <td className="descripcion">{item.descripcion}</td>
-                  <td>
-                    <button className="btn-ver">Ver orden</button>
-                  </td>
+          {loading ? (
+            <p style={{ padding: "1rem" }}>Cargando historial...</p>
+          ) : (
+            <table className="tabla-historial">
+              <thead>
+                <tr>
+                  <th>Orden</th>
+                  <th>Tipo</th>
+                  <th>Estado</th>
+                  <th>Técnico</th>
+                  <th>Descripción</th>
+                  <th>Fecha</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ordenes.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" style={{ textAlign: "center", padding: 30 }}>
+                      No hay órdenes registradas para este activo
+                    </td>
+                  </tr>
+                ) : (
+                  ordenes.map((o) => (
+                    <tr key={o.id}>
+                      <td>{o.ordenId || o.id}</td>
+                      <td>{getLabelTipo(o.tipo)}</td>
+                      <td>
+                        <span className={`estado-orden ${o.estado === "CERRADA" ? "cerrada" : "seguimiento"}`}>
+                          {getLabelEstado(o.estado)}
+                        </span>
+                      </td>
+                      <td>{o.tecnicoNombre || "—"}</td>
+                      <td className="descripcion">{o.descripcion || "—"}</td>
+                      <td>{formatFecha(o.fechaProgramada)}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          )}
 
           <div className="nota-final">
             <strong>¿Falta alguna intervención?</strong>

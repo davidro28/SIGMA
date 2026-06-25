@@ -2,22 +2,22 @@ import { useState, useEffect } from "react";
 import "./styles.css";
 import { ordenService } from "../../../../API/RegistroAPI";
 
-function AgendaMantenimientos() {
-  const tecnicoId = localStorage.getItem("usuario");
-  const [ordenes, setOrdenes] = useState([]);
-  const [loading, setLoading] = useState(true);
+function AgendaMantenimientos({ tecnicoId }) {
+    const [ordenes, setOrdenes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    ordenService.porTecnico(tecnicoId)
-      .then(data => setOrdenes(data))
-      .catch(err => console.error("Error cargando agenda:", err))
-      .finally(() => setLoading(false));
-  }, []);
+    useEffect(() => {
+        if (!tecnicoId) return;
+        ordenService.porTecnico(tecnicoId)
+            .then(data => setOrdenes(data))
+            .catch(err => console.error("Error cargando agenda:", err))
+            .finally(() => setLoading(false));
+    }, [tecnicoId]);
 
   const hoy = new Date().toDateString();
 
   const ordenesHoy = ordenes.filter(o => {
-    if (!o.fechaProgramada) return false;
+    if (!o.fechaProgramada) return true;
     return new Date(o.fechaProgramada).toDateString() === hoy;
   });
 
