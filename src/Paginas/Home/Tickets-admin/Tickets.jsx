@@ -21,10 +21,9 @@ export default function Tickets() {
   const [filtroResponsable, setFiltroResponsable] = useState("Todos");
   const [busqueda, setBusqueda] = useState("");
   const [tickets, setTickets] = useState([]);
-
-  // 🔥 NUEVO: caches de nombres
   const [activosMap, setActivosMap] = useState({});
   const [usuariosMap, setUsuariosMap] = useState({});
+  const [ticketSeleccionado, setTicketSeleccionado] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/tickets")
@@ -39,74 +38,69 @@ export default function Tickets() {
       .catch(err => console.error("Error tickets:", err));
   }, []);
 
-  // 🔥 CARGAR NOMBRES DE ACTIVOS
   useEffect(() => {
-    fetch("http://localhost:8080/activos")
+    fetch("http://localhost:8080/api/activos")
       .then(res => res.json())
       .then(data => {
         const map = {};
-        data.forEach(a => {
-          map[a.id] = a.titulo; // 👈 tu modelo real
-        });
+        data.forEach(a => { map[a.id] = a.titulo; });
         setActivosMap(map);
-      });
+      })
+      .catch(err => console.error("Error activos:", err));
   }, []);
 
-  // 🔥 CARGAR NOMBRES DE USUARIOS
   useEffect(() => {
-    fetch("http://localhost:8080/usuarios")
+    fetch("http://localhost:8080/api/usuarios")
       .then(res => res.json())
       .then(data => {
         const map = {};
-        data.forEach(u => {
-          map[u.id] = u.nom; // 👈 tu modelo real
-        });
+        data.forEach(u => { map[u.id] = u.nombre; });
         setUsuariosMap(map);
-      });
+      })
+      .catch(err => console.error("Error usuarios:", err));
   }, []);
 
   const ticketsNormalizados = tickets.map(t => ({
     ...t,
     titulo: t.tit,
     estado: t.est || "Abierto",
-    prioridad: t.priori
+    prioridad: t.priori,
+    tipo: t.tip,
+    descripcion: t.descrip,
   }));
 
   const ticketsFiltrados = ticketsNormalizados.filter(ticket => {
     const matchesBusqueda =
       (ticket.titulo || "").toLowerCase().includes(busqueda.toLowerCase()) ||
       (ticket.id || "").includes(busqueda);
-
-    const matchesEstado =
-      filtroEstado === "Todos" || ticket.estado === filtroEstado;
-
-    const matchesPrioridad =
-      filtroPrioridad === "Todas" || ticket.prioridad === filtroPrioridad;
-
-    const matchesActivo =
-      filtroActivo === "Todos" || ticket.activoId === filtroActivo;
-
-    const matchesResponsable =
-      filtroResponsable === "Todos" || ticket.asignadoId === filtroResponsable;
-
-    return (
-      matchesBusqueda &&
-      matchesEstado &&
-      matchesPrioridad &&
-      matchesActivo &&
-      matchesResponsable
-    );
+    const matchesEstado = filtroEstado === "Todos" || ticket.estado === filtroEstado;
+    const matchesPrioridad = filtroPrioridad === "Todas" || ticket.prioridad === filtroPrioridad;
+    const matchesActivo = filtroActivo === "Todos" || ticket.activoId === filtroActivo;
+    const matchesResponsable = filtroResponsable === "Todos" || ticket.asignadoId === filtroResponsable;
+    return matchesBusqueda && matchesEstado && matchesPrioridad && matchesActivo && matchesResponsable;
   });
 
   const estadosRapidos = ["Abierto", "En progreso", "Cerrado"];
+  const activosUnicos = [...new Set(tickets.map(t => t.activoId).filter(Boolean))];
+  const responsablesUnicos = [...new Set(tickets.map(t => t.asignadoId).filter(Boolean))];
 
-  const activosUnicos = [
-    ...new Set(tickets.map(t => t.activoId).filter(Boolean))
-  ];
+  const colorEstado = (estado) => {
+    switch (estado) {
+      case "Abierto": return "#e67e22";
+      case "En progreso": return "#2980b9";
+      case "Cerrado": return "#27ae60";
+      default: return "#888";
+    }
+  };
 
-  const responsablesUnicos = [
-    ...new Set(tickets.map(t => t.asignadoId).filter(Boolean))
-  ];
+  const colorPrioridad = (prioridad) => {
+    switch (prioridad) {
+      case "Alta": return "#e74c3c";
+      case "Media": return "#f39c12";
+      case "Baja": return "#27ae60";
+      default: return "#888";
+    }
+  };
 
   return (
     <>
@@ -124,7 +118,6 @@ export default function Tickets() {
 
           <div className="filtros-rapidos">
             <h4>Filtros rápidos</h4>
-
             <div className="busqueda-filtros">
               <input
                 type="text"
@@ -133,7 +126,6 @@ export default function Tickets() {
                 onChange={e => setBusqueda(e.target.value)}
                 className="input-busqueda"
               />
-
               <div className="grupo-filtro">
                 <label>Estado:</label>
                 <select onChange={e => setFiltroEstado(e.target.value)}>
@@ -143,7 +135,6 @@ export default function Tickets() {
                   <option>Cerrado</option>
                 </select>
               </div>
-
               <div className="grupo-filtro">
                 <label>Prioridad:</label>
                 <select onChange={e => setFiltroPrioridad(e.target.value)}>
@@ -153,7 +144,6 @@ export default function Tickets() {
                   <option>Baja</option>
                 </select>
               </div>
-
               <div className="grupo-filtro">
                 <label>Activo:</label>
                 <select onChange={e => setFiltroActivo(e.target.value)}>
@@ -163,7 +153,6 @@ export default function Tickets() {
                   ))}
                 </select>
               </div>
-
               <div className="grupo-filtro">
                 <label>Responsable:</label>
                 <select onChange={e => setFiltroResponsable(e.target.value)}>
@@ -174,14 +163,11 @@ export default function Tickets() {
                 </select>
               </div>
             </div>
-
             <div className="botones-estado-rapido">
               {estadosRapidos.map(estado => (
                 <button
                   key={estado}
-                  className={`btn-estado-rapido ${
-                    filtroEstado === estado ? "active" : ""
-                  }`}
+                  className={`btn-estado-rapido ${filtroEstado === estado ? "active" : ""}`}
                   onClick={() => setFiltroEstado(estado)}
                 >
                   {estado}
@@ -202,31 +188,25 @@ export default function Tickets() {
                 <th></th>
               </tr>
             </thead>
-
             <tbody>
               {ticketsFiltrados.map(ticket => (
                 <tr key={ticket.id}>
                   <td>#{ticket.id?.slice(0, 6)}</td>
                   <td>{ticket.titulo}</td>
-
-                  {/* 🔥 AQUÍ YA MUESTRA NOMBRE */}
                   <td>{activosMap[ticket.activoId] || ticket.activoId || "—"}</td>
                   <td>{usuariosMap[ticket.asignadoId] || ticket.asignadoId || "—"}</td>
-
                   <td>{ticket.estado}</td>
                   <td>{ticket.prioridad}</td>
-
                   <td>
                     <button
                       className="btn-ver"
-                      onClick={() => navigate(`/Ticket/${ticket.id}`)}
+                      onClick={() => setTicketSeleccionado(ticket)}
                     >
                       Ver
                     </button>
                   </td>
                 </tr>
               ))}
-
               {ticketsFiltrados.length === 0 && (
                 <tr>
                   <td colSpan="7" style={{ textAlign: "center" }}>
@@ -246,6 +226,81 @@ export default function Tickets() {
 
         </div>
       </div>
+
+      {ticketSeleccionado && (
+        <div className="modal-overlay" onClick={() => setTicketSeleccionado(null)}>
+          <div className="modal-ticket" onClick={e => e.stopPropagation()}>
+
+            <div className="modal-header">
+              <h2>#{ticketSeleccionado.id?.slice(0, 6)} — {ticketSeleccionado.titulo}</h2>
+              <button className="modal-cerrar" onClick={() => setTicketSeleccionado(null)}>✕</button>
+            </div>
+
+            <div className="modal-body">
+
+              <div className="modal-badges">
+                <span className="badge" style={{ backgroundColor: colorEstado(ticketSeleccionado.estado) }}>
+                  {ticketSeleccionado.estado}
+                </span>
+                <span className="badge" style={{ backgroundColor: colorPrioridad(ticketSeleccionado.prioridad) }}>
+                  {ticketSeleccionado.prioridad}
+                </span>
+                {ticketSeleccionado.tipo && (
+                  <span className="badge badge-tipo">{ticketSeleccionado.tipo}</span>
+                )}
+              </div>
+
+              <div className="modal-grid">
+                <div className="modal-field">
+                  <span className="modal-label">Activo</span>
+                  <span>{activosMap[ticketSeleccionado.activoId] || ticketSeleccionado.activoId || "—"}</span>
+                </div>
+                <div className="modal-field">
+                  <span className="modal-label">Responsable</span>
+                  <span>{usuariosMap[ticketSeleccionado.asignadoId] || ticketSeleccionado.asignadoId || "—"}</span>
+                </div>
+                <div className="modal-field">
+                  <span className="modal-label">Solicitante</span>
+                  <span>{usuariosMap[ticketSeleccionado.solicitanteId] || ticketSeleccionado.solicitanteId || "—"}</span>
+                </div>
+                <div className="modal-field">
+                  <span className="modal-label">Fecha creación</span>
+                  <span>
+                    {ticketSeleccionado.fechaCreacion
+                      ? new Date(ticketSeleccionado.fechaCreacion).toLocaleDateString("es-CO", {
+                          day: "2-digit", month: "short", year: "numeric"
+                        })
+                      : "—"}
+                  </span>
+                </div>
+              </div>
+
+              <div className="modal-field modal-descripcion">
+                <span className="modal-label">Descripción</span>
+                <p>{ticketSeleccionado.descripcion || "Sin descripción"}</p>
+              </div>
+
+              {ticketSeleccionado.comentario && (
+                <div className="modal-field">
+                  <span className="modal-label">Comentario</span>
+                  <p>{ticketSeleccionado.comentario}</p>
+                </div>
+              )}
+
+            </div>
+
+            <div className="modal-footer">
+              <button className="btn-ver" onClick={() => navigate(`/Ticket/${ticketSeleccionado.id}`)}>
+                Ver completo
+              </button>
+              <button className="modal-cerrar-btn" onClick={() => setTicketSeleccionado(null)}>
+                Cerrar
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
     </>
   );
 }
