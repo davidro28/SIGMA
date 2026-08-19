@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { apiFetch } from "../API/RegistroAPI";
 
 export function useUsuarioActual() {
     const [usuario, setUsuario] = useState(null);
@@ -6,26 +7,30 @@ export function useUsuarioActual() {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        console.log("Token en useUsuarioActual:", token); // 👈 agrega esto
+
+        console.log("Token en useUsuarioActual:", token);
 
         if (!token) {
             setLoading(false);
             return;
         }
 
-        fetch("http://localhost:8080/api/usuarios/ActRes", {
-            headers: { Authorization: `Bearer ${token}` }
+        apiFetch("/api/usuarios/ActRes", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
-            .then(r => {
-                console.log("Status ActRes:", r.status); // 👈 agrega esto
-                return r.json();
-            })
             .then(data => {
-                console.log("Usuario obtenido:", data); // 👈 agrega esto
+                console.log("Usuario obtenido:", data);
                 setUsuario(data);
             })
-            .catch(err => console.error("Error obteniendo usuario:", err))
-            .finally(() => setLoading(false));
+            .catch(err => {
+                console.error("Error obteniendo usuario:", err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+
     }, []);
 
     return { usuario, loading };

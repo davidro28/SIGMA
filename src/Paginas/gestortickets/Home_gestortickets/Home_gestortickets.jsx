@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import VerticalNav from "../../../Components/verticalNav";
 import SigmaHeader from "../../../Components/sigmaHeader";
+import { ticketService } from "../../../API/RegistroAPI";
 import "./Home_gestortickets.css";
 
 export default function Tickets() {
@@ -21,43 +22,62 @@ export default function Tickets() {
   const [filtroResponsable, setFiltroResponsable] = useState("Todos");
   const [busqueda, setBusqueda] = useState("");
 
+  // =========================================================
+  // CARGAR TICKETS DESDE EL BACKEND
+  // =========================================================
   useEffect(() => {
     cargarTickets();
   }, []);
 
   const cargarTickets = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/tickets");
-
-      if (!res.ok) {
-        throw new Error("Error al obtener tickets");
-      }
-
-      const data = await res.json();
+      const data = await ticketService.listar();
 
       const normalizados = data.map((t) => ({
         ...t,
+
+        // Campos que vienen del TicketDto
         titulo: t.tit,
         descripcion: t.descrip,
         tipo: t.tip,
         estado: t.est,
         prioridad: t.priori,
+
+        activoId: t.activoId,
+        activoNombre: t.activoNombre,
+
+        asignadoId: t.asignadoId,
+        responsableNombre: t.responsableNombre,
+
+        solicitanteId: t.solicitanteId,
+
+        fechaCreacion: t.fechaCreacion,
+        fechaActualizacion: t.fechaActualizacion,
+        fechaCierre: t.fechaCierre,
+
+        comentario: t.comentario,
+        archivoNombre: t.archivoNombre,
       }));
 
       setTickets(normalizados);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error("Error al obtener tickets:", error);
     }
   };
 
+  // =========================================================
+  // FILTROS
+  // =========================================================
   const ticketsFiltrados = tickets.filter((ticket) => {
+    const textoBusqueda = busqueda.toLowerCase();
+
     const matchesBusqueda =
       (ticket.titulo || "")
         .toLowerCase()
-        .includes(busqueda.toLowerCase()) ||
+        .includes(textoBusqueda) ||
       (ticket.id || "")
         .toLowerCase()
-        .includes(busqueda.toLowerCase());
+        .includes(textoBusqueda);
 
     const matchesEstado =
       filtroEstado === "Todos" ||
@@ -84,34 +104,52 @@ export default function Tickets() {
     );
   });
 
+  // =========================================================
+  // ESTADOS
+  // =========================================================
   const estadosRapidos = [
     "ABIERTO",
     "EN_PROGRESO",
     "CERRADO",
   ];
 
-  const activosUnicos = [
-    ...new Set(
+  // =========================================================
+  // ACTIVOS ÚNICOS
+  // =========================================================
+  const activosUnicos = Array.from(
+    new Map(
       tickets
-        .map((t) => ({
-          id: t.activoId,
-          nombre: t.activoNombre,
-        }))
-        .filter((a) => a.id)
-    ),
-  ];
+        .filter((t) => t.activoId)
+        .map((t) => [
+          t.activoId,
+          {
+            id: t.activoId,
+            nombre: t.activoNombre || t.activoId,
+          },
+        ])
+    ).values()
+  );
 
-  const responsablesUnicos = [
-    ...new Set(
+  // =========================================================
+  // RESPONSABLES ÚNICOS
+  // =========================================================
+  const responsablesUnicos = Array.from(
+    new Map(
       tickets
-        .map((t) => ({
-          id: t.asignadoId,
-          nombre: t.responsableNombre,
-        }))
-        .filter((u) => u.id)
-    ),
-  ];
+        .filter((t) => t.asignadoId)
+        .map((t) => [
+          t.asignadoId,
+          {
+            id: t.asignadoId,
+            nombre: t.responsableNombre || t.asignadoId,
+          },
+        ])
+    ).values()
+  );
 
+  // =========================================================
+  // COLORES
+  // =========================================================
   const colorEstado = (estado) => {
     switch (estado) {
       case "ABIERTO":
@@ -144,6 +182,9 @@ export default function Tickets() {
     }
   };
 
+  // =========================================================
+  // RENDER
+  // =========================================================
   return (
     <>
       <SigmaHeader />
@@ -154,6 +195,7 @@ export default function Tickets() {
 
         <div className="page-content-gestor tickets-container">
 
+          {/* ================= HEADER ================= */}
           <div className="header-tickets-gestor">
 
             <h1>Tickets</h1>
@@ -165,6 +207,7 @@ export default function Tickets() {
 
           </div>
 
+          {/* ================= FILTROS ================= */}
           <div className="filtros-rapidos-gestor">
 
             <h4>Filtros rápidos</h4>
@@ -176,6 +219,7 @@ export default function Tickets() {
 
             <div className="busqueda-filtros">
 
+              {/* BUSCAR */}
               <input
                 className="input-busqueda"
                 type="text"
@@ -186,6 +230,7 @@ export default function Tickets() {
                 }
               />
 
+              {/* ESTADO */}
               <div className="grupo-filtro-gestor">
 
                 <label>Estado</label>
@@ -196,18 +241,27 @@ export default function Tickets() {
                     setFiltroEstado(e.target.value)
                   }
                 >
-                  <option>Todos</option>
+                  <option value="Todos">
+                    Todos
+                  </option>
 
-                  <option>ABIERTO</option>
+                  <option value="ABIERTO">
+                    ABIERTO
+                  </option>
 
-                  <option>EN_PROGRESO</option>
+                  <option value="EN_PROGRESO">
+                    EN_PROGRESO
+                  </option>
 
-                  <option>CERRADO</option>
+                  <option value="CERRADO">
+                    CERRADO
+                  </option>
 
                 </select>
 
               </div>
 
+              {/* PRIORIDAD */}
               <div className="grupo-filtro-gestor">
 
                 <label>Prioridad</label>
@@ -218,18 +272,27 @@ export default function Tickets() {
                     setFiltroPrioridad(e.target.value)
                   }
                 >
-                  <option>Todas</option>
+                  <option value="Todas">
+                    Todas
+                  </option>
 
-                  <option>ALTA</option>
+                  <option value="ALTA">
+                    ALTA
+                  </option>
 
-                  <option>MEDIA</option>
+                  <option value="MEDIA">
+                    MEDIA
+                  </option>
 
-                  <option>BAJA</option>
+                  <option value="BAJA">
+                    BAJA
+                  </option>
 
                 </select>
 
               </div>
 
+              {/* ACTIVO */}
               <div className="grupo-filtro-gestor">
 
                 <label>Activo</label>
@@ -244,12 +307,12 @@ export default function Tickets() {
                     Todos
                   </option>
 
-                  {activosUnicos.map((a) => (
+                  {activosUnicos.map((activo) => (
                     <option
-                      key={a.id}
-                      value={a.id}
+                      key={activo.id}
+                      value={activo.id}
                     >
-                      {a.nombre}
+                      {activo.nombre}
                     </option>
                   ))}
 
@@ -257,6 +320,7 @@ export default function Tickets() {
 
               </div>
 
+              {/* RESPONSABLE */}
               <div className="grupo-filtro-gestor">
 
                 <label>Responsable</label>
@@ -264,27 +328,28 @@ export default function Tickets() {
                 <select
                   value={filtroResponsable}
                   onChange={(e) =>
-                    setFiltroResponsable(
-                      e.target.value
-                    )
+                    setFiltroResponsable(e.target.value)
                   }
                 >
                   <option value="Todos">
                     Todos
                   </option>
 
-                  {responsablesUnicos.map((u) => (
+                  {responsablesUnicos.map((responsable) => (
                     <option
-                      key={u.id}
-                      value={u.id}
+                      key={responsable.id}
+                      value={responsable.id}
                     >
-                      {u.nombre}
+                      {responsable.nombre}
                     </option>
                   ))}
 
                 </select>
 
-              </div>              <button
+              </div>
+
+              {/* LIMPIAR */}
+              <button
                 className="btn-limpiar"
                 onClick={() => {
                   setFiltroEstado("Todos");
@@ -299,6 +364,7 @@ export default function Tickets() {
 
             </div>
 
+            {/* ESTADOS RÁPIDOS */}
             <div className="botones-estado-rapido">
 
               {estadosRapidos.map((estado) => (
@@ -306,9 +372,13 @@ export default function Tickets() {
                 <button
                   key={estado}
                   className={`btn-estado-rapido ${
-                    filtroEstado === estado ? "active" : ""
+                    filtroEstado === estado
+                      ? "active"
+                      : ""
                   }`}
-                  onClick={() => setFiltroEstado(estado)}
+                  onClick={() =>
+                    setFiltroEstado(estado)
+                  }
                 >
                   {estado}
                 </button>
@@ -319,28 +389,20 @@ export default function Tickets() {
 
           </div>
 
+          {/* ================= TABLA ================= */}
           <table className="tabla-tickets">
 
             <thead>
 
               <tr>
-
                 <th>Ticket</th>
-
                 <th>Resumen</th>
-
                 <th>Activo</th>
-
                 <th>Responsable</th>
-
                 <th>Estado</th>
-
                 <th>Prioridad</th>
-
                 <th>Actualizado</th>
-
                 <th></th>
-
               </tr>
 
             </thead>
@@ -451,6 +513,7 @@ export default function Tickets() {
 
           </table>
 
+          {/* ================= NUEVO TICKET ================= */}
           <button
             className="btn-nuevo-ticket"
             onClick={() =>
@@ -462,16 +525,27 @@ export default function Tickets() {
 
         </div>
 
-      </div>      {ticketSeleccionado && (
+      </div>
+
+      {/* ================= MODAL ================= */}
+      {ticketSeleccionado && (
+
         <div
           className="modal-overlay"
-          onClick={() => setTicketSeleccionado(null)}
+          onClick={() =>
+            setTicketSeleccionado(null)
+          }
         >
+
           <div
             className="modal-ticket"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) =>
+              e.stopPropagation()
+            }
           >
+
             <div className="modal-header">
+
               <h2>
                 #{ticketSeleccionado.id?.slice(0, 6)} —{" "}
                 {ticketSeleccionado.titulo}
@@ -479,10 +553,13 @@ export default function Tickets() {
 
               <button
                 className="modal-cerrar"
-                onClick={() => setTicketSeleccionado(null)}
+                onClick={() =>
+                  setTicketSeleccionado(null)
+                }
               >
                 ✕
               </button>
+
             </div>
 
             <div className="modal-body">
@@ -522,6 +599,7 @@ export default function Tickets() {
               <div className="modal-grid">
 
                 <div className="modal-field">
+
                   <span className="modal-label">
                     Activo
                   </span>
@@ -529,9 +607,11 @@ export default function Tickets() {
                   <span>
                     {ticketSeleccionado.activoNombre || "—"}
                   </span>
+
                 </div>
 
                 <div className="modal-field">
+
                   <span className="modal-label">
                     Responsable
                   </span>
@@ -539,9 +619,11 @@ export default function Tickets() {
                   <span>
                     {ticketSeleccionado.responsableNombre || "—"}
                   </span>
+
                 </div>
 
                 <div className="modal-field">
+
                   <span className="modal-label">
                     Solicitante
                   </span>
@@ -549,9 +631,11 @@ export default function Tickets() {
                   <span>
                     {ticketSeleccionado.solicitanteId || "—"}
                   </span>
+
                 </div>
 
                 <div className="modal-field">
+
                   <span className="modal-label">
                     Fecha creación
                   </span>
@@ -563,6 +647,7 @@ export default function Tickets() {
                         ).toLocaleString()
                       : "—"}
                   </span>
+
                 </div>
 
               </div>
@@ -581,6 +666,7 @@ export default function Tickets() {
               </div>
 
               {ticketSeleccionado.comentario && (
+
                 <div className="modal-field">
 
                   <span className="modal-label">
@@ -592,6 +678,7 @@ export default function Tickets() {
                   </p>
 
                 </div>
+
               )}
 
             </div>
@@ -624,7 +711,9 @@ export default function Tickets() {
             </div>
 
           </div>
+
         </div>
+
       )}
 
     </>
