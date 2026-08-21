@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Modal from "../../../Components/modalAlerta";
-import { useModal } from "../../../Hooks/useModalAlert";
+import { useAuth } from "../../../Hooks/AuthContext";
 import VerticalNav from "../../../Components/verticalNav";
 import SigmaHeader from "../../../Components/sigmaHeader";
 
@@ -10,7 +10,7 @@ import { apiFetch } from "../../../API/RegistroAPI";
 
 import "./NuevoActivo.css";
 
-export default function NuevoActivo() {
+function NuevoActivo() {
     const navigate = useNavigate();
 
     const [preview, setPreview] = useState(null);
@@ -492,3 +492,5 @@ export default function NuevoActivo() {
         </>
     );
 }
+
+export default NuevoActivo;

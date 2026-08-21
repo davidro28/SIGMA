@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./registro.css";
-import Modal from "../../Components/modalAlerta";
-import { useModal } from "../../Hooks/useModalAlert";
+import { useAuth } from "../../Hooks/AuthContext";
 import { authService } from "../../API/RegistroAPI";
 
 export default function Register() {

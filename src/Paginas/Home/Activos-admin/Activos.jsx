@@ -4,7 +4,7 @@ import VerticalNav from "../../../Components/verticalNav/index.jsx";
 import SigmaHeader from "../../../Components/sigmaHeader";
 import "./Activos.css";
 
-import { apiFetch } from "../../../API/RegistroAPI.jsx";
+import { apiFetch } from "../../../API/RegistroAPI.js";
 
 export default function Activos() {
   const navigate = useNavigate();

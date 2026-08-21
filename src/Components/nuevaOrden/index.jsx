@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
+
 import { ordenService, apiFetch } from "../../API/RegistroAPI";
-import Modal from "../modalAlerta";
-import { useModal } from "../../Hooks/useModalAlert";
+import { useAuth } from "../../Hooks/AuthContext";
 
 function NuevaOrden({ onOrdenCreada }) {
+
     const [open, setOpen] = useState(false);
+
     const [activos, setActivos] = useState([]);
+
     const [tecnicos, setTecnicos] = useState([]);
+
     const [guardando, setGuardando] = useState(false);
-    const { modal, showModal, closeModal } = useModal();
+
+    const { token } = useAuth();
+
 
     const [form, setForm] = useState({
         activoId: "",
@@ -27,55 +33,98 @@ function NuevaOrden({ onOrdenCreada }) {
         descripcion: ""
     });
 
+
+    // =========================================================
+    // CARGAR ACTIVOS Y TÉCNICOS
+    // =========================================================
+
     useEffect(() => {
-        if (!open) return;
+
+        if (!open || !token) {
+            return;
+        }
 
         const cargarDatos = async () => {
-            const token = localStorage.getItem("token");
 
             try {
-                // Cargar activos
-                const activosData = await apiFetch("/api/activos", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
 
-                setActivos(activosData);
+                // =========================
+                // ACTIVOS
+                // =========================
 
-                // Cargar técnicos por rol
-                const tecnicosData = await apiFetch(
-                    "/api/usuarios/por-rol?rol=Tecni_Mantenimiento",
+                const activosData = await apiFetch(
+                    "/api/activos",
                     {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
+                        token
                     }
                 );
 
-                setTecnicos(tecnicosData);
+                setActivos(
+                    Array.isArray(activosData)
+                        ? activosData
+                        : []
+                );
+
+
+                // =========================
+                // TÉCNICOS
+                // =========================
+
+                const tecnicosData = await apiFetch(
+                    "/api/usuarios/por-rol?rol=Tecni_Mantenimiento",
+                    {
+                        token
+                    }
+                );
+
+                setTecnicos(
+                    Array.isArray(tecnicosData)
+                        ? tecnicosData
+                        : []
+                );
 
             } catch (err) {
-                console.error("Error cargando datos:", err);
 
-                showModal(
-                    "error",
-                    "Error al cargar información",
-                    err.message || "No se pudieron cargar los activos o técnicos.",
-                    "Cerrar"
+                console.error(
+                    "Error cargando datos:",
+                    err
+                );
+
+                /*
+                 * La vista NO se rompe aunque no haya
+                 * activos o técnicos registrados.
+                 */
+
+                setActivos([]);
+                setTecnicos([]);
+
+                alert(
+                    err.message ||
+                    "No se pudieron cargar los activos o técnicos."
                 );
             }
         };
 
         cargarDatos();
 
-    }, [open]);
+    }, [open, token]);
+
+
+    // =========================================================
+    // CAMBIOS DEL FORMULARIO
+    // =========================================================
 
     const handleChange = (e) => {
+
         const { name, value } = e.target;
 
-        // Si cambia el activo
+
+        // =========================
+        // ACTIVO
+        // =========================
+
         if (name === "activoId") {
+
             const activo = activos.find(
                 (a) => a.id === value
             );
@@ -92,8 +141,13 @@ function NuevaOrden({ onOrdenCreada }) {
             return;
         }
 
-        // Si cambia el técnico
+
+        // =========================
+        // TÉCNICO
+        // =========================
+
         if (name === "tecnicoId") {
+
             const tecnico = tecnicos.find(
                 (t) => t.id === value
             );
@@ -110,18 +164,44 @@ function NuevaOrden({ onOrdenCreada }) {
             return;
         }
 
+
+        // =========================
+        // RESTO
+        // =========================
+
         setForm({
             ...form,
             [name]: value
         });
     };
 
+
+    // =========================================================
+    // CREAR ORDEN
+    // =========================================================
+
     const handleSubmit = async (e) => {
+
         e.preventDefault();
+
+        if (!token) {
+
+            alert(
+                "No hay una sesión activa. Inicia sesión nuevamente."
+            );
+
+            return;
+        }
+
         setGuardando(true);
 
         try {
-            const nueva = await ordenService.crear(form);
+
+            const nueva =
+                await ordenService.crear(
+                    form,
+                    token
+                );
 
             onOrdenCreada?.(nueva);
 
@@ -144,19 +224,28 @@ function NuevaOrden({ onOrdenCreada }) {
             });
 
         } catch (err) {
-            console.error("Error creando orden:", err);
 
-            showModal(
-                "error",
-                "Error al crear la orden",
-                err.message || "No se pudo conectar con el servidor.",
-                "Cerrar"
+            console.error(
+                "Error creando orden:",
+                err
+            );
+
+            alert(
+                err.message ||
+                "No se pudo conectar con el servidor."
             );
 
         } finally {
+
             setGuardando(false);
+
         }
     };
+
+
+    // =========================================================
+    // RENDER
+    // =========================================================
 
     return (
         <>
@@ -167,11 +256,16 @@ function NuevaOrden({ onOrdenCreada }) {
                 + Nueva Orden
             </button>
 
+
             {open && (
                 <div className="modal-overlay">
+
                     <div className="modal">
 
-                        <h2>Crear Nueva Orden</h2>
+                        <h2>
+                            Crear Nueva Orden
+                        </h2>
+
 
                         <form
                             className="form-orden"
@@ -185,6 +279,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                 <h3>
                                     Información General
                                 </h3>
+
 
                                 <div className="form-grid">
 
@@ -208,6 +303,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                             </option>
 
                                             {activos.map((a) => (
+
                                                 <option
                                                     key={a.id}
                                                     value={a.id}
@@ -215,6 +311,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                                     {a.titulo} ·{" "}
                                                     {a.serie || "Sin serie"}
                                                 </option>
+
                                             ))}
 
                                         </select>
@@ -242,12 +339,14 @@ function NuevaOrden({ onOrdenCreada }) {
                                             </option>
 
                                             {tecnicos.map((t) => (
+
                                                 <option
                                                     key={t.id}
                                                     value={t.id}
                                                 >
                                                     {t.nombre || t.user}
                                                 </option>
+
                                             ))}
 
                                         </select>
@@ -326,6 +425,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                     </div>
 
                                 </div>
+
                             </div>
 
 
@@ -336,6 +436,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                 <h3>
                                     Estado y Programación
                                 </h3>
+
 
                                 <div className="form-grid">
 
@@ -402,6 +503,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                     </div>
 
                                 </div>
+
                             </div>
 
 
@@ -412,6 +514,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                 <h3>
                                     Origen
                                 </h3>
+
 
                                 <div className="form-grid">
 
@@ -465,6 +568,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                     </div>
 
                                 </div>
+
                             </div>
 
 
@@ -475,6 +579,7 @@ function NuevaOrden({ onOrdenCreada }) {
                                 <h3>
                                     Descripción
                                 </h3>
+
 
                                 <div className="form-group">
 
@@ -504,10 +609,14 @@ function NuevaOrden({ onOrdenCreada }) {
                                     className="btn-guardar"
                                     disabled={guardando}
                                 >
+
                                     {guardando
                                         ? "Guardando..."
-                                        : "Guardar"}
+                                        : "Guardar"
+                                    }
+
                                 </button>
+
 
                                 <button
                                     type="button"
@@ -522,15 +631,10 @@ function NuevaOrden({ onOrdenCreada }) {
                         </form>
 
                     </div>
+
                 </div>
             )}
 
-            {modal && (
-                <Modal
-                    {...modal}
-                    onClose={closeModal}
-                />
-            )}
         </>
     );
 }

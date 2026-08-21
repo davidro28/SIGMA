@@ -26,11 +26,13 @@ import Detalles_mantenimiento from "./Paginas/tecnico_mantenimiento/Activos_mant
 import Tickets_mantenimiento from "./Paginas/tecnico_mantenimiento/Tickets_mantenimiento/Tickets_mantenimiento.jsx"
 import DetallesTickets_mantenimiento from "./Paginas/tecnico_mantenimiento/Tickets_mantenimiento/DetallesTickets_mantenimiento.jsx";
 import Panel_Admin from "./Paginas/Home/Panel_Admin/index.jsx";
+import { AuthProvider } from "./Hooks/AuthContext.jsx";
 
 
 function App() {
   return (
-    <Routes>
+    <AuthProvider>
+      <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/General" element={<MiHome />} />
@@ -62,6 +64,7 @@ function App() {
       {/* fallback: si no coincide, ir a login */}
       <Route path="*" element={<Login />} />
     </Routes>
+    </AuthProvider>
   );
 }
 
