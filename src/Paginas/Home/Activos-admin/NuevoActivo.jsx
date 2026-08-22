@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Modal from "../../../Components/modalAlerta";
-import { useAuth } from "../../../Hooks/AuthContext";
 import VerticalNav from "../../../Components/verticalNav";
 import SigmaHeader from "../../../Components/sigmaHeader";
 
@@ -13,10 +12,16 @@ import "./NuevoActivo.css";
 function NuevoActivo() {
     const navigate = useNavigate();
 
+    // =====================================================
+    // ESTADOS
+    // =====================================================
+
     const [preview, setPreview] = useState(null);
-    const { modal, showModal, closeModal } = useModal();
 
     const [usuarios, setUsuarios] = useState([]);
+
+    // Estado del modal
+    const [modal, setModal] = useState(null);
 
     const [form, setForm] = useState({
         titulo: "",
@@ -28,11 +33,35 @@ function NuevoActivo() {
         img: ""
     });
 
-    /*
-    =========================================================
-    CARGAR USUARIOS
-    =========================================================
-    */
+    // =====================================================
+    // MOSTRAR MODAL
+    // =====================================================
+
+    const showModal = (
+        tipo,
+        titulo,
+        mensaje,
+        boton = "Cerrar"
+    ) => {
+        setModal({
+            type: tipo,
+            title: titulo,
+            message: mensaje,
+            buttonText: boton
+        });
+    };
+
+    // =====================================================
+    // CERRAR MODAL
+    // =====================================================
+
+    const closeModal = () => {
+        setModal(null);
+    };
+
+    // =====================================================
+    // CARGAR USUARIOS
+    // =====================================================
 
     useEffect(() => {
         const cargarUsuarios = async () => {
@@ -53,11 +82,9 @@ function NuevoActivo() {
         cargarUsuarios();
     }, []);
 
-    /*
-    =========================================================
-    CAMBIAR CAMPOS
-    =========================================================
-    */
+    // =====================================================
+    // CAMBIAR CAMPOS
+    // =====================================================
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -68,11 +95,9 @@ function NuevoActivo() {
         }));
     };
 
-    /*
-    =========================================================
-    SUBIR IMAGEN
-    =========================================================
-    */
+    // =====================================================
+    // SUBIR IMAGEN
+    // =====================================================
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -83,26 +108,15 @@ function NuevoActivo() {
 
         setPreview(url);
 
-        /*
-         * IMPORTANTE:
-         *
-         * Esta URL solamente sirve para mostrar
-         * la vista previa en el navegador.
-         *
-         * No se guarda como una URL permanente
-         * en MongoDB.
-         */
         setForm((prev) => ({
             ...prev,
             img: ""
         }));
     };
 
-    /*
-    =========================================================
-    GUARDAR ACTIVO
-    =========================================================
-    */
+    // =====================================================
+    // GUARDAR ACTIVO
+    // =====================================================
 
     const handleGuardar = async () => {
         if (
@@ -152,11 +166,9 @@ function NuevoActivo() {
         }
     };
 
-    /*
-    =========================================================
-    RENDER
-    =========================================================
-    */
+    // =====================================================
+    // RENDER
+    // =====================================================
 
     return (
         <>
@@ -391,9 +403,7 @@ function NuevoActivo() {
 
                         </div>
 
-                        {/* =================================================
-                            IMAGEN
-                        ================================================== */}
+                        {/* IMAGEN */}
 
                         <h2 className="section-title">
                             Imagen del activo
@@ -414,9 +424,7 @@ function NuevoActivo() {
                                 <input
                                     type="file"
                                     accept="image/*"
-                                    onChange={
-                                        handleImageUpload
-                                    }
+                                    onChange={handleImageUpload}
                                     style={{
                                         display: "none"
                                     }}
@@ -453,9 +461,7 @@ function NuevoActivo() {
 
                         </div>
 
-                        {/* =================================================
-                            BOTONES
-                        ================================================== */}
+                        {/* BOTONES */}
 
                         <div className="actions">
 
@@ -483,12 +489,15 @@ function NuevoActivo() {
 
             </div>
 
+            {/* MODAL */}
+
             {modal && (
                 <Modal
                     {...modal}
                     onClose={closeModal}
                 />
             )}
+
         </>
     );
 }

@@ -1,11 +1,20 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
-  allowCypressEnv: false,
-
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
+    baseUrl: "http://localhost:5173",
+
+    reporter: "mochawesome",
+
+    reporterOptions: {
+      reportDir: "cypress/reports",
+      overwrite: false,
+      html: false,
+      json: true
     },
-  },
+
+    setupNodeEvents(on, config) {
+      return config;
+    }
+  }
 });
