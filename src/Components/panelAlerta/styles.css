@@ -1,5 +1,5 @@
 .alerts-container {
-    background: #111416;
+    background: #0f1217;
     padding: 20px;
     border-radius: 12px;
     width: 620px;
@@ -45,11 +45,12 @@
     margin: 0 0 4px 0;
     font-size: 15px;
     font-weight: 500;
+    color: #fff;
 }
 
 .alert-subtitle {
     font-size: 13px;
-    color: #b0b3b8;
+    color: #fff;
 }
 
 .badge {

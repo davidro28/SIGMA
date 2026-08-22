@@ -1,370 +1,501 @@
-/* ── Layout ─────────────────────────────────────────────────────────────── */
+/* =========================================================
+   LAYOUT
+========================================================= */
+
 .layout-container-responsable {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100vw;
-  background-color: #0d1117;
-  color: #e2e8f0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #0d1117;
+    color: #e2e8f0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    box-sizing: border-box;
 }
- 
-.content-area {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+========================================================= */
+
+.page-content-responsable {
+    flex: 1;
+    min-width: 0;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
- 
-.page-content {
-  flex: 1;
-  padding: 30px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  overflow-y: auto;
-  min-width: 0;
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header-activos-responsable {
+    width: 100%;
 }
- 
-/* ── Header ─────────────────────────────────────────────────────────────── */
-.header-tickets h1 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 5px;
+
+.header-activos-responsable h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #e2e8f0;
 }
- 
-.header-tickets p {
-  font-size: 15px;
-  color: #94a3b8;
-  margin: 0;
+
+.header-activos-responsable p {
+    margin: 0;
+    font-size: 15px;
+    color: #94a3b8;
 }
- 
-/* ── Sección filtros ────────────────────────────────────────────────────── */
-.filtros-rapidos {
-  width: 100%;
-  background-color: #161b22;
-  border-radius: 16px;
-  padding: 28px;
-  border: 1px solid rgba(20, 184, 166, 0.15);
-  box-shadow: 0 0 18px rgba(20, 184, 166, 0.08);
-  box-sizing: border-box;
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.filtros-activos-responsable {
+    width: 100%;
+    background-color: #161b22;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(20, 184, 166, 0.15);
+    box-shadow: 0 0 18px rgba(20, 184, 166, 0.08);
+    box-sizing: border-box;
 }
- 
-.filtros-rapidos h4 {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 4px;
-}
- 
-.filtros-rapidos > p {
-  font-size: 14px;
-  color: #94a3b8;
-  margin: 0 0 20px;
-}
- 
-/* ── Barra búsqueda + filtros ───────────────────────────────────────────── */
+
 .busqueda-filtros {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
 }
- 
+
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
 .input-busqueda {
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid #334155;
-  background-color: #0d1117;
-  color: #e2e8f0;
-  font-size: 14px;
-  min-width: 200px;
+    flex: 1;
+    min-width: 240px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background-color: #0d1117;
+    color: #e2e8f0;
+    font-size: 14px;
+    box-sizing: border-box;
 }
- 
+
+.input-busqueda::placeholder {
+    color: #64748b;
+}
+
 .input-busqueda:focus {
-  outline: none;
-  border-color: #14b8a6;
+    outline: none;
+    border-color: #14b8a6;
 }
- 
+
+
+/* =========================================================
+   FILTROS INDIVIDUALES
+========================================================= */
+
 .grupo-filtro {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #94a3b8;
-  font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 500;
 }
- 
+
 .grupo-filtro select {
-  background-color: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 10px 14px;
-  color: #e2e8f0;
-  font-size: 14px;
-  cursor: pointer;
-  transition: border-color 0.2s;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #e2e8f0;
+    font-size: 14px;
+    cursor: pointer;
 }
- 
+
 .grupo-filtro select:focus {
-  outline: none;
-  border-color: #14b8a6;
+    outline: none;
+    border-color: #14b8a6;
 }
- 
-/* ── Tabla ──────────────────────────────────────────────────────────────── */
-.tabla-tickets {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+
+
+/* =========================================================
+   BOTÓN LIMPIAR
+========================================================= */
+
+.btn-limpiar {
+    padding: 10px 16px;
+    border: 1px solid rgba(20, 184, 166, 0.35);
+    border-radius: 10px;
+    background-color: rgba(20, 184, 166, 0.12);
+    color: #14b8a6;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
 }
- 
-.tabla-tickets th {
-  padding: 12px 16px;
-  text-align: left;
-  color: #94a3b8;
-  font-weight: 600;
-  background-color: #0f172a;
-  border-bottom: 1px solid #334155;
+
+.btn-limpiar:hover {
+    background-color: rgba(20, 184, 166, 0.2);
 }
- 
-.tabla-tickets td {
-  padding: 14px 16px;
-  text-align: left;
-  vertical-align: middle;
-  border-bottom: 1px solid #1e293b;
+
+
+/* =========================================================
+   ESTADO VACÍO
+========================================================= */
+
+.estado-vacio {
+    width: 100%;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
+
+    background-color: #161b22;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
 }
- 
-.tabla-tickets tbody tr:hover {
-  background-color: #1e293b;
+
+.estado-vacio h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #e2e8f0;
 }
- 
-/* ── Celda activo (imagen + nombre) ────────────────────────────────────── */
-.td-activo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+
+.estado-vacio p {
+    margin: 0;
+    max-width: 500px;
+    color: #94a3b8;
+    font-size: 14px;
 }
- 
-.img-activo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-  border-radius: 8px;
-  background-color: #0f172a;
-  border: 1px solid #334155;
-  flex-shrink: 0;
+
+
+/* =========================================================
+   GRID DE ACTIVOS
+========================================================= */
+
+.activos-grid-responsable {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(280px, 1fr)
+    );
+    gap: 20px;
 }
- 
-.detalle-activo {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+
+
+/* =========================================================
+   TARJETA
+========================================================= */
+
+.activo-card-responsable {
+    background-color: #161b22;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
 }
- 
-.detalle-activo strong {
-  font-size: 14px;
-  font-weight: 600;
-  color: #e2e8f0;
+
+.activo-card-responsable:hover {
+    transform: translateY(-2px);
+    border-color: rgba(20, 184, 166, 0.35);
 }
- 
-.detalle-activo span {
-  font-size: 12px;
-  color: #64748b;
+
+
+/* =========================================================
+   IMAGEN DEL ACTIVO
+========================================================= */
+
+.activo-imagen {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    display: block;
+    background-color: #0f172a;
+    border-bottom: 1px solid #1e293b;
 }
- 
-/* ── Badges de estado ───────────────────────────────────────────────────── */
+
+
+/* =========================================================
+   INFORMACIÓN
+========================================================= */
+
+.activo-info {
+    padding: 18px;
+}
+
+.activo-info h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    color: #e2e8f0;
+}
+
+.codigo-activo {
+    margin: 0 0 14px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.activo-detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 16px;
+}
+
+.activo-detalles span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.activo-detalles strong {
+    color: #cbd5e1;
+}
+
+
+/* =========================================================
+   FOOTER TARJETA
+========================================================= */
+
+.activo-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+
+/* =========================================================
+   ESTADOS
+========================================================= */
+
 .estado {
-  padding: 4px 12px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: capitalize;
-  color: white;
-  display: inline-block;
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
 }
- 
-.estado-disponible    { background-color: #22c55e; }
-.estado-asignado      { background-color: #f59e0b; }
+
+.estado-disponible {
+    background-color: #22c55e;
+}
+
+.estado-asignado {
+    background-color: #f59e0b;
+}
+
 .estado-en-reparación,
-.estado-en-reparacion { background-color: #f97316; }
-.estado-de-baja       { background-color: #ef4444; }
-.estado-en-uso        { background-color: #3b82f6; }
-.estado-operativo     { background-color: #22c55e; }
-.estado-desconocido,
-.estado-              { background-color: #6b7280; }
- 
-/* ── Botones de acción en tabla ─────────────────────────────────────────── */
-.td-acciones {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
+.estado-en-reparacion {
+    background-color: #f97316;
 }
- 
-.btn-accion {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.1s;
-  white-space: nowrap;
+
+.estado-de-baja {
+    background-color: #ef4444;
 }
- 
-.btn-accion:hover {
-  opacity: 0.85;
-  transform: translateY(-1px);
+
+.estado-en-uso {
+    background-color: #3b82f6;
 }
- 
-.btn-detalle {
-  background-color: #1e293b;
-  color: #e2e8f0;
-  border: 1px solid #334155;
+
+.estado-operativo {
+    background-color: #22c55e;
 }
- 
-.btn-ticket {
-  background-color: rgba(20, 184, 166, 0.15);
-  color: #14b8a6;
-  border: 1px solid rgba(20, 184, 166, 0.3);
+
+
+/* =========================================================
+   BOTÓN VER DETALLE
+========================================================= */
+
+.btn-ver-detalle {
+    padding: 8px 13px;
+    border-radius: 9px;
+    border: 1px solid #334155;
+    background-color: #1e293b;
+    color: #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
 }
- 
-.btn-mant {
-  background-color: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+
+.btn-ver-detalle:hover {
+    background-color: #334155;
 }
- 
-/* ── Info faltante ──────────────────────────────────────────────────────── */
-.info-faltante {
-  margin-top: 20px;
-  padding: 16px 20px;
-  background-color: #0f172a;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  font-size: 14px;
-  color: #94a3b8;
-}
- 
-.info-faltante strong {
-  display: block;
-  margin-bottom: 6px;
-  color: #e2e8f0;
-  font-size: 15px;
-}
- 
-/* ── Loading ────────────────────────────────────────────────────────────── */
-.loading-msg {
-  text-align: center;
-  color: #94a3b8;
-  padding: 40px;
-  font-size: 15px;
-}
- 
-/* ── Modal overlay ──────────────────────────────────────────────────────── */
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
 }
- 
-.modal-card {
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 16px;
-  padding: 30px;
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  color: #e2e8f0;
+
+.modal-activo {
+    position: relative;
+    width: 90%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    padding: 30px;
+
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+
+    color: #e2e8f0;
+
+    box-sizing: border-box;
 }
- 
+
 .modal-close {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: #64748b;
-  transition: color 0.2s;
+    position: absolute;
+    top: 14px;
+    right: 16px;
+
+    background: none;
+    border: none;
+
+    font-size: 20px;
+    color: #64748b;
+
+    cursor: pointer;
 }
- 
+
 .modal-close:hover {
-  color: #e2e8f0;
+    color: #e2e8f0;
 }
- 
-.modal-img-container {
-  width: 100%;
-  height: 200px;
-  background-color: #0f172a;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  border: 1px solid #334155;
-}
- 
+
 .modal-img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-  border-radius: 10px;
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+
+    background-color: #0f172a;
+    border-radius: 12px;
+
+    margin-bottom: 20px;
 }
- 
-.modal-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+
+.modal-activo h2 {
+    margin: 0 0 12px;
+    font-size: 22px;
 }
- 
-.modal-titulo {
-  font-size: 20px;
-  font-weight: 700;
-  color: #e2e8f0;
-  margin: 0;
-}
- 
+
 .modal-detalles {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
 }
- 
-.modal-fila {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #334155;
-  padding-bottom: 8px;
-  font-size: 14px;
+
+.modal-detalles > div {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #334155;
 }
- 
-.modal-label {
-  color: #94a3b8;
-  font-weight: 500;
+
+.modal-detalles strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #94a3b8;
+    font-size: 13px;
 }
- 
-/* ── Acciones dentro del modal ──────────────────────────────────────────── */
-.modal-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 6px;
+
+.modal-detalles p {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 14px;
 }
- 
-.modal-actions .btn-accion {
-  flex: 1;
-  padding: 10px 14px;
-  font-size: 13px;
-  text-align: center;
-  border-radius: 10px;
+
+.btn-cerrar-modal {
+    width: 100%;
+    margin-top: 20px;
+    padding: 11px 16px;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: #14b8a6;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.btn-cerrar-modal:hover {
+    background-color: #0d9488;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .page-content-responsable {
+        padding: 24px;
+    }
+
+    .busqueda-filtros {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .input-busqueda,
+    .grupo-filtro,
+    .btn-limpiar {
+        width: 100%;
+    }
+
+    .grupo-filtro {
+        justify-content: space-between;
+    }
+
+    .grupo-filtro select {
+        flex: 1;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .page-content-responsable {
+        padding: 18px;
+    }
+
+    .activos-grid-responsable {
+        grid-template-columns: 1fr;
+    }
+
 }

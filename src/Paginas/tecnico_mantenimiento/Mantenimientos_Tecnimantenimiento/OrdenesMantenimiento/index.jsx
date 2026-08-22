@@ -1,166 +1,617 @@
-import React, { useState, useEffect } from "react";
 import "./styles.css";
+
+import { useState, useEffect } from "react";
+
 import { ordenService } from "../../../../API/RegistroAPI";
-import { useUsuarioActual } from "../../../../Hooks/useUsuarioActual";
+import { useAuth } from "../../../../Hooks/AuthContext";
+
 
 function OrdenesMantenimiento({ filtroTab, onSeleccionar }) {
-    const { usuario } = useUsuarioActual();
+
+    const { token, usuario } = useAuth();
+
     const [ordenes, setOrdenes] = useState([]);
+
     const [loading, setLoading] = useState(true);
 
+
+    // =========================================================
+    // CARGAR ÓRDENES DEL TÉCNICO
+    // =========================================================
+
     useEffect(() => {
-        if (!usuario?.id) return;
-        ordenService.porTecnico(usuario.id)
-            .then(data => setOrdenes(filtrarPorTab(data, filtroTab)))
-            .catch(err => console.error("Error:", err))
-            .finally(() => setLoading(false));
-    }, [filtroTab, usuario]);
+
+        if (!token || !usuario?.id) {
+
+            setOrdenes([]);
+            setLoading(false);
+
+            return;
+        }
+
+
+        const cargarOrdenes = async () => {
+
+            try {
+
+                setLoading(true);
+
+
+                const data =
+                    await ordenService.porTecnico(
+                        usuario.id,
+                        token
+                    );
+
+
+                const ordenesData =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+
+                setOrdenes(
+                    filtrarPorTab(
+                        ordenesData,
+                        filtroTab
+                    )
+                );
+
+
+            } catch (err) {
+
+                console.error(
+                    "Error cargando órdenes:",
+                    err
+                );
+
+                setOrdenes([]);
+
+            } finally {
+
+                setLoading(false);
+
+            }
+
+        };
+
+
+        cargarOrdenes();
+
+    }, [filtroTab, usuario, token]);
+
+
+    // =========================================================
+    // FILTRAR POR PESTAÑA
+    // =========================================================
 
     const filtrarPorTab = (data, tab) => {
-        const hoy = new Date().toDateString();
-        if (tab === "hoy") return data.filter(o => {
-            if (!o.fechaProgramada) return true;
-            return new Date(o.fechaProgramada).toDateString() === hoy;
-        });
-        if (tab === "semana") {
-            const fin = new Date();
-            fin.setDate(fin.getDate() + 7);
-            return data.filter(o => {
-                if (!o.fechaProgramada) return true;
-                return new Date(o.fechaProgramada) <= fin;
+
+        const hoy =
+            new Date().toDateString();
+
+
+        if (tab === "hoy") {
+
+            return data.filter((o) => {
+
+                if (!o.fechaProgramada) {
+                    return true;
+                }
+
+                return (
+                    new Date(
+                        o.fechaProgramada
+                    ).toDateString() === hoy
+                );
+
             });
+
         }
+
+
+        if (tab === "semana") {
+
+            const fin =
+                new Date();
+
+            fin.setDate(
+                fin.getDate() + 7
+            );
+
+
+            return data.filter((o) => {
+
+                if (!o.fechaProgramada) {
+                    return true;
+                }
+
+                return (
+                    new Date(
+                        o.fechaProgramada
+                    ) <= fin
+                );
+
+            });
+
+        }
+
+
         return data;
     };
 
+
+    // =========================================================
+    // ETIQUETAS
+    // =========================================================
+
     const labelTipo = (tipo) => {
-        if (!tipo) return "—";
-        const map = { CORRECTIVO: "Correctivo", PREVENTIVO: "Preventivo", INSPECCION: "Inspección" };
+
+        if (!tipo) {
+            return "—";
+        }
+
+        const map = {
+
+            CORRECTIVO:
+                "Correctivo",
+
+            PREVENTIVO:
+                "Preventivo",
+
+            INSPECCION:
+                "Inspección"
+
+        };
+
         return map[tipo] || tipo;
     };
 
+
     const labelEstado = (estado) => {
-        const map = { EN_CURSO: "En ejecución", PENDIENTE: "Pendiente", CERRADA: "Completado" };
+
+        const map = {
+
+            EN_CURSO:
+                "En ejecución",
+
+            PENDIENTE:
+                "Pendiente",
+
+            CERRADA:
+                "Completado"
+
+        };
+
         return map[estado] || estado;
     };
 
+
     const getBadgeTipo = (tipo) => {
-        const map = { CORRECTIVO: "correctivo", PREVENTIVO: "preventivo", INSPECCION: "inspeccion" };
+
+        const map = {
+
+            CORRECTIVO:
+                "correctivo",
+
+            PREVENTIVO:
+                "preventivo",
+
+            INSPECCION:
+                "inspeccion"
+
+        };
+
         return map[tipo] || "";
     };
 
+
     const getBadgeEstado = (estado) => {
-        const map = { EN_CURSO: "ejecucion", PENDIENTE: "pendiente", CERRADA: "completado" };
+
+        const map = {
+
+            EN_CURSO:
+                "ejecucion",
+
+            PENDIENTE:
+                "pendiente",
+
+            CERRADA:
+                "completado"
+
+        };
+
         return map[estado] || "";
     };
 
+
+    // =========================================================
+    // FORMATO HORA
+    // =========================================================
+
     const formatHora = (fecha) => {
-        if (!fecha) return "Por definir";
-        return new Date(fecha).toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
+
+        if (!fecha) {
+            return "Por definir";
+        }
+
+        return new Date(
+            fecha
+        ).toLocaleTimeString(
+            "es-CO",
+            {
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
     };
 
-    const handleCambiarEstado = async (e, orden) => {
+
+    // =========================================================
+    // CAMBIAR ESTADO
+    // =========================================================
+
+    const handleCambiarEstado = async (
+        e,
+        orden
+    ) => {
+
         e.stopPropagation();
-        const estados = ["PENDIENTE", "EN_CURSO", "CERRADA"];
-        const siguiente = estados[(estados.indexOf(orden.estado) + 1) % estados.length];
-        try {
-            await ordenService.cambiarEstado(orden.id, siguiente);
-            setOrdenes(prev => prev.map(o => o.id === orden.id ? { ...o, estado: siguiente } : o));
-        } catch (err) {
-            console.error("Error al cambiar estado:", err);
+
+
+        if (!token) {
+
+            console.error(
+                "No existe token para cambiar el estado."
+            );
+
+            return;
         }
+
+
+        const estados = [
+            "PENDIENTE",
+            "EN_CURSO",
+            "CERRADA"
+        ];
+
+
+        const indiceActual =
+            estados.indexOf(
+                orden.estado
+            );
+
+
+        const siguiente =
+            estados[
+                (indiceActual + 1) %
+                estados.length
+            ];
+
+
+        try {
+
+            await ordenService.cambiarEstado(
+                orden.id,
+                siguiente,
+                token
+            );
+
+
+            setOrdenes((prev) =>
+
+                prev.map((o) =>
+
+                    o.id === orden.id
+                        ? {
+                            ...o,
+                            estado: siguiente
+                        }
+                        : o
+
+                )
+
+            );
+
+        } catch (err) {
+
+            console.error(
+                "Error al cambiar estado:",
+                err
+            );
+
+        }
+
     };
+
+
+    // =========================================================
+    // RENDER
+    // =========================================================
 
     return (
+
         <div className="oat-container">
+
             <div className="oat-header">
+
                 <div>
-                    <h3>Órdenes de mantenimiento en activos tecnológicos</h3>
+
+                    <h3>
+                        Órdenes de mantenimiento en activos tecnológicos
+                    </h3>
+
                     <div className="oat-legend">
-                        <span className="dot preventivo">Preventivo</span>
-                        <span className="dot correctivo">Correctivo</span>
-                        <span className="dot inspeccion">Inspección</span>
+
+                        <span className="dot preventivo">
+                            Preventivo
+                        </span>
+
+                        <span className="dot correctivo">
+                            Correctivo
+                        </span>
+
+                        <span className="dot inspeccion">
+                            Inspección
+                        </span>
+
                     </div>
+
                 </div>
-                <span className="oat-link">Exportar</span>
+
+
+                <span className="oat-link">
+                    Exportar
+                </span>
+
             </div>
 
+
             <table className="oat-table">
+
                 <thead>
+
                     <tr>
-                        <th>Orden</th>
-                        <th>Activo TI</th>
-                        <th>Tipo</th>
-                        <th>Inicio</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
+
+                        <th>
+                            Orden
+                        </th>
+
+                        <th>
+                            Activo TI
+                        </th>
+
+                        <th>
+                            Tipo
+                        </th>
+
+                        <th>
+                            Inicio
+                        </th>
+
+                        <th>
+                            Estado
+                        </th>
+
+                        <th>
+                            Acciones
+                        </th>
+
                     </tr>
+
                 </thead>
+
+
                 <tbody>
+
                     {loading ? (
-                        <tr><td colSpan={6}>Cargando órdenes...</td></tr>
+
+                        <tr>
+
+                            <td colSpan={6}>
+                                Cargando órdenes...
+                            </td>
+
+                        </tr>
+
                     ) : ordenes.length === 0 ? (
-                        <tr><td colSpan={6}>No hay órdenes para este período</td></tr>
+
+                        <tr>
+
+                            <td
+                                colSpan={6}
+                            >
+                                No hay órdenes para este período
+                            </td>
+
+                        </tr>
+
                     ) : (
-                        ordenes.map(o => (
-                            <tr key={o.id} onClick={() => onSeleccionar?.(o)} style={{ cursor: "pointer" }}>
-                                <td>{o.ordenId || o.id}</td>
-                                <td>{o.activoNombre} · {o.ubicacion || "—"}</td>
+
+                        ordenes.map((o) => (
+
+                            <tr
+                                key={o.id}
+                                onClick={() =>
+                                    onSeleccionar?.(o)
+                                }
+                                style={{
+                                    cursor: "pointer"
+                                }}
+                            >
+
                                 <td>
-                                    <span className={`badge tipo ${getBadgeTipo(o.tipo)}`}>
+                                    {o.ordenId || o.id}
+                                </td>
+
+
+                                <td>
+                                    {o.activoNombre} ·{" "}
+                                    {o.ubicacion || "—"}
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        className={`badge tipo ${getBadgeTipo(
+                                            o.tipo
+                                        )}`}
+                                    >
                                         {labelTipo(o.tipo)}
                                     </span>
+
                                 </td>
-                                <td>{formatHora(o.fechaProgramada)}</td>
+
+
                                 <td>
-                                    <span className={`badge estado ${getBadgeEstado(o.estado)}`}>
-                                        {labelEstado(o.estado)}
+                                    {formatHora(
+                                        o.fechaProgramada
+                                    )}
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        className={`badge estado ${getBadgeEstado(
+                                            o.estado
+                                        )}`}
+                                    >
+                                        {labelEstado(
+                                            o.estado
+                                        )}
                                     </span>
+
                                 </td>
+
+
                                 <td>
-                                    <button className="accion-btn" onClick={(e) => handleCambiarEstado(e, o)}>
+
+                                    <button
+                                        className="accion-btn"
+                                        onClick={(e) =>
+                                            handleCambiarEstado(
+                                                e,
+                                                o
+                                            )
+                                        }
+                                    >
                                         Cambiar estado
                                     </button>
+
                                 </td>
+
                             </tr>
+
                         ))
+
                     )}
+
                 </tbody>
+
             </table>
+
 
             <div className="oat-divider" />
-            <h4 className="oat-subtitle">Próximos mantenimientos preventivos de equipos</h4>
+
+
+            <h4 className="oat-subtitle">
+                Próximos mantenimientos preventivos de equipos
+            </h4>
+
 
             <table className="oat-table small">
+
                 <thead>
+
                     <tr>
-                        <th>Fecha</th>
-                        <th>Activo TI</th>
-                        <th>Tipo</th>
-                        <th>Estado</th>
+
+                        <th>
+                            Fecha
+                        </th>
+
+                        <th>
+                            Activo TI
+                        </th>
+
+                        <th>
+                            Tipo
+                        </th>
+
+                        <th>
+                            Estado
+                        </th>
+
                     </tr>
+
                 </thead>
+
+
                 <tbody>
+
                     {ordenes
-                        .filter(o => o.tipo === "PREVENTIVO" && o.estado !== "CERRADA")
+
+                        .filter(
+                            (o) =>
+                                o.tipo === "PREVENTIVO" &&
+                                o.estado !== "CERRADA"
+                        )
+
                         .slice(0, 3)
-                        .map(o => (
-                            <tr key={o.id}>
-                                <td>{o.ventana || formatHora(o.fechaProgramada)}</td>
-                                <td>{o.activoNombre}</td>
-                                <td>{labelTipo(o.tipo)}</td>
+
+                        .map((o) => (
+
+                            <tr
+                                key={o.id}
+                            >
+
                                 <td>
-                                    <span className={`badge estado ${getBadgeEstado(o.estado)}`}>
-                                        {labelEstado(o.estado)}
-                                    </span>
+                                    {o.ventana ||
+                                        formatHora(
+                                            o.fechaProgramada
+                                        )}
                                 </td>
+
+                                <td>
+                                    {o.activoNombre}
+                                </td>
+
+                                <td>
+                                    {labelTipo(
+                                        o.tipo
+                                    )}
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        className={`badge estado ${getBadgeEstado(
+                                            o.estado
+                                        )}`}
+                                    >
+                                        {labelEstado(
+                                            o.estado
+                                        )}
+                                    </span>
+
+                                </td>
+
                             </tr>
+
                         ))
+
                     }
+
                 </tbody>
+
             </table>
+
         </div>
+
     );
+
 }
 
 export default OrdenesMantenimiento;
