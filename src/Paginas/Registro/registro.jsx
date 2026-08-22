@@ -1,35 +1,25 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./registro.css";
-import { useAuth } from "../../Hooks/AuthContext";
 import { authService } from "../../API/RegistroAPI";
 
 export default function Register() {
-
   const navigate = useNavigate();
 
-  const {
-    modal,
-    showModal,
-    closeModal
-  } = useModal();
+  // ==========================================
+  // ESTADOS
+  // ==========================================
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
-  const [showPassword2, setShowPassword2] =
-    useState(false);
-
-  const [termsChecked, setTermsChecked] =
-    useState(false);
-
-  const [showTermsModal, setShowTermsModal] =
-    useState(false);
-
+  const [mensaje, setMensaje] = useState("");
+  const [tipoMensaje, setTipoMensaje] = useState("");
 
   const [form, setForm] = useState({
-
     nombre: "",
     email: "",
     telefono: "",
@@ -38,157 +28,133 @@ export default function Register() {
     numeroDocumento: "",
     password: "",
     confirmPassword: ""
-
   });
 
+  // ==========================================
+  // CAMBIAR VALORES DEL FORMULARIO
+  // ==========================================
 
   const handleChange = (e) => {
-
     setForm({
       ...form,
       [e.target.name]: e.target.value
     });
-
   };
 
+  // ==========================================
+  // ACEPTAR TÉRMINOS
+  // ==========================================
 
   const acceptTerms = () => {
-
     setTermsChecked(true);
-
     setShowTermsModal(false);
 
+    setMensaje("");
+    setTipoMensaje("");
   };
 
+  // ==========================================
+  // REGISTRO
+  // ==========================================
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
+    setMensaje("");
+    setTipoMensaje("");
 
-    /*
-     * Verificar términos
-     */
+    // ------------------------------------------
+    // VERIFICAR TÉRMINOS
+    // ------------------------------------------
 
     if (!termsChecked) {
-
-      showModal(
-        "warning",
-        "Acepta los términos",
-        "Para continuar debes leer y aceptar los términos y condiciones de SIGMA.",
-        "Revisar términos"
+      setTipoMensaje("warning");
+      setMensaje(
+        "Para continuar debes leer y aceptar los términos y condiciones de SIGMA."
       );
 
       return;
     }
 
+    // ------------------------------------------
+    // VERIFICAR CONTRASEÑAS
+    // ------------------------------------------
 
-    /*
-     * Verificar contraseñas
-     */
-
-    if (
-      form.password !==
-      form.confirmPassword
-    ) {
-
-      showModal(
-        "error",
-        "Las contraseñas no coinciden",
-        "Asegúrate de que ambos campos de contraseña sean idénticos antes de continuar."
+    if (form.password !== form.confirmPassword) {
+      setTipoMensaje("error");
+      setMensaje(
+        "Las contraseñas no coinciden. Asegúrate de que ambos campos sean idénticos."
       );
 
       return;
     }
-
 
     try {
-
-      /*
-       * Objeto que recibe el backend
-       */
+      // ------------------------------------------
+      // OBJETO QUE RECIBE EL BACKEND
+      // ------------------------------------------
 
       const usuario = {
-
         nombre: form.nombre,
-
         email: form.email,
-
         telefono: form.telefono,
-
         empresa: form.empresa,
 
         documento: {
-
           tipo: form.tipoDocumento,
-
           numero: form.numeroDocumento
-
         },
 
         usuario: form.email,
-
         password: form.password
-
       };
 
-      await authService.registrar(
-        usuario
+      // ------------------------------------------
+      // ENVIAR REGISTRO
+      // ------------------------------------------
+
+      await authService.registrar(usuario);
+
+      // ------------------------------------------
+      // REGISTRO EXITOSO
+      // ------------------------------------------
+
+      setTipoMensaje("success");
+      setMensaje(
+        "¡Cuenta creada correctamente! Serás redirigido al inicio de sesión..."
       );
-
-
-      /*
-       * Registro exitoso
-       */
-
-      showModal(
-        "success",
-        "¡Cuenta creada!",
-        "Serás redirigido al inicio de sesión en unos segundos...",
-        "Ir ahora"
-      );
-
 
       setTimeout(() => {
-
-        closeModal();
-
         navigate("/login");
-
       }, 2500);
 
-
     } catch (error) {
+      console.error("Error de conexión:", error);
 
-      console.error(
-        "Error de conexión:",
-        error
-      );
+      // Intentar obtener mensaje del backend
+      const mensajeError =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        error?.message ||
+        "No pudimos crear tu cuenta.";
 
-
-      showModal(
-        "error",
-        "Error al registrar",
-        error.message ||
-          "No pudimos crear tu cuenta.",
-        "Cerrar"
-      );
-
+      setTipoMensaje("error");
+      setMensaje(mensajeError);
     }
-
   };
 
+  // ==========================================
+  // RENDERIZADO
+  // ==========================================
 
   return (
     <>
       <div className="auth-container">
-
         <div className="auth-box">
 
           {/* LOGO */}
 
           <div className="logo">
-
             <div className="logo-icon">
               Σ
             </div>
@@ -196,23 +162,27 @@ export default function Register() {
             <span className="logo-text">
               Sigma
             </span>
-
           </div>
-
 
           <h2>
             Registro de usuario
           </h2>
 
-
           <p className="subtitle">
             Crea tu cuenta para acceder a los servicios de Sigma.
           </p>
 
+          {/* MENSAJE */}
 
-          <form
-            onSubmit={handleSubmit}
-          >
+          {mensaje && (
+            <div className={`mensaje ${tipoMensaje}`}>
+              {mensaje}
+            </div>
+          )}
+
+          {/* FORMULARIO */}
+
+          <form onSubmit={handleSubmit}>
 
             {/* NOMBRE */}
 
@@ -221,7 +191,6 @@ export default function Register() {
             </label>
 
             <div className="input-group">
-
               <i className="fa-solid fa-user"></i>
 
               <input
@@ -232,9 +201,7 @@ export default function Register() {
                 placeholder="Ingresa tu nombre completo"
                 required
               />
-
             </div>
-
 
             {/* EMAIL */}
 
@@ -243,7 +210,6 @@ export default function Register() {
             </label>
 
             <div className="input-group">
-
               <i className="fa-solid fa-envelope"></i>
 
               <input
@@ -254,9 +220,7 @@ export default function Register() {
                 placeholder="nombre.apellido@empresa.com"
                 required
               />
-
             </div>
-
 
             {/* TELEFONO */}
 
@@ -265,7 +229,6 @@ export default function Register() {
             </label>
 
             <div className="input-group">
-
               <i className="fa-solid fa-phone"></i>
 
               <input
@@ -276,9 +239,7 @@ export default function Register() {
                 placeholder="Ingresa tu número de contacto"
                 required
               />
-
             </div>
-
 
             {/* EMPRESA */}
 
@@ -287,7 +248,6 @@ export default function Register() {
             </label>
 
             <div className="input-group">
-
               <i className="fa-solid fa-building"></i>
 
               <input
@@ -298,9 +258,7 @@ export default function Register() {
                 placeholder="Ej: SIGMA"
                 required
               />
-
             </div>
-
 
             {/* TIPO DOCUMENTO */}
 
@@ -309,7 +267,6 @@ export default function Register() {
             </label>
 
             <div className="input-group">
-
               <i className="fa-solid fa-id-card"></i>
 
               <select
@@ -318,7 +275,6 @@ export default function Register() {
                 onChange={handleChange}
                 required
               >
-
                 <option value="">
                   Selecciona tipo
                 </option>
@@ -338,11 +294,8 @@ export default function Register() {
                 <option value="PAS">
                   Pasaporte
                 </option>
-
               </select>
-
             </div>
-
 
             {/* NUMERO DOCUMENTO */}
 
@@ -351,7 +304,6 @@ export default function Register() {
             </label>
 
             <div className="input-group">
-
               <i className="fa-solid fa-address-card"></i>
 
               <input
@@ -362,9 +314,7 @@ export default function Register() {
                 placeholder="Ingresa tu número de documento"
                 required
               />
-
             </div>
-
 
             {/* PASSWORD */}
 
@@ -373,18 +323,13 @@ export default function Register() {
             </label>
 
             <div className="input-group password-group">
-
               <i className="fa-solid fa-lock"></i>
 
               <input
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                type={
-                  showPassword
-                    ? "text"
-                    : "password"
-                }
+                type={showPassword ? "text" : "password"}
                 placeholder="Ingresa una contraseña segura"
                 required
               />
@@ -392,11 +337,8 @@ export default function Register() {
               <button
                 type="button"
                 className="toggle-password"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
+                onClick={() => setShowPassword(!showPassword)}
               >
-
                 <i
                   className={`fa-solid ${
                     showPassword
@@ -404,11 +346,8 @@ export default function Register() {
                       : "fa-eye"
                   }`}
                 />
-
               </button>
-
             </div>
-
 
             {/* CONFIRMAR PASSWORD */}
 
@@ -417,18 +356,13 @@ export default function Register() {
             </label>
 
             <div className="input-group password-group">
-
               <i className="fa-solid fa-lock"></i>
 
               <input
                 name="confirmPassword"
                 value={form.confirmPassword}
                 onChange={handleChange}
-                type={
-                  showPassword2
-                    ? "text"
-                    : "password"
-                }
+                type={showPassword2 ? "text" : "password"}
                 placeholder="Repite tu contraseña"
                 required
               />
@@ -436,11 +370,8 @@ export default function Register() {
               <button
                 type="button"
                 className="toggle-password"
-                onClick={() =>
-                  setShowPassword2(!showPassword2)
-                }
+                onClick={() => setShowPassword2(!showPassword2)}
               >
-
                 <i
                   className={`fa-solid ${
                     showPassword2
@@ -448,25 +379,19 @@ export default function Register() {
                       : "fa-eye"
                   }`}
                 />
-
               </button>
-
             </div>
-
 
             {/* TERMINOS */}
 
             <div className="options terms">
-
               <label>
 
                 <input
                   type="checkbox"
                   checked={termsChecked}
                   onChange={(e) =>
-                    setTermsChecked(
-                      e.target.checked
-                    )
+                    setTermsChecked(e.target.checked)
                   }
                 />
 
@@ -474,106 +399,55 @@ export default function Register() {
 
                 <span
                   className="terms-link"
-                  onClick={() =>
-                    setShowTermsModal(true)
-                  }
+                  onClick={() => setShowTermsModal(true)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-
-                    if (
-                      e.key === "Enter"
-                    ) {
-
-                      setShowTermsModal(
-                        true
-                      );
-
+                    if (e.key === "Enter") {
+                      setShowTermsModal(true);
                     }
-
                   }}
                 >
-
                   términos y condiciones
-
                 </span>
 
               </label>
-
             </div>
-
 
             {/* BOTON */}
 
             <button
+              type="submit"
               className="btn-primary"
               disabled={!termsChecked}
             >
-
               Crear cuenta
-
             </button>
-
 
             {/* LOGIN */}
 
             <p className="register-text">
-
               ¿Ya tienes cuenta?{" "}
 
               <Link to="/login">
                 Inicia sesión
               </Link>
-
             </p>
 
           </form>
-
         </div>
-
       </div>
-
-
-      {/* MODAL ALERTAS */}
-
-      {modal && (
-
-        <Modal
-          {...modal}
-          onClose={() => {
-
-            closeModal();
-
-            if (
-              modal.type === "success"
-            ) {
-
-              navigate("/login");
-
-            }
-
-          }}
-        />
-
-      )}
-
 
       {/* MODAL TERMINOS */}
 
       {showTermsModal && (
-
         <div
           className="modal-overlay"
-          onClick={() =>
-            setShowTermsModal(false)
-          }
+          onClick={() => setShowTermsModal(false)}
         >
-
           <div
             className="modal-content"
-            onClick={(e) =>
-              e.stopPropagation()
-            }
+            onClick={(e) => e.stopPropagation()}
           >
 
             <h3>
@@ -591,20 +465,20 @@ export default function Register() {
               </strong>
 
               <p>
-                SIGMA proporciona una plataforma digital corporativa para gestión y consulta de servicios.
+                SIGMA proporciona una plataforma digital corporativa
+                para gestión y consulta de servicios.
               </p>
-
 
               <strong>
                 2. Cuenta y seguridad
               </strong>
 
               <p>
-                Eres responsable por el uso de tu cuenta y la confidencialidad de la contraseña.
+                Eres responsable por el uso de tu cuenta y la
+                confidencialidad de la contraseña.
               </p>
 
               <ul>
-
                 <li>
                   No compartas tu contraseña.
                 </li>
@@ -616,59 +490,54 @@ export default function Register() {
                 <li>
                   Información veraz y actualizada.
                 </li>
-
               </ul>
-
 
               <strong>
                 3. Uso aceptable
               </strong>
 
               <p>
-                No se permite uso ilícito, extracción de datos o vulnerar seguridad del sistema.
+                No se permite uso ilícito, extracción de datos o
+                vulnerar seguridad del sistema.
               </p>
-
 
               <strong>
                 4. Datos personales
               </strong>
 
               <p>
-                Se tratarán conforme a la política de privacidad para prestar el servicio.
+                Se tratarán conforme a la política de privacidad
+                para prestar el servicio.
               </p>
-
 
               <strong>
                 5. Limitaciones
               </strong>
 
               <p>
-                La plataforma se entrega "tal cual", con posibles mantenimientos programados.
+                La plataforma se entrega "tal cual", con posibles
+                mantenimientos programados.
               </p>
-
 
               <strong>
                 6. Aceptación
               </strong>
 
               <p>
-                Al aceptar, confirmas que leíste y comprendes todas las políticas.
+                Al aceptar, confirmas que leíste y comprendes todas
+                las políticas.
               </p>
 
             </div>
 
-
             <div className="modal-buttons">
 
               <button
-                onClick={() =>
-                  setShowTermsModal(false)
-                }
+                onClick={() => setShowTermsModal(false)}
                 className="modal-btn cancel-btn"
               >
                 Cancelar
               </button>
-
 
               <button
                 onClick={acceptTerms}
@@ -680,11 +549,8 @@ export default function Register() {
             </div>
 
           </div>
-
         </div>
-
       )}
-
     </>
   );
 }
