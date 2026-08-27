@@ -8,14 +8,15 @@ import VerticalNav from "../../../Components/verticalNav";
 
 import { apiFetch } from "../../../API/RegistroAPI";
 
+// CAMBIO
+import NuevaOrden from "../../../Components/nuevaOrden";
+
 
 function Activos_mantenimiento() {
 
   const navigate = useNavigate();
 
-
   const [activos, setActivos] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
   const [busqueda, setBusqueda] = useState("");
@@ -25,6 +26,9 @@ function Activos_mantenimiento() {
 
   const [prioridadFiltro, setPrioridadFiltro] =
     useState("Todas");
+
+  // CAMBIO
+  const [mostrarNuevaOrden, setMostrarNuevaOrden] = useState(false);
 
 
   const menuItems = [
@@ -153,9 +157,7 @@ function Activos_mantenimiento() {
   const limpiarFiltros = () => {
 
     setBusqueda("");
-
     setEstadoFiltro("Todos");
-
     setPrioridadFiltro("Todas");
 
   };
@@ -374,7 +376,9 @@ function Activos_mantenimiento() {
                         padding: 30
                       }}
                     >
+
                       No se encontraron activos
+
                     </td>
 
                   </tr>
@@ -425,7 +429,6 @@ function Activos_mantenimiento() {
                         <td>
 
                           <span
-
                             className={`
                               estado
                               estado-${(
@@ -438,7 +441,6 @@ function Activos_mantenimiento() {
                                   "-"
                                 )}
                             `}
-
                           >
 
                             {activo.estado}
@@ -503,21 +505,26 @@ function Activos_mantenimiento() {
               NUEVA ORDEN
           ================================================= */}
 
+          {/* CAMBIO */}
           <button
-
             className="btn-nuevo-ticket"
-
-            onClick={() =>
-              navigate(
-                "/NuevaOrdenMantenimiento"
-              )
-            }
-
+            onClick={() => setMostrarNuevaOrden(true)}
           >
-
             Nueva orden de mantenimiento
-
           </button>
+
+          {/* CAMBIO */}
+          {mostrarNuevaOrden && (
+            <NuevaOrden
+              abrir={true}
+              onOrdenCreada={() => {
+                setMostrarNuevaOrden(false);
+              }}
+              onCerrar={() => {
+                setMostrarNuevaOrden(false);
+              }}
+            />
+          )}
 
 
         </main>

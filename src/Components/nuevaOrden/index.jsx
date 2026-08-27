@@ -4,14 +4,13 @@ import "./styles.css";
 import { ordenService, apiFetch } from "../../API/RegistroAPI";
 import { useAuth } from "../../Hooks/AuthContext";
 
-function NuevaOrden({ onOrdenCreada }) {
+function NuevaOrden({ onOrdenCreada, abrir = false, onCerrar }) {
 
-    const [open, setOpen] = useState(false);
+    // CAMBIO
+    const [open, setOpen] = useState(abrir);
 
     const [activos, setActivos] = useState([]);
-
     const [tecnicos, setTecnicos] = useState([]);
-
     const [guardando, setGuardando] = useState(false);
 
     const { token } = useAuth();
@@ -82,6 +81,7 @@ function NuevaOrden({ onOrdenCreada }) {
                         ? tecnicosData
                         : []
                 );
+
 
             } catch (err) {
 
@@ -207,6 +207,9 @@ function NuevaOrden({ onOrdenCreada }) {
 
             setOpen(false);
 
+            // CAMBIO
+            onCerrar?.();
+
             setForm({
                 activoId: "",
                 activoNombre: "",
@@ -249,12 +252,18 @@ function NuevaOrden({ onOrdenCreada }) {
 
     return (
         <>
-            <button
-                className="btn-nueva-orden"
-                onClick={() => setOpen(true)}
-            >
-                + Nueva Orden
-            </button>
+            {/* CAMBIO:
+                Solo mostrar el botón interno cuando
+                NuevaOrden se use de forma independiente.
+            */}
+            {!abrir && (
+                <button
+                    className="btn-nueva-orden"
+                    onClick={() => setOpen(true)}
+                >
+                    + Nueva Orden
+                </button>
+            )}
 
 
             {open && (
@@ -621,9 +630,14 @@ function NuevaOrden({ onOrdenCreada }) {
                                 <button
                                     type="button"
                                     className="btn-cerrar"
-                                    onClick={() => setOpen(false)}
+                                    onClick={() => {
+                                        setOpen(false);
+                                        onCerrar?.();
+                                    }}
                                 >
+
                                     Cerrar
+
                                 </button>
 
                             </div>
