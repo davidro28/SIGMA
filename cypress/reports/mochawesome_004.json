@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-09-01T00:51:06.384Z",
+    "end": "2026-09-01T00:51:13.856Z",
+    "duration": 7472,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "04f7aa31-dd86-4286-8e73-b9d7f8fb8d83",
+      "title": "",
+      "fullFile": "cypress\\e2e\\registro.cy.js",
+      "file": "cypress\\e2e\\registro.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5ece6486-aae5-4f1f-922a-6bc12c768bfc",
+          "title": "Pruebas E2E - Registro SIGMA",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Debe registrar un usuario correctamente",
+              "fullTitle": "Pruebas E2E - Registro SIGMA Debe registrar un usuario correctamente",
+              "timedOut": null,
+              "duration": 7412,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// =====================================================\n// 1. Abrir registro\n// =====================================================\ncy.visit(\"/register\");\ncy.contains(\"Registro de usuario\").should(\"be.visible\");\n// =====================================================\n// 2. Nombre\n// =====================================================\ncy.get('input[name=\"nombre\"]').should(\"be.visible\").type(\"David Prueba\");\n// =====================================================\n// 3. Correo\n// =====================================================\ncy.get('input[name=\"email\"]').should(\"be.visible\").type(`david${Date.now()}@prueba.com`);\n// =====================================================\n// 4. Teléfono\n// =====================================================\ncy.get('input[name=\"telefono\"]').should(\"be.visible\").type(\"3001234567\");\n// =====================================================\n// 5. Empresa\n// =====================================================\ncy.get('input[name=\"empresa\"]').should(\"be.visible\").type(\"SIGMA\");\n// =====================================================\n// 6. Tipo de documento\n// =====================================================\ncy.get('select[name=\"tipoDocumento\"]').should(\"be.visible\").select(\"CC\");\n// =====================================================\n// 7. Número de documento\n// =====================================================\ncy.get('input[name=\"numeroDocumento\"]').should(\"be.visible\").type(`${Date.now()}`);\n// =====================================================\n// 8. Contraseña\n// =====================================================\ncy.get('input[name=\"password\"]').should(\"be.visible\").type(\"Prueba12345\");\n// =====================================================\n// 9. Confirmar contraseña\n// =====================================================\ncy.get('input[name=\"confirmPassword\"]').should(\"be.visible\").type(\"Prueba12345\");\n// =====================================================\n// 10. Abrir términos\n// =====================================================\ncy.contains(\"términos y condiciones\").should(\"be.visible\").click();\n// =====================================================\n// 11. Verificar modal\n// =====================================================\ncy.contains(\"Términos y condiciones de SIGMA\").should(\"be.visible\");\n// =====================================================\n// 12. Aceptar términos\n// =====================================================\ncy.get(\".accept-btn\").should(\"be.visible\").click();\n// =====================================================\n// 13. Verificar botón habilitado\n// =====================================================\ncy.contains(\"Crear cuenta\").should(\"be.visible\").and(\"not.be.disabled\");\n// =====================================================\n// 14. Crear cuenta\n// =====================================================\ncy.contains(\"Crear cuenta\").click();\n// =====================================================\n// 15. Verificar registro exitoso\n// =====================================================\ncy.contains(\"¡Cuenta creada correctamente!\", {\n  timeout: 10000\n}).should(\"be.visible\");\n// =====================================================\n// 16. Verificar redirección\n// =====================================================\ncy.url({\n  timeout: 10000\n}).should(\"include\", \"/login\");",
+              "err": {},
+              "uuid": "3fd6ef0b-6c14-4802-833d-66ee716d4b20",
+              "parentUUID": "5ece6486-aae5-4f1f-922a-6bc12c768bfc",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "3fd6ef0b-6c14-4802-833d-66ee716d4b20"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 7412,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.0.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

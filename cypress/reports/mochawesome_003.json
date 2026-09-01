@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-09-01T00:51:02.485Z",
+    "end": "2026-09-01T00:51:04.879Z",
+    "duration": 2394,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "16fa3349-109f-4e01-be14-6eaec2d626cc",
+      "title": "",
+      "fullFile": "cypress\\e2e\\login.cy.js",
+      "file": "cypress\\e2e\\login.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "8a80cbec-913d-4b59-b342-16078d942ffe",
+          "title": "Pruebas E2E - Login SIGMA",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Debe iniciar sesión correctamente",
+              "fullTitle": "Pruebas E2E - Login SIGMA Debe iniciar sesión correctamente",
+              "timedOut": null,
+              "duration": 2330,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Abrir SIGMA\ncy.visit(\"http://localhost:5173\");\n// Verificar que estamos en el login\ncy.contains(\"Inicia sesión\").should(\"be.visible\");\n// Escribir correo\ncy.get('input[type=\"email\"]').type(\"davidprueba@prueba.com\");\n// Escribir contraseña\ncy.get('input[type=\"password\"]').type(\"prueba1\");\n// Presionar botón de iniciar sesión\ncy.contains(\"Entrar en Sigma\").click();\n// Esperar a que termine el proceso de login\ncy.url().should(\"match\", /\\/(General|Home_responsable|Home_gestortickets|HomeTecniMantenimiento)$/);\n// Verificar que se guardó el token\ncy.window().then(window => {\n  expect(window.localStorage.getItem(\"token\")).to.not.be.null;\n});",
+              "err": {},
+              "uuid": "53cc81e2-6381-484b-95de-3738e5e5cfc1",
+              "parentUUID": "8a80cbec-913d-4b59-b342-16078d942ffe",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "53cc81e2-6381-484b-95de-3738e5e5cfc1"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 2330,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.0.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

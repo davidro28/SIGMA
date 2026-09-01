@@ -1,0 +1,219 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 7,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-09-01T02:03:07.447Z",
+    "end": "2026-09-01T02:03:28.746Z",
+    "duration": 21299,
+    "testsRegistered": 7,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "432f1f73-dd66-4f89-954c-85e5a982800c",
+      "title": "",
+      "fullFile": "cypress\\e2e\\tickets.cy.js",
+      "file": "cypress\\e2e\\tickets.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+          "title": "Pruebas E2E - Módulo de Tickets SIGMA",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Debe cargar correctamente el módulo de Tickets",
+              "fullTitle": "Pruebas E2E - Módulo de Tickets SIGMA Debe cargar correctamente el módulo de Tickets",
+              "timedOut": null,
+              "duration": 3818,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Verificar título\ncy.contains(\"Tickets\").should(\"be.visible\");\n// Verificar filtros\ncy.contains(\"Filtros rápidos\").should(\"be.visible\");\ncy.get(\".input-busqueda\").should(\"be.visible\");\n// Verificar filtros principales\ncy.contains(\"Estado:\").should(\"be.visible\");\ncy.contains(\"Prioridad:\").should(\"be.visible\");\ncy.contains(\"Activo:\").should(\"be.visible\");\ncy.contains(\"Responsable:\").should(\"be.visible\");\n// Verificar botón Nuevo ticket\ncy.contains(\"Nuevo ticket\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "001a39ba-0d9e-40f9-bb1a-a32c2b8ec571",
+              "parentUUID": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir buscar un ticket",
+              "fullTitle": "Pruebas E2E - Módulo de Tickets SIGMA Debe permitir buscar un ticket",
+              "timedOut": null,
+              "duration": 3093,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Escribir una búsqueda\ncy.get(\".input-busqueda\").type(\"ticket\");\n// Verificar que el campo conserva la búsqueda\ncy.get(\".input-busqueda\").should(\"have.value\", \"ticket\");",
+              "err": {},
+              "uuid": "11a70210-da5b-4950-b75d-093f4aa71877",
+              "parentUUID": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir filtrar tickets por estado",
+              "fullTitle": "Pruebas E2E - Módulo de Tickets SIGMA Debe permitir filtrar tickets por estado",
+              "timedOut": null,
+              "duration": 2829,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Seleccionar estado Abierto\ncy.get(\".grupo-filtro\").contains(\"Estado:\").parent().find(\"select\").select(\"ABIERTO\");\n// Verificar que el filtro quedó seleccionado\ncy.get(\".grupo-filtro\").contains(\"Estado:\").parent().find(\"select\").should(\"have.value\", \"ABIERTO\");",
+              "err": {},
+              "uuid": "69729737-391b-41bd-bf4a-ae18f249e64b",
+              "parentUUID": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir filtrar tickets por prioridad",
+              "fullTitle": "Pruebas E2E - Módulo de Tickets SIGMA Debe permitir filtrar tickets por prioridad",
+              "timedOut": null,
+              "duration": 2674,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Seleccionar prioridad Alta\ncy.get(\".grupo-filtro\").contains(\"Prioridad:\").parent().find(\"select\").select(\"ALTA\");\n// Verificar selección\ncy.get(\".grupo-filtro\").contains(\"Prioridad:\").parent().find(\"select\").should(\"have.value\", \"ALTA\");",
+              "err": {},
+              "uuid": "28585b26-012f-4010-bed5-5941f5181462",
+              "parentUUID": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir utilizar los estados rápidos",
+              "fullTitle": "Pruebas E2E - Módulo de Tickets SIGMA Debe permitir utilizar los estados rápidos",
+              "timedOut": null,
+              "duration": 3170,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Presionar Abierto\ncy.contains(\"button\", \"Abierto\").click();\n// Verificar que el botón queda activo\ncy.contains(\"button\", \"Abierto\").should(\"have.class\", \"active\");\n// Presionar En progreso\ncy.contains(\"button\", \"En progreso\").click();\ncy.contains(\"button\", \"En progreso\").should(\"have.class\", \"active\");\n// Presionar Cerrado\ncy.contains(\"button\", \"Cerrado\").click();\ncy.contains(\"button\", \"Cerrado\").should(\"have.class\", \"active\");",
+              "err": {},
+              "uuid": "da947060-c683-469f-bf64-58dca69332f8",
+              "parentUUID": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir visualizar el detalle de un ticket",
+              "fullTitle": "Pruebas E2E - Módulo de Tickets SIGMA Debe permitir visualizar el detalle de un ticket",
+              "timedOut": null,
+              "duration": 2461,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Verificar si existen tickets cargados\ncy.get(\"body\").then($body => {\n  if ($body.find(\".btn-ver\").length > 0) {\n    // Abrir el primer ticket\n    cy.get(\".btn-ver\").first().click();\n    // Verificar que aparece el modal\n    cy.get(\".modal-ticket\").should(\"be.visible\");\n    // Verificar información del ticket\n    cy.contains(\"Activo\").should(\"be.visible\");\n    cy.contains(\"Responsable\").should(\"be.visible\");\n    cy.contains(\"Solicitante\").should(\"be.visible\");\n    cy.contains(\"Descripción\").should(\"be.visible\");\n    // Cerrar modal\n    cy.contains(\"Cerrar\").click();\n    // Verificar que el modal desapareció\n    cy.get(\".modal-ticket\").should(\"not.exist\");\n  } else {\n    // Si no hay tickets, verificar el mensaje correspondiente\n    cy.contains(\"No se encontraron tickets\").should(\"be.visible\");\n  }\n});",
+              "err": {},
+              "uuid": "536ce6cf-8518-4e09-b074-2838df0ea908",
+              "parentUUID": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe navegar correctamente al formulario de Nuevo Ticket",
+              "fullTitle": "Pruebas E2E - Módulo de Tickets SIGMA Debe navegar correctamente al formulario de Nuevo Ticket",
+              "timedOut": null,
+              "duration": 2978,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Presionar Nuevo ticket\ncy.contains(\"Nuevo ticket\").click();\n// Verificar redirección\ncy.url({\n  timeout: 10000\n}).should(\"include\", \"/NuevoTicket\");",
+              "err": {},
+              "uuid": "a65bad75-00e8-4e8a-a022-b45c6d8ded7a",
+              "parentUUID": "12e120d5-f24f-4a09-a93d-4151be7ffab4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "001a39ba-0d9e-40f9-bb1a-a32c2b8ec571",
+            "11a70210-da5b-4950-b75d-093f4aa71877",
+            "69729737-391b-41bd-bf4a-ae18f249e64b",
+            "28585b26-012f-4010-bed5-5941f5181462",
+            "da947060-c683-469f-bf64-58dca69332f8",
+            "536ce6cf-8518-4e09-b074-2838df0ea908",
+            "a65bad75-00e8-4e8a-a022-b45c6d8ded7a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 21023,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.0.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
